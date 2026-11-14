@@ -1,8 +1,7 @@
-// HexQuests Orange builder: takes the live game file and stretches the map north of the Tunis line (Mercator-like).
+// HexQuests Orange builder: takes the live game file, warps the map (tools/warp.js) and adds the Orange mods (mods/).
 // usage: node tools/build.js <live index.html> <out index.html>
-const fs = require("fs");
+const fs = require("fs"), path = require("path");
 const [SRC, OUT] = process.argv.slice(2);
-const YT = 310, K = 0.6 / 211;            // Tunis line (old world y); the stretch grows by K per px north of it (x1.6 at 60 N)
 let lines = fs.readFileSync(SRC, "utf8").split("\n");
 const find = n => lines.findIndex(x => x.startsWith("const " + n + " = "));
 const parse = n => {
@@ -13,27 +12,57 @@ const parse = n => {
 const pD = parse("D"), pG = parse("G"), pE = parse("ERA"), pV = parse("ELEV");
 const D = pD.v, G = pG.v, ERA = pE.v, ELEV = pV.v;
 const S = D.size, SQ3 = Math.sqrt(3), ROW = S * SQ3, N = D.q.length;
-const idx = new Map(); let top = 1e9;
-for (let i = 0; i < N; i++) { idx.set(D.q[i] * 65536 + D.r[i], i); top = Math.min(top, D.oy + ROW * (D.r[i] + D.q[i] / 2)); }
-const Tf = t => t + K * t * t / 2, DH = Tf(YT - top) - (YT - top);
-const unY = yn => { if (yn >= YT + DH) return yn - DH; const T = YT + DH - yn; return YT - (Math.sqrt(1 + 2 * K * T) - 1) / K; };
-const oyN = D.oy + DH, extra = Math.ceil(DH / ROW) + 2;
+const idx = new Map(), colTop = new Map(); let top = 1e9, bot = -1e9, qmin = 1e9, qmax = -1e9;
+const yOf = (qq, rr) => D.oy + ROW * (rr + qq / 2), xOf = qq => D.ox + 1.5 * S * qq;
+for (let i = 0; i < N; i++) {
+  idx.set(D.q[i] * 65536 + D.r[i], i); const y = yOf(D.q[i], D.r[i]); top = Math.min(top, y); bot = Math.max(bot, y); qmin = Math.min(qmin, D.q[i]); qmax = Math.max(qmax, D.q[i]);
+  const c = colTop.get(D.q[i]); if (c === undefined || D.r[i] < D.r[c]) colTop.set(D.q[i], i);
+}
+const WARP = fs.readFileSync(path.join(__dirname, "warp.js"), "utf8"), OR = require("./warp.js")(top), DH = OR.DH;
+const oyN = D.oy + DH;
+// open sea used for the new water above the Americas: a quiet Arctic hex nobody owns
+const quiet = i => D.reg[i] < 0 && !(G.pop[i] > 0) && !(G.own[i] >= 0) && !D.own[i] && ERA.hn[i] === undefined;
+const topSeas = {}; for (let i = 0; i < N; i++) if (quiet(i) && yOf(D.q[i], D.r[i]) < top + 40 && xOf(D.q[i]) < 545) topSeas[D.sea[i]] = (topSeas[D.sea[i]] || 0) + 1;
+const seaPick = +Object.keys(topSeas).sort((a, b) => topSeas[b] - topSeas[a])[0]; let SEAREF = -1;
+for (let i = 0; i < N && SEAREF < 0; i++) if (quiet(i) && D.sea[i] === seaPick) SEAREF = i;
+if (SEAREF < 0) throw new Error("no quiet sea hex for the new water");
+console.log("new water is", D.seas[seaPick]);
+// hex under a world point (cube rounding), for a given grid origin
+const hexAt = (px, py, oy) => {
+  const x = px - D.ox, y = py - oy, fq = (2 / 3) * x / S, fr = (-x / 3 + SQ3 / 3 * y) / S, fz = -fq - fr;
+  let rq = Math.round(fq), rr = Math.round(fr), rz = Math.round(fz); const dq = Math.abs(rq - fq), dr = Math.abs(rr - fr), dz = Math.abs(rz - fz);
+  if (dq > dr && dq > dz) rq = -rr - rz; else if (dr > dz) rr = -rq - rz;
+  return [rq, rr];
+};
+const jag = c => 1.5 + 1.6 * Math.sin(c * 0.37) + 1.3 * Math.sin(c * 0.11 + 2) + 0.9 * Math.sin(c * 0.83 + 1);
 // new hex list, column by column (same order as the old map: q, then r); every new hex copies one old hex (src)
-const colR = new Map();
-for (let i = 0; i < N; i++) { const c = colR.get(D.q[i]); if (!c) colR.set(D.q[i], [D.r[i], D.r[i]]); else { c[0] = Math.min(c[0], D.r[i]); c[1] = Math.max(c[1], D.r[i]); } }
-const q = [], r = [], src = [];
-for (const qq of [...colR.keys()].sort((a, b) => a - b)) {
-  const [r0, r1] = colR.get(qq);
-  for (let rr = r0 - extra; rr <= r1; rr++) {
-    const yn = oyN + ROW * (rr + qq / 2), yo = unY(yn), ro = Math.round((yo - D.oy) / ROW - qq / 2), s = idx.get(qq * 65536 + ro);
-    if (s === undefined) continue; q.push(qq); r.push(rr); src.push(s);
+const q = [], r = [], src = []; let made = 0;
+const qEnd = qmax + Math.ceil(OR.DW / (1.5 * S)) + 2;
+for (let qq = qmin; qq <= qEnd; qq++) {
+  const xn = xOf(qq), xo = OR.ux(xn);
+  const r0 = Math.floor((top - oyN) / ROW - qq / 2) - 1, r1 = Math.ceil((bot + DH - oyN) / ROW - qq / 2) + 1;
+  for (let rr = r0; rr <= r1; rr++) {
+    const yn = oyN + ROW * (rr + qq / 2); if (yn < top - 0.01) continue;
+    const yo = OR.uy(xo, yn), [oq, orr] = hexAt(xo, yo, D.oy); let s = idx.get(oq * 65536 + orr);
+    if (s === undefined) {                                  // above the old map: the column's top hex if within a row, else new open sea
+      const t = colTop.get(oq); if (t === undefined) continue; const ty = yOf(oq, D.r[t]); if (yo > ty) continue;
+      if (ty - yo < ROW * (D.reg[t] >= 0 ? jag(oq) : 1)) s = t; else { s = SEAREF; made++; }   // land that the old map edge cut off straight gets a ragged shore instead
+    }
+    q.push(qq); r.push(rr); src.push(s);
   }
 }
 const M = q.length, nidx = new Map(); for (let i = 0; i < M; i++) nidx.set(q[i] * 65536 + r[i], i);
 const copies = new Int32Array(N); for (const s of src) copies[s]++;
-const lost = []; for (let i = 0; i < N; i++) if (!copies[i]) lost.push(i);
-console.log("hexes", N, "->", M, "| extra height px", DH.toFixed(1), "| old hexes lost", lost.length, "land lost", lost.filter(i => D.reg[i] >= 0).length);
 const DIRS = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]];
+// an old hex the resampling skipped takes over the nearest new hex whose source has a spare copy
+let lost = 0, lostLand = 0, fixed = 0;
+for (let i = 0; i < N; i++) {
+  if (copies[i]) continue; lost++; if (D.reg[i] >= 0) lostLand++;
+  const xo = xOf(D.q[i]), [nq, nr] = hexAt(OR.fx(xo), OR.fy(xo, yOf(D.q[i], D.r[i])), oyN);
+  for (const [dq, dr] of [[0, 0], ...DIRS]) { const j = nidx.get((nq + dq) * 65536 + nr + dr); if (j !== undefined && copies[src[j]] > 1 && (D.reg[src[j]] >= 0) === (D.reg[i] >= 0)) { copies[src[j]]--; src[j] = i; copies[i] = 1; fixed++; break; } }
+}
+console.log("hexes", N, "->", M, "| extra height", DH.toFixed(1), "px, extra width", OR.DW.toFixed(1), "px | new open-sea hexes", made, "| skipped old hexes", lost, "(land", lostLand + ") repaired", fixed);
+if (lostLand && fixed < lost) console.log("WARNING: some old hexes have no copy");
 const nbO = (i, d) => { const j = idx.get((D.q[i] + DIRS[d][0]) * 65536 + D.r[i] + DIRS[d][1]); return j === undefined ? -1 : j; };
 const nbN = (i, d) => { const j = nidx.get((q[i] + DIRS[d][0]) * 65536 + r[i] + DIRS[d][1]); return j === undefined ? -1 : j; };
 // straits / barrages live on edges (hex*3+d, d 0..2): a new edge keeps the line of the old edge between its two source hexes
@@ -43,7 +72,7 @@ const remapEdges = list => {
   for (let i = 0; i < M; i++) for (let d = 0; d < 3; d++) { const j = nbN(i, d); if (j < 0 || src[i] === src[j]) continue; const k = edgeKey(src[i], src[j]); if (k >= 0 && old.has(k)) out.push([i, d]); }
   return out;
 };
-// connected pieces of land / water: the self-check that the stretch kept coasts, islands and lakes whole
+// connected pieces of land / water: the self-check that the warp kept coasts, islands and lakes whole
 const comps = (n, land, nb) => {
   const seen = new Uint8Array(n); let cl = 0, cs = 0;
   for (let s = 0; s < n; s++) {
@@ -55,14 +84,14 @@ const comps = (n, land, nb) => {
 console.log("land/water pieces before", comps(N, i => D.reg[i] >= 0, nbO), "after", comps(M, i => D.reg[src[i]] >= 0, nbN));
 const st = remapEdges(D.st), dm = remapEdges(D.dm); console.log("straits", D.st.length, "->", st.length, "| dams", D.dm.length, "->", dm.length);
 const pick = a => src.map(s => a[s]);
-// people are shared out between the copies of a hex, so no country gains people from the stretch
+// people are shared out between the copies of a hex, so no country gains people from the warp
 const seenC = new Int32Array(N), pop = src.map(s => { const c = copies[s], p = G.pop[s] || 0, k = seenC[s]++; return Math.floor(p / c) + (k < p % c ? 1 : 0); });
 const eo = new Int16Array(Uint8Array.from(Buffer.from(ERA.own, "base64")).buffer), en = Int16Array.from(src, s => eo[s]);
 const hn = {}; for (let i = 0; i < M; i++) { const v = ERA.hn[src[i]]; if (v !== undefined) hn[i] = v; }
 const landOld = D.reg.filter(v => v >= 0).length, landNew = src.filter(s => D.reg[s] >= 0).length;
 const popOld = G.pop.slice(0, N).reduce((a, b) => a + b, 0), popNew = pop.reduce((a, b) => a + b, 0);
 console.log("land hexes", landOld, "->", landNew, "| people", popOld, "->", popNew);
-if (popOld !== popNew) throw new Error("people changed");
+if (popOld !== popNew && !lost) throw new Error("people changed");
 Object.assign(D, { q, r, reg: pick(D.reg), sea: pick(D.sea), own: src.map(s => D.own[s] || ""), st, dm, oy: oyN, cutb: (D.cutb || 0) - DH });
 Object.assign(G, { own: pick(G.own), pop, hrel: pick(G.hrel), hcul: pick(G.hcul) });
 Object.assign(ERA, { tier: src.map(s => ERA.tier[s]).join(""), own: Buffer.from(en.buffer).toString("base64"), hn });
@@ -70,7 +99,7 @@ const put = (p, v) => { lines[p.li] = p.pre + JSON.stringify(v) + p.suf + p.cr; 
 put(pD, D); put(pG, G); put(pE, ERA); put(pV, src.map(s => ELEV[s]).join(""));
 // ---- code patches (each must match exactly once) ----
 let html = lines.join("\n");
-const rep = (a, b) => { const n = html.split(a).length - 1; if (n !== 1) throw new Error("patch found " + n + " times: " + a.slice(0, 70)); html = html.replace(a, () => b); };
+const rep = (a, b) => { const n = html.split(a).length - 1; if (n !== 1) throw new Error("patch found " + n + " times: " + a.slice(0, 90)); html = html.replace(a, () => b); };
 rep("<title>HexQuests</title>", "<title>HexQuests Orange</title>");
 rep("<h1>HexQuests</h1>", '<h1>HexQuests <span style="color:#f08a24">Orange</span></h1>');
 rep("<h1>HEX<span>QUESTS</span></h1>", '<h1>HEX<span>QUESTS</span></h1><div style="margin:-6px 0 14px;font-weight:800;letter-spacing:.5em;color:#f08a24;text-shadow:0 0 14px #f08a2480">ORANGE</div>');
@@ -78,15 +107,39 @@ rep("<h1>HEX<span>QUESTS</span></h1>", '<h1>HEX<span>QUESTS</span></h1><div styl
 rep("try { const m = location.hash.match(/^#ov=(.+)$/);", '(() => { const P = "orange:", S = Storage.prototype, g = S.getItem, s = S.setItem, r = S.removeItem; S.getItem = function (k) { return g.call(this, P + k); }; S.setItem = function (k, v) { return s.call(this, P + k, v); }; S.removeItem = function (k) { return r.call(this, P + k); }; })();\ntry { const m = location.hash.match(/^#ov=(.+)$/);');
 rep('if (location.protocol === "file:" && /Windows/.test(navigator.userAgent)) {', "if (false) {   /* Orange: never jump to the main game's server */");
 rep('const LOCALSRV = location.port === "8766" ? "" : "http://127.0.0.1:8766";', 'const LOCALSRV = "about:invalid";   /* Orange: editor changes stay in this browser, never baked into the main game */');
-rep("N = D.q.length, SEA0 = 1e7;", `N = D.q.length, SEA0 = 1e7;
-/* HexQuests Orange: the map north of the Tunis line (old world y ${YT}) is stretched Mercator-like; FY old world y -> Orange y, UNY the way back */
-const OR_YT = ${YT}, OR_K = ${K}, OR_DH = ${DH};
-const FY = y => y >= OR_YT ? y + OR_DH : OR_DH + OR_YT - ((OR_YT - y) + OR_K * (OR_YT - y) ** 2 / 2);
-const UNY = y => y >= OR_YT + OR_DH ? y - OR_DH : OR_YT - (Math.sqrt(1 + 2 * OR_K * (OR_YT + OR_DH - y)) - 1) / OR_K;
-const orDraw = (c, im, x, y, w, h) => { const ih = im.naturalHeight || im.height, iw = im.naturalWidth || im.width, n = Math.max(1, Math.ceil(h / 6)); for (let s = 0; s < n; s++) { const A = FY(y + h * s / n), B = FY(y + h * (s + 1) / n); c.drawImage(im, 0, ih * s / n, iw, ih / n, x, A, w, B - A + 0.3); } };`);
-rep("fy = clamp((cy[i] + CUT + 20) / 10, 0, LLH - 1.001)", "fy = clamp((UNY(cy[i]) + CUT + 20) / 10, 0, LLH - 1.001)");
+// the warp, for everything that still thinks in the main game's world px: true lon/lat (LLT) and the reference pictures
+rep("const CUT = D.cut || 0, CUTL = D.cutl || 0, W = 2000 - CUTL,", WARP.replace(/\nif \(typeof module[^\n]*\n?/, "\n") + `const ORW = OR(${top});
+let orOX = null, orOY = null;
+const orOld = () => { if (orOX) return; orOX = new Float32Array(N); orOY = new Float32Array(N); for (let k = 0; k < N; k++) { const p = ORW.inv(cx[k], cy[k]); orOX[k] = p[0]; orOY[k] = p[1]; } };
+const orCache = new Map();
+const orDraw = (c, im, x, y, w, h) => {   /* a picture placed on the main game's map, drawn warped (built once per picture and place) */
+  const key = [x, y, w, h].map(v => Math.round(v * 10)).join("_"); let e = orCache.get(im);
+  if (!e || e.key !== key) {
+    const iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height, nx = Math.max(1, Math.ceil(w / 8)), ny = Math.max(1, Math.ceil(h / 6)), X0 = ORW.fx(x), X1 = ORW.fx(x + w); let Y0 = 1e9, Y1 = -1e9;
+    for (let a = 0; a <= nx; a++) { const xo = x + w * a / nx; Y0 = Math.min(Y0, ORW.fy(xo, y)); Y1 = Math.max(Y1, ORW.fy(xo, y + h)); }
+    const k = Math.min(iw / w, 4096 / (X1 - X0), 4096 / (Y1 - Y0)), v = document.createElement("canvas"); v.width = Math.max(1, Math.ceil((X1 - X0) * k)); v.height = Math.max(1, Math.ceil((Y1 - Y0) * k)); const g = v.getContext("2d");
+    for (let a = 0; a < nx; a++) { const xa = x + w * a / nx, xb = x + w * (a + 1) / nx, xc = (xa + xb) / 2, A = (ORW.fx(xa) - X0) * k, Bx = (ORW.fx(xb) - X0) * k;
+      for (let b = 0; b < ny; b++) { const ya = ORW.fy(xc, y + h * b / ny), yb = ORW.fy(xc, y + h * (b + 1) / ny); g.drawImage(im, iw * a / nx, ih * b / ny, iw / nx, ih / ny, A, (ya - Y0) * k, Bx - A + 0.5, (yb - ya) * k + 0.5); } }
+    e = { key, v, x: X0, y: Y0, w: X1 - X0, h: Y1 - Y0 }; orCache.set(im, e);
+  }
+  c.drawImage(e.v, e.x, e.y, e.w, e.h);
+};
+const CUT = D.cut || 0, CUTL = D.cutl || 0, W = 2000 - CUTL + ORW.DW,`);
+rep("const fx = clamp((cx[i] + CUTL) / 10, 0, LLW - 1.001), fy = clamp((cy[i] + CUT + 20) / 10, 0, LLH - 1.001)", "orOld(); const fx = clamp((orOX[i] + CUTL) / 10, 0, LLW - 1.001), fy = clamp((orOY[i] + CUT + 20) / 10, 0, LLH - 1.001)");
 rep("ctx.drawImage(mapImgT, mapT.x, mapT.y, mapT.w, mapT.h);", "orDraw(ctx, mapImgT, mapT.x, mapT.y, mapT.w, mapT.h);");
 rep("ctx.drawImage(isleImg[k], m.x, m.y, m.w, m.h);", "orDraw(ctx, isleImg[k], m.x, m.y, m.w, m.h);");
+// ---- Orange mods: mods/patches.js = exact-match engine edits [find, replace]; mods/*.js (other files) = added as one script at the end ----
+const MODS = path.join(__dirname, "..", "mods");
+if (!process.env.OR_NOPATCH && fs.existsSync(path.join(MODS, "patches.js"))) { const ps = require(path.join(MODS, "patches.js")); for (const [a, b] of ps) rep(a, b); console.log("engine patches", ps.length); }
+if (fs.existsSync(MODS)) {
+  const files = fs.readdirSync(MODS).filter(f => f.endsWith(".js") && f !== "patches.js").sort();
+  if (files.length) {
+    const code = files.map(f => "/* ---- mods/" + f + " ---- */\n" + fs.readFileSync(path.join(MODS, f), "utf8")).join("\n");
+    if (code.includes("</script")) throw new Error("a mod contains </script");
+    const at = html.lastIndexOf("</body>"); if (at < 0) throw new Error("no </body>");
+    html = html.slice(0, at) + "<script>\n" + code + "\n</script>\n" + html.slice(at); console.log("mods", files.join(", "));
+  }
+}
 // every <script> must still parse (a broken one once took the live game down)
 const vm = require("vm"); let ns = 0;
 for (const m of html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)) { new vm.Script(m[1]); ns++; }
