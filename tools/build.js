@@ -18,22 +18,7 @@ for (let i = 0; i < N; i++) {
   idx.set(D.q[i] * 65536 + D.r[i], i); const y = yOf(D.q[i], D.r[i]); top = Math.min(top, y); bot = Math.max(bot, y); qmin = Math.min(qmin, D.q[i]); qmax = Math.max(qmax, D.q[i]);
   const c = colTop.get(D.q[i]); if (c === undefined || D.r[i] < D.r[c]) colTop.set(D.q[i], i);
 }
-// the Atlantic seam: for every 6 px row band south of the Tunis line, the open-sea gap between the Americas and the Old World
-// (the widest stretch of water between x 200 and 760), narrowed by its neighbour rows so no land ever sits inside it
-const SEAM = (() => {
-  const y0 = 300, dy = 6, n = Math.ceil((bot + 12 - y0) / dy) + 1, xs = Array.from({ length: n }, () => []);
-  for (let i = 0; i < N; i++) { if (D.reg[i] < 0) continue; const x = xOf(D.q[i]), y = yOf(D.q[i], D.r[i]); if (x < 200 || x > 760) continue; const k = Math.round((y - y0) / dy); for (let j = k - 1; j <= k + 1; j++) if (j >= 0 && j < n) xs[j].push(x); }
-  const a = [], b = [];
-  let mid = 540;   // followed row by row from the open Atlantic east of the Antilles
-  for (let k = 0; k < n; k++) { const v = [150, ...xs[k].sort((p, q) => p - q), 900]; let best = null;
-    for (let j = 1; j < v.length; j++) { const w = v[j] - v[j - 1]; if (w < 24) continue; const c = Math.min(v[j], Math.max(v[j - 1], mid)), d = Math.abs(c - mid); if (!best || d < best[2]) best = [v[j - 1], v[j], d]; }
-    let g0 = best[0], g1 = Math.min(best[1], best[0] + 140); if (g0 === 150 && k) { g0 = a[k - 1]; g1 = b[k - 1]; } a.push(g0); b.push(g1); mid = Math.min(g1 - 12, Math.max(g0 + 12, mid)); }
-  const A2 = a.map((_, k) => Math.max(a[Math.max(0, k - 1)], a[k], a[Math.min(n - 1, k + 1)]) + 5), B2 = b.map((_, k) => Math.min(b[Math.max(0, k - 1)], b[k], b[Math.min(n - 1, k + 1)]) - 5);
-  let tight = 1e9; for (let k = 0; k < n; k++) { if (B2[k] - A2[k] > 90) { const m = (A2[k] + B2[k]) / 2; A2[k] = m - 45; B2[k] = m + 45; } tight = Math.min(tight, B2[k] - A2[k]); }
-  if (tight < 8) console.log(a.map((v, k) => (y0 + k * dy) + ":" + Math.round(v) + "-" + Math.round(b[k])).join(" ")); if (tight < 8) throw new Error("the Atlantic seam closes up (" + tight.toFixed(1) + " px)");
-  console.log("Atlantic seam: narrowest", tight.toFixed(0), "px");
-  return { y0, dy, a: A2.map(v => +v.toFixed(1)), b: B2.map(v => +v.toFixed(1)) };
-})();
+const SEAM = null;   // the Atlantic seam of v3/v4 is gone: nothing is shifted across the ocean any more
 const WARP = fs.readFileSync(path.join(__dirname, "warp.js"), "utf8"), OR = require("./warp.js")(top, SEAM, bot), DH = OR.DH, DB = OR.DB;
 const oyN = D.oy + DH;
 // open sea for the new water under the Old World (South America now reaches further south than the old bottom edge)
@@ -68,17 +53,27 @@ for (let qq = qmin; qq <= qEnd; qq++) {
   }
 }
 const M = q.length, nidx = new Map(); for (let i = 0; i < M; i++) nidx.set(q[i] * 65536 + r[i], i);
-// "meatier" lands: every coast grows outward by MEAT rings. A sea hex turns into land (a copy of the land hex next to it)
-// only if the water around it stays in one piece, so no strait, channel or lake mouth is ever closed and no two lands join.
-const MEAT = 0;   /* reverted: the user did not want the fatter coasts */ let meat = 0;
-{ const D6 = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]], land = i => D.reg[src[i]] >= 0;
-  for (let pass = 0; pass < MEAT; pass++) { const add = [];
-    for (let i = 0; i < M; i++) { if (land(i)) continue; const nb6 = D6.map(([a, b]) => { const j = nidx.get((q[i] + a) * 65536 + r[i] + b); return j === undefined ? -1 : j; });
-      if (nb6.includes(-1)) continue; const L = nb6.map(j => land(j)), nl = L.filter(Boolean).length; if (nl < 2 || nl > 4) continue;
-      let runs = 0; for (let d = 0; d < 6; d++) if (L[d] && !L[(d + 5) % 6]) runs++; if (runs !== 1) continue;   // land on one side only: the water ring stays whole
-      const regs = new Set(nb6.filter((j, d) => L[d]).map(j => D.regions[D.reg[src[j]]][1])); if (regs.size > 1) continue;   // never across a border between two countries
-      add.push([i, src[nb6[L.findIndex(Boolean)]]]); }
-    const taken = new Set(); for (const [i, s] of add) { let ok = true; for (const [a, b] of D6) { const j = nidx.get((q[i] + a) * 65536 + r[i] + b); if (taken.has(j)) ok = false; } if (!ok) continue; taken.add(i); src[i] = s; meat++; } } }
+// small islands (up to ISLE hexes) are not resampled: a 1-hex island must stay 1 hex, not grow to 2 or vanish. Each is lifted
+// out and put back hex for hex (with its ring of sea, so its straits and sea names come along) where the warp sends its middle.
+const ISLE = 8, D6 = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]], oComp = new Int32Array(N).fill(-1), oIsl = [];
+for (let s = 0; s < N; s++) { if (D.reg[s] < 0 || oComp[s] >= 0) continue; const c = oIsl.length, st = [s], hs = []; oComp[s] = c;
+  while (st.length) { const i = st.pop(); hs.push(i); for (const [a, b] of D6) { const j = idx.get((D.q[i] + a) * 65536 + D.r[i] + b); if (j !== undefined && D.reg[j] >= 0 && oComp[j] < 0) { oComp[j] = c; st.push(j); } } } oIsl.push(hs); }
+const isleName = hs => { const R = D.regions[D.reg[hs[0]]]; return R[1] + " / " + (R[2] || R[0]); };
+{ const isSmall = i => D.reg[i] >= 0 && oIsl[oComp[i]].length <= ISLE, landN = j => D.reg[src[j]] >= 0, at = (a, b) => nidx.get(a * 65536 + b);
+  const seaBy = i => { const seen = new Set([i]), qu = [i]; for (let h = 0; h < qu.length; h++) for (const [a, b] of D6) { const j = idx.get((D.q[qu[h]] + a) * 65536 + D.r[qu[h]] + b); if (j === undefined || seen.has(j)) continue; if (D.reg[j] < 0) return j; seen.add(j); qu.push(j); } throw new Error("island with no sea"); };
+  for (let i = 0; i < M; i++) if (isSmall(src[i])) src[i] = seaBy(src[i]);
+  const SHIFT = [[0, 0], ...D6, ...D6.map(([a, b], k) => [a * 2, b * 2]), ...D6.map(([a, b], k) => [a + D6[(k + 1) % 6][0], b + D6[(k + 1) % 6][1]])]; let moved = 0, bad = 0;
+  for (const hs of oIsl) { if (hs.length > ISLE) continue;
+    let cx = 0, cy = 0; for (const i of hs) { cx += xOf(D.q[i]); cy += yOf(D.q[i], D.r[i]); } cx /= hs.length; cy /= hs.length;
+    let a = hs[0], best = 1e9; for (const i of hs) { const d = (xOf(D.q[i]) - cx) ** 2 + (yOf(D.q[i], D.r[i]) - cy) ** 2; if (d < best) { best = d; a = i; } }
+    const [X, Y] = OR.fwd(cx, cy), [nq, nr] = hexAt(X + xOf(D.q[a]) - cx, Y + yOf(D.q[a], D.r[a]) - cy, oyN), mine = new Set(hs);
+    const fits = ([sq, sr], strict) => { const tg = new Set(); for (const i of hs) { const j = at(nq + sq + D.q[i] - D.q[a], nr + sr + D.r[i] - D.r[a]); if (j === undefined || landN(j)) return null; tg.add(j); }
+      if (strict) for (const j of tg) for (const [da, db] of D6) { const n = at(q[j] + da, r[j] + db); if (n !== undefined && !tg.has(n) && landN(n)) return null; } return tg; };
+    let sh = SHIFT.find(s => fits(s, true)); if (!sh) { sh = SHIFT.find(s => fits(s, false)); bad++; console.log("!! island touches other land or has no room:", isleName(hs), hs.length, "hexes at old", cx.toFixed(0), cy.toFixed(0)); if (!sh) continue; }
+    if (sh !== SHIFT[0]) moved++;
+    for (const i of hs) for (const [da, db] of D6) { const o = idx.get((D.q[i] + da) * 65536 + D.r[i] + db); if (o === undefined || mine.has(o) || D.reg[o] >= 0) continue; const j = at(nq + sh[0] + D.q[o] - D.q[a], nr + sh[1] + D.r[o] - D.r[a]); if (j !== undefined && !landN(j)) src[j] = o; }
+    for (const i of hs) src[at(nq + sh[0] + D.q[i] - D.q[a], nr + sh[1] + D.r[i] - D.r[a])] = i; }
+  console.log("small islands kept hex for hex:", oIsl.filter(h => h.length <= ISLE).length, "| nudged a hex or two to stay clear of other land:", moved, "| problems:", bad); }
 const copies = new Int32Array(N); for (const s of src) copies[s]++;
 const DIRS = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]];
 // an old hex the resampling skipped takes over the nearest new hex whose source has a spare copy
@@ -109,6 +104,17 @@ const comps = (n, land, nb) => {
   return [cl, cs];
 };
 console.log("land/water pieces before", comps(N, i => D.reg[i] >= 0, nbO), "after", comps(M, i => D.reg[src[i]] >= 0, nbN));
+// island check: every land piece of the main game must come out as exactly one piece of its own (not lost, split or merged)
+{ const nComp = new Int32Array(M).fill(-1); let nc = 0;
+  for (let s = 0; s < M; s++) { if (D.reg[src[s]] < 0 || nComp[s] >= 0) continue; const st = [s]; nComp[s] = nc; while (st.length) { const i = st.pop(); for (let d = 0; d < 6; d++) { const j = nbN(i, d); if (j >= 0 && D.reg[src[j]] >= 0 && nComp[j] < 0) { nComp[j] = nc; st.push(j); } } } nc++; }
+  const got = oIsl.map(() => new Set()), cnt = new Int32Array(oIsl.length), owners = Array.from({ length: nc }, () => new Set());
+  for (let i = 0; i < M; i++) { if (nComp[i] < 0) continue; const o = oComp[src[i]]; got[o].add(nComp[i]); cnt[o]++; owners[nComp[i]].add(o); }
+  let wrong = 0; const rows = [];
+  oIsl.forEach((hs, o) => { const merged = [...got[o]].some(c => owners[c].size > 1), st = !cnt[o] ? "LOST" : got[o].size > 1 ? "SPLIT in " + got[o].size : merged ? "MERGED with other land" : hs.length <= ISLE && cnt[o] !== hs.length ? "SIZE CHANGED" : "";
+    if (st) { wrong++; console.log("!! island check:", isleName(hs), "|", hs.length, "->", cnt[o], "hexes |", st); }
+    let cx = 0, cy = 0; for (const i of hs) { cx += xOf(D.q[i]); cy += yOf(D.q[i], D.r[i]); } rows.push([isleName(hs), hs.length, cnt[o], Math.round(cx / hs.length), Math.round(cy / hs.length), st || "ok"].join("\t")); });
+  fs.writeFileSync(path.join(__dirname, "islands.tsv"), "land piece (main game)\thexes main\thexes orange\told x\told y\tcheck\n" + rows.join("\n") + "\n");
+  console.log("island check:", oIsl.length, "land pieces,", wrong, "wrong (list: tools/islands.tsv)"); }
 const st = remapEdges(D.st), dm = remapEdges(D.dm); console.log("straits", D.st.length, "->", st.length, "| dams", D.dm.length, "->", dm.length);
 const pick = a => src.map(s => a[s]);
 // people are shared out between the copies of a hex, so no country gains people from the warp

@@ -1,0 +1,130 @@
+land piece (main game)	hexes main	hexes orange	old x	old y	check
+Canada / Alberta	6659	10777	331	318	ok
+Kiribati / Line Islands	1	1	39	404	ok
+Samoa / Samoa	1	1	39	526	ok
+United States of America / Texas	10	16	53	306	ok
+French Polynesia / Society Islands	1	1	54	545	ok
+France / Society Islands	1	1	58	559	ok
+France / Society Islands	1	1	68	548	ok
+France / Society Islands	1	1	73	556	ok
+French Polynesia / Tuamotu	1	1	78	537	ok
+France / Marquesas	1	1	92	468	ok
+France / Marquesas	1	1	97	487	ok
+Belize / Corozal District	35	55	393	312	ok
+Greenland / Kujalleq	1	1	375	10	ok
+Bahamas / North Abaco	3	3	404	273	ok
+United States of America / Alabama	3	3	402	290	ok
+Jamaica / Manchester	4	4	404	340	ok
+Bahamas / Cat Island	6	6	419	292	ok
+Haiti / Sud-Est	21	35	449	336	ok
+Cuba / Villa Clara	3	3	434	307	ok
+Cuba / Camagüey	1	1	438	318	ok
+Venezuela / Bolívar	1	1	438	390	ok
+Cuba / Camagüey	1	1	447	312	ok
+Trinidad and Tobago / Chaguanas	1	1	447	396	ok
+Trinidad and Tobago / Port of Spain	1	1	471	404	ok
+St. Vin. and Gren. / Saint George	9	17	485	373	ok
+Puerto Rico / Ponce	5	5	486	340	ok
+St. Kitts and Nevis / Saint George Basseterre	1	1	481	354	ok
+Barbados / Saint Philip	1	1	486	396	ok
+United States of America / Ohio	2	2	498	178	ok
+Puerto Rico / Fajardo	2	2	500	340	ok
+Portugal / Azores	2	2	534	271	ok
+Portugal / Azores	5	5	550	285	ok
+Greenland / Sermersooq	131	166	582	26	ok
+Portugal / Azores	1	1	562	285	ok
+Portugal / Azores	2	2	574	294	ok
+Portugal / Azores	1	1	577	304	ok
+Mauritania / Trarza	3	3	582	440	ok
+Senegal / Dakar	2	2	584	461	ok
+Spain / Canary Islands	1	1	596	359	ok
+Spain / Canary Islands	5	5	604	366	ok
+Senegal / Dakar	2	2	598	458	ok
+Portugal / Madeira	3	3	604	335	ok
+Mauritania / Trarza	2	2	601	443	ok
+Senegal / Dakar	18905	26219	1168	288	ok
+Spain / Canary Islands	3	3	622	363	ok
+Iceland / East	32	44	646	61	ok
+Norway / Jan Mayen	2	2	675	3	ok
+United Kingdom / Ascension	1	1	687	578	ok
+United Kingdom / Scotland	2	2	697	82	ok
+United Kingdom / Scotland	2	2	721	96	ok
+Spain / Valencia	2	2	738	292	ok
+United Kingdom / Saint Helena	1	1	735	639	ok
+Spain / Catalonia	5	5	752	283	ok
+Gabon / Ogooué-Maritime	1	1	774	578	ok
+Italy / Umbria	12	18	790	272	ok
+Cameroon / South-West	1	1	788	559	ok
+Italy / Sicily	1	1	812	307	ok
+Italy / Sicily	1	1	831	318	ok
+Poland / West Pomerania	1	1	836	143	ok
+Sweden / Södermanland	3	3	862	119	ok
+Greece / Crete	3	3	903	321	ok
+Turkey / Antalya	1	1	922	321	ok
+Madagascar / Atsimo-Andrefana	102	125	1059	707	ok
+Russia / Nenets	3	3	1076	18	ok
+Yemen / Socotra	4	4	1107	495	ok
+Russia / Arkhangelskaya	6	6	1122	3	ok
+Seychelles / Seychelles	1	1	1114	620	ok
+Madagascar / Analanjirofo	1	1	1124	720	ok
+France / Kerguelen	2	2	1162	745	ok
+Maldives / Lhaviyani	12	15	1247	573	ok
+British Indian Ocean Ter. / Chagos	1	1	1249	637	ok
+France / Amsterdam Island	1	1	1282	756	ok
+India / Andaman and Nicobar Islands	3	3	1388	484	ok
+India / Andaman and Nicobar Islands	1	1	1388	501	ok
+Australia / Western Australia	1118	1382	1621	718	ok
+Indonesia / Central Java	28	33	1518	626	ok
+Indonesia / West Kalimantan	152	186	1548	567	ok
+Indonesia / West Nusa Tenggara	3	3	1564	623	ok
+Indonesia / South Sulawesi	2	2	1578	619	ok
+China / Fujian	11	13	1589	413	ok
+Indonesia / North Kalimantan	3	3	1588	544	ok
+Indonesia / South Sulawesi	24	29	1597	584	ok
+Indonesia / South Sulawesi	2	2	1592	616	ok
+Philippines / Central Luzon	24	31	1601	464	ok
+Philippines / Autonomous Region in Muslim Mindanao	52	65	1621	516	ok
+Australia / Northern Territory	3	3	1609	615	ok
+Japan / Ryukyu Islands	1	1	1614	409	ok
+South Korea / Jeju	1	1	1623	337	ok
+Japan / Ryukyu Islands	2	2	1635	391	ok
+Palau / Southwest Papua	8	8	1642	575	ok
+Japan / Fukuoka	1	1	1642	343	ok
+Japan / Ryukyu Islands	2	2	1645	380	ok
+Japan / Tsushima	118	147	1706	304	ok
+Indonesia / Southwest Papua	1	1	1647	556	ok
+Indonesia / Maluku	2	2	1659	605	ok
+Japan / Bonin Islands	1	1	1662	387	ok
+Indonesia / West Papua	156	196	1741	618	ok
+Indonesia / South Papua	1	1	1695	628	ok
+Russia / Sakhalin Oblast	1	1	1777	232	ok
+Papua New Guinea / Morobe Province	1	1	1782	595	ok
+New Zealand / Nelson	61	79	1825	771	ok
+Russia / Magadan Oblast	1	1	1796	105	ok
+Russia / Kamchatka	1	1	1796	177	ok
+Papua New Guinea / East New Britain Province	11	12	1815	614	ok
+Papua New Guinea / Milne Bay Province	1	1	1815	642	ok
+Papua New Guinea / Milne Bay Province	1	1	1825	648	ok
+Papua New Guinea / Milne Bay Province	4	4	1828	664	ok
+Russia / Kamchatka	1	1	1834	105	ok
+Nauru / Yaren	1	1	1834	587	ok
+Solomon Is. / Makira-Ulawa	13	15	1844	640	ok
+Nauru / Yaren	1	1	1839	595	ok
+Kiribati / Gilbert Islands	1	1	1844	587	ok
+Marshall Is. / Ralik Chain	1	1	1849	529	ok
+Kiribati / Gilbert Islands	2	2	1851	577	ok
+Russia / Commander Islands	1	1	1858	141	ok
+Kiribati / Gilbert Islands	1	1	1858	590	ok
+Solomon Is. / Makira-Ulawa	3	3	1862	656	ok
+Kiribati / Gilbert Islands	1	1	1863	581	ok
+Fiji / Fiji	1	1	1863	670	ok
+Kiribati / Gilbert Islands	1	1	1868	590	ok
+Kiribati / Gilbert Islands	1	1	1868	601	ok
+United States of America / Texas	1	1	34	296	ok
+United States / American Samoa	1	1	34	540	ok
+United States of America / New Mexico	2	2	22	292	ok
+France / Wallis and Futuna	1	1	25	517	ok
+Samoa / Samoa	1	1	25	534	ok
+Fiji / Fiji	1	1	25	545	ok
+Tonga / Tonga	1	1	25	562	ok
+Tonga / Tonga	1	1	25	578	ok
