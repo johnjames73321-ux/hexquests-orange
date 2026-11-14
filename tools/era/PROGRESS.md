@@ -21,3 +21,13 @@ Only Orange changes. The main game (~/hex-atlas-play) is not touched.
 
 ## Log
 - step 1 done: data studied. ERA.tags[k] = [name, colour, flag, type, culture, seat, text]; 5137 states own land; 16 types.
+- step 2 done: tools/era/classify.js written (type rule + forager peoples list + later-age names + hand list), mods/era-tiers.json made:
+  Settled 313 states / 2043 hexes, Frontier 3113 / 13337, Wilds 1711 / 11189.
+- step 3 done: tools/build.js applies mods/era-tiers.json (19220 hexes change tier); legend + land class texts patched in mods/patches.js.
+- To redo after the main game changes: node tools/era/dump.js ~/hex-atlas-play/index.html && node tools/era/classify.js && node tools/build.js ~/hex-atlas-play/index.html index.html
+- Open points for a next pass (tools/era/review.tsv lists every state with old and new tier):
+  * tribes with culture "Unknown / uncertain / unclassified" default to Frontier (about 60 states, mostly the Americas)
+  * Amazonia: Arawakan, Cariban, Tupian, Panoan = Frontier (village gardeners); Je, Nadahup, Yanomami ... = Wilds
+  * North America: all Wilds except Adena, North-West Coast, South-West early farmers (Frontier)
+  * Bantu-named tribes south of 10 S = Wilds (Bantu farmers arrived there after 320 BC)
+  * region lat/lon in the Americas is unreliable in the main data: never classify there by position, only by culture text

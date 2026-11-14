@@ -57,4 +57,11 @@ module.exports = [
   ["if (at(na, nc, iy) && !edge) continue;", "if (at(na, nc, iy) && !edge) continue; if (!orS) { tcol(t, cx, cz, iy, 0, cS); orS = 1; }"],
   // 320 BC land lines: Frontier and Wilds stripes both a little thicker and further apart in width (owner 11-14)
   ["const W = [0, S * 0.17, S * 0.40], P = [null", "const W = [0, S * 0.21, S * 0.55], P = [null"],
+  // 320 BC tiers now say what kind of society a state was (mods/era-tiers.json), not how many people a province had
+  ['const LAND_CLASS = ["Settled land · 500+ people per province", "Frontier · 50-500 people per province", "Wilds · under 50 people per province"];',
+   'const LAND_CLASS = ["Settled land · a state with towns and rulers", "Frontier · tribes, chiefdoms and herders without a state", "Wilds · hunter-gatherer bands"];'],
+  ['<span>Settled · no lines</span><span class="n">500+</span>', '<span>Settled · no lines</span><span class="n">states</span>'],
+  ['<span>Frontier · thin lines</span><span class="n">50-500</span>', '<span>Frontier · thin lines</span><span class="n">tribes</span>'],
+  ['<span>Wilds · thick lines</span><span class="n">&lt; 50</span>', '<span>Wilds · thick lines</span><span class="n">hunters</span>'],
+  ['<span class="n">0</span><span></span><span class="n">people per province</span>', '<span class="n">nobody</span><span></span><span class="n">who lived there</span>'],
 ];

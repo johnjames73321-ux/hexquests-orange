@@ -140,7 +140,13 @@ const st = remapEdges(D.st), dm = remapEdges(D.dm); console.log("straits", D.st.
 const pick = a => src.map(s => a[s]);
 // people are shared out between the copies of a hex, so no country gains people from the warp
 const seenC = new Int32Array(N), pop = src.map(s => { const c = copies[s], p = G.pop[s] || 0, k = seenC[s]++; return Math.floor(p / c) + (k < p % c ? 1 : 0); });
-const eo = new Int16Array(Uint8Array.from(Buffer.from(ERA.own, "base64")).buffer), en = Int16Array.from(src, s => ADDED.has(s) ? -2 : eo[s]);
+const eo = new Int16Array(Uint8Array.from(Buffer.from(ERA.own, "base64")).buffer);
+// 320 BC land tiers: every state gets the one tier that fits what it was then (mods/era-tiers.json, made by tools/era/classify.js);
+// the main game sets them hex by hex from province population. Land without a state keeps its tier.
+{ const TIERS = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "mods", "era-tiers.json"), "utf8")), t = ERA.tier.split(""); let ch = 0, miss = new Set();
+  for (let i = 0; i < N; i++) { const k = eo[i]; if (k < 0 || D.reg[i] < 0) continue; const v = TIERS[ERA.tags[k][0]]; if (v === undefined) { miss.add(ERA.tags[k][0]); continue; } if (t[i] !== String(v)) { t[i] = String(v); ch++; } }
+  ERA.tier = t.join(""); console.log("320 BC tiers: hexes changed", ch, "| states without a tier (run tools/era/dump.js + classify.js):", miss.size, [...miss].slice(0, 5).join(", ")); }
+const en = Int16Array.from(src, s => ADDED.has(s) ? -2 : eo[s]);
 const hn = {}; for (let i = 0; i < M; i++) { const v = ERA.hn[src[i]]; if (v !== undefined) hn[i] = v; }
 const landOld = D.reg.filter(v => v >= 0).length, landNew = src.filter(s => D.reg[s] >= 0).length;
 const popOld = G.pop.slice(0, N).reduce((a, b) => a + b, 0), popNew = pop.reduce((a, b) => a + b, 0);

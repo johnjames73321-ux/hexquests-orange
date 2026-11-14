@@ -42,7 +42,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 40	Scetis	chiefdom	Celtic (Brittonic/Atlantic Scotland)	Skye (Dun Ardtreck later)	3	Frontier	Frontier	
 41	Monapia	chiefdom	Celtic (Brittonic)	South Barrule area	1	Frontier	Frontier	
 42	Mona	chiefdom	Celtic (Brittonic)	Llyn Cerrig Bach (sacred lake)	1	Settled	Frontier	changed
-43	East Gangani	tribe	Celtic (Brittonic)	Tre'r Ceiri	1	Settled	Wilds	changed
+43	East Gangani	tribe	Celtic (Brittonic)	Tre'r Ceiri	1	Settled	Frontier	changed
 44	Ordovices	tribe	Celtic (Brittonic)	Dinorben / Snowdonia hillforts	1	Settled	Frontier	changed
 45	Deceangli	tribe	Celtic (Brittonic)	Moel Hiraddug	1	Settled	Frontier	changed
 46	Demetae	tribe	Celtic (Brittonic)	Moridunon (Carmarthen) area	2	Settled	Frontier	changed
@@ -58,7 +58,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 56	Usdiae	tribe	Celtic (Goidelic, Irish Iron Age)		2	Settled	Frontier	changed
 57	Iverni	tribe	Celtic (Goidelic, Irish Iron Age)	Ivernis (Cashel?)	3	Settled	Frontier	changed
 58	Vellabori	tribe	Celtic (Goidelic, Irish Iron Age)		5	Settled	Frontier	changed
-59	Gangani	tribe	Celtic (Goidelic, Irish Iron Age)		2	Settled	Wilds	changed
+59	Gangani	tribe	Celtic (Goidelic, Irish Iron Age)		2	Settled	Frontier	changed
 60	Auteini	tribe	Celtic (Goidelic, Irish Iron Age)		3	Settled	Frontier	changed
 61	Nagnatae	tribe	Celtic (Goidelic, Irish Iron Age)	Nagnata (Sligo area?)	2	Settled	Frontier	changed
 62	Cruachan	chiefdom	Celtic (Goidelic, Irish Iron Age)	Rathcroghan (Cruachan)	1	Settled	Frontier	changed
@@ -236,7 +236,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 234	Aquitani	culture	Aquitanian (Proto-Basque)	Burdigala area (Bordeaux)	1	Settled	Frontier	changed
 235	Meduli	tribe	Aquitanian (Proto-Basque) / Celtic		1	Settled	Frontier	changed
 236	Boiates	tribe	Aquitanian / Celtic	Boios (Biganos)	1	Settled	Frontier	changed
-237	Nitiobroges	tribe	Celtic (Gaulish)	Aginnum (Agen)	1	Settled	Wilds	changed
+237	Nitiobroges	tribe	Celtic (Gaulish)	Aginnum (Agen)	1	Settled	Frontier	changed
 238	Sotiates	tribe	Aquitanian (Proto-Basque)	Sos	1	Settled	Frontier	changed
 239	Lactorates	tribe	Aquitanian (Proto-Basque)	Lactora (Lectoure)	1	Settled	Frontier	changed
 240	Ausci	tribe	Aquitanian (Proto-Basque)	Elimberris (Auch)	1	Settled	Frontier	changed
@@ -305,7 +305,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 305	Traisen Celts	tribe	Celtic		2	Settled	Frontier	changed
 306	Sevaces	tribe	Celtic		2	Settled	Frontier	changed
 307	Alauni	chiefdom	Celtic	Dürrnberg (Hallein)	2	Settled	Frontier	changed
-308	Ambisontes	tribe	Celtic		2	Settled	Wilds	changed
+308	Ambisontes	tribe	Celtic		2	Settled	Frontier	changed
 309	Norici	tribe	Celtic	Noreia	3	Settled	Frontier	changed
 310	Ambidravi	tribe	Celtic		2	Settled	Frontier	changed
 311	Ambilini	tribe	Celtic		1	Settled	Frontier	changed
@@ -671,7 +671,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 676	Kuma	nomads	Iranian (Sauromatian)		7	Settled	Frontier	changed
 677	Lower Volga	nomads	Iranian (Sauromatian)		56	Settled	Frontier	changed
 678	Caspian	nomads	Iranian (Sauromatian)		24	Settled	Frontier	changed
-679	Iyrcae	tribe	Uralic (Ugric?)		15	Settled	Frontier	changed
+679	Iyrcae	tribe	Uralic (Ugric?)		15	Settled	Wilds	changed
 680	Tver	culture	Uralic/Baltic contact zone		15	Settled	Frontier	changed
 681	Upper Oka	culture	Baltic		9	Settled	Frontier	changed
 682	Yukhnov	culture	Baltic? (or Scythian-age forest-steppe hybrid)		8	Settled	Frontier	changed
@@ -792,16 +792,16 @@ tag	name	type	culture	seat	hexes	was mostly	now
 810	Gomel	tribe	Baltic? (Milograd culture)	Milahrad	12	Settled	Frontier	changed
 811	Polesia	culture	Uncertain (Pomeranian cloche-grave/Milograd contact)		6	Settled	Frontier	changed
 812	Åland	culture	Finnic/Nordic contact (Early Metal Age)		1	Settled	Frontier	changed
-813	Varsinais	culture	Finnic/Palaeo-European (coastal cairn culture)		3	Settled	Wilds	changed
-814	Satakunta	culture	Finnic/Palaeo-European (coastal cairn culture)	Sammallahdenmäki	4	Settled	Wilds	changed
-815	Uusimaa	culture	Finnic/Palaeo-European (Early Metal Age)		3	Settled	Wilds	changed
-816	Kymi	culture	Finnic/Proto-Saami (Early Metal Age)		2	Settled	Wilds	changed
+813	Varsinais	culture	Finnic/Palaeo-European (coastal cairn culture)		3	Settled	Frontier	changed
+814	Satakunta	culture	Finnic/Palaeo-European (coastal cairn culture)	Sammallahdenmäki	4	Settled	Frontier	changed
+815	Uusimaa	culture	Finnic/Palaeo-European (Early Metal Age)		3	Settled	Frontier	changed
+816	Kymi	culture	Finnic/Proto-Saami (Early Metal Age)		2	Settled	Frontier	changed
 817	Saimaa	culture	Proto-Saami/Palaeo-Lakeland (Luukonsaari ware)		4	Settled	Wilds	changed
-818	Häme	culture	Finnic/Proto-Saami (Sär 2 ware)		6	Settled	Wilds	changed
+818	Häme	culture	Finnic/Proto-Saami (Sär 2 ware)		6	Settled	Frontier	changed
 819	Päijänne	culture	Proto-Saami (Sär 2 ware)		7	Frontier	Wilds	changed
 821	Pielinen	culture	Proto-Saami (Luukonsaari/Sär 2 ware)		9	Frontier	Wilds	changed
-822	Kyrö	culture	Finnic/Palaeo-European (coastal cairn culture)		4	Frontier	Wilds	changed
-823	Kalajoki	culture	Finnic/Proto-Saami (Early Metal Age)		5	Frontier	Wilds	changed
+822	Kyrö	culture	Finnic/Palaeo-European (coastal cairn culture)		4	Frontier	Frontier	
+823	Kalajoki	culture	Finnic/Proto-Saami (Early Metal Age)		5	Frontier	Frontier	
 824	Oulu	culture	Proto-Saami (Sär 2 ware)		5	Frontier	Wilds	changed
 825	Kainuu	culture	Proto-Saami (Sär 2 ware)		10	Frontier	Wilds	changed
 827	Kuusamo	culture	Proto-Saami (Kjelmøy ware)		20	Frontier	Wilds	changed
@@ -815,9 +815,9 @@ tag	name	type	culture	seat	hexes	was mostly	now
 835	Alta	culture	Proto-Saami (Kjelmøy ware)		10	Wilds	Wilds	
 836	Finnmark	nomads	Proto-Saami (Kjelmøy ware)		15	Frontier	Frontier	
 837	Troms	culture	Proto-Saami/Nordic contact		13	Wilds	Wilds	
-838	Adogit	tribe	Germanic (Nordic)/Proto-Saami contact		2	Frontier	Wilds	changed
-839	Salten	culture	Germanic (Nordic)/Proto-Saami contact		6	Wilds	Wilds	
-840	Helgeland	culture	Germanic (Nordic)/Proto-Saami contact		6	Frontier	Wilds	changed
+838	Adogit	tribe	Germanic (Nordic)/Proto-Saami contact		2	Frontier	Frontier	
+839	Salten	culture	Germanic (Nordic)/Proto-Saami contact		6	Wilds	Frontier	changed
+840	Helgeland	culture	Germanic (Nordic)/Proto-Saami contact		6	Frontier	Frontier	
 841	Torne	culture	Proto-Saami (Kjelmøy ware)		14	Frontier	Wilds	changed
 842	Lule	culture	Proto-Saami (asbestos/Kjelmøy ware)		12	Frontier	Wilds	changed
 843	Norrbotten	culture	Proto-Saami/Palaeo-European		12	Frontier	Wilds	changed
@@ -876,7 +876,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 896	Ranii	tribe	Germanic (Nordic Pre-Roman Iron Age)		2	Settled	Frontier	changed
 897	Thule	tribe	Germanic (Nordic Pre-Roman Iron Age)		71	Wilds	Wilds	
 898	Thrændir	tribe	Germanic (Nordic Pre-Roman Iron Age)		8	Frontier	Frontier	
-899	Naumdælir	tribe	Germanic (Nordic)/Proto-Saami contact		7	Settled	Wilds	changed
+899	Naumdælir	tribe	Germanic (Nordic)/Proto-Saami contact		7	Settled	Frontier	changed
 900	Na	chiefdom	Yayoi (early Japonic-speaking rice farmers)	Itazuke / Sawara (Yoshitake-Takagi)	1	Settled	Frontier	changed
 901	Ito	chiefdom	Yayoi (early Japonic)	Itoshima	1	Settled	Frontier	changed
 902	Yoshinogari	chiefdom	Yayoi (early Japonic)	Yoshinogari	1	Settled	Frontier	changed
@@ -1016,7 +1016,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1037	Ilocano	culture	Austronesian (Northern Luzon)		1	Settled	Frontier	changed
 1038	Pangasinan	culture	Austronesian (Northern Luzon)		3	Settled	Frontier	changed
 1039	Aeta	tribe	Negrito (Aeta/Ayta)		2	Settled	Wilds	changed
-1040	Kapampangan	culture	Austronesian (Central Luzon)		2	Settled	Wilds	changed
+1040	Kapampangan	culture	Austronesian (Central Luzon)		2	Settled	Frontier	changed
 1041	Tagalog	culture	Austronesian (proto-Tagalog)		4	Settled	Frontier	changed
 1042	Bikol	culture	Austronesian (Central Philippine)		1	Settled	Frontier	changed
 1043	Mangyan	tribe	Austronesian (Mangyan)		4	Settled	Frontier	changed
@@ -1024,7 +1024,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1045	Waray	culture	Austronesian (Visayan)		9	Settled	Frontier	changed
 1046	Ati	culture	Austronesian (Visayan) and Negrito (Ati)		3	Settled	Wilds	changed
 1047	Ata	culture	Austronesian (Visayan) and Negrito (Ata)		2	Settled	Wilds	changed
-1048	San Remigio	culture	Austronesian (proto-Cebuano/Boholano)		1	Settled	Wilds	changed
+1048	San Remigio	culture	Austronesian (proto-Cebuano/Boholano)		1	Settled	Frontier	changed
 1049	Mamanwa	tribe	Negrito (Mamanwa)		3	Settled	Wilds	changed
 1050	Manobo	culture	Austronesian (Manobo)		5	Settled	Frontier	changed
 1051	Bukidnon	culture	Austronesian (Manobo/Danao)		2	Settled	Frontier	changed
@@ -1065,7 +1065,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1086	Tidung	culture	Austronesian (Murutic)		6	Frontier	Frontier	
 1087	Murut	tribe	Austronesian (Murutic)		4	Frontier	Frontier	
 1088	Dusun	tribe	Austronesian (Dusunic)		1	Settled	Frontier	changed
-1089	Kinabatangan	culture	Austronesian (Paitanic)		5	Settled	Wilds	changed
+1089	Kinabatangan	culture	Austronesian (Paitanic)		5	Settled	Frontier	changed
 1090	Bukit Tengkorak	culture	Austronesian	Bukit Tengkorak	2	Frontier	Frontier	
 1091	Aceh	culture	Austronesian		2	Frontier	Frontier	
 1092	Gayo	culture	Austronesian (proto-Gayo)	Takengon	2	Frontier	Frontier	
@@ -1086,9 +1086,9 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1107	Buni	culture	Austronesian (Sundanese)	Buni, Bekasi	2	Settled	Frontier	changed
 1108	Banten	culture	Austronesian (Sundanese)	Anyer	1	Settled	Frontier	changed
 1109	Pasir Angin	culture	Austronesian (Sundanese)	Pasir Angin	2	Settled	Frontier	changed
-1110	Priangan	culture	Austronesian (Sundanese)		1	Settled	Wilds	changed
+1110	Priangan	culture	Austronesian (Sundanese)		1	Settled	Frontier	changed
 1111	Serayu	culture	Austronesian (Javanese)		2	Settled	Frontier	changed
-1112	Plawangan	culture	Austronesian (Javanese)	Plawangan, Rembang	1	Settled	Wilds	changed
+1112	Plawangan	culture	Austronesian (Javanese)	Plawangan, Rembang	1	Settled	Frontier	changed
 1113	Kedu	culture	Austronesian (Javanese)		2	Settled	Frontier	changed
 1114	Gunung Sewu	culture	Austronesian (Javanese)		1	Settled	Frontier	changed
 1115	Brantas	culture	Austronesian (Javanese)		3	Settled	Frontier	changed
@@ -1292,7 +1292,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1324	Kamas	culture	Samoyedic (proto-Mator/Kamas?)		35	Frontier	Wilds	changed
 1325	Tofa	culture	Samoyedic/Yeniseian?		30	Frontier	Wilds	changed
 1326	Khovsgol	culture	North Asian (Deer-stone/Slab-grave tradition)		18	Frontier	Wilds	changed
-1327	Dingling	tribe	Dingling (Paleo-Siberian/proto-Turkic?)		66	Frontier	Wilds	changed
+1327	Dingling	tribe	Dingling (Paleo-Siberian/proto-Turkic?)		66	Frontier	Frontier	
 1328	Ilim	culture	Yeniseian/Samoyedic?		46	Frontier	Wilds	changed
 1330	Barguzin	culture	North Asian (proto-Mongolic/Turkic?)		38	Frontier	Wilds	changed
 1331	Khilok	culture	North Asian (proto-Mongolic/Turkic?)		23	Frontier	Wilds	changed
@@ -1320,7 +1320,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1360	Ye	tribe	Ye (Yemaek)		9	Settled	Frontier	changed
 1361	Maek	tribe	Maek (Yemaek; proto-Goguryeo)		10	Settled	Frontier	changed
 1362	Okjeo	tribe	Ye (Yemaek)		11	Frontier	Frontier	
-1363	Krounovka	culture	Okjeo/Ye (Tungusic-Yemaek contact zone)		12	Frontier	Wilds	changed
+1363	Krounovka	culture	Okjeo/Ye (Tungusic-Yemaek contact zone)		12	Frontier	Frontier	
 1364	Jin	chiefdom	Han (Proto-Korean)	Asan-Yesan-Daejeon area	1	Settled	Frontier	changed
 1365	Han River	chiefdom	Han (Proto-Korean)		3	Settled	Frontier	changed
 1366	Bukhan	chiefdom	Han/Ye (Proto-Korean)	Chuncheon (Jungdo)	1	Settled	Frontier	changed
@@ -1337,11 +1337,11 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1377	Baoshan	culture	Yemaek (proto-Buyeo/Goguryeo sphere)		8	Settled	Frontier	changed
 1378	Xituanshan	culture	Yemaek (Huimo?)	Jilin	2	Settled	Frontier	changed
 1379	Liangquan	culture	Yemaek (proto-Buyeo)		24	Settled	Frontier	changed
-1380	Changbai	culture	Tungusic/Yemaek forest foragers		11	Settled	Wilds	changed
+1380	Changbai	culture	Tungusic/Yemaek forest foragers		11	Settled	Frontier	changed
 1381	Southwest Sushen	tribe	Sushen (Tungusic ancestors; later Yilou/Mohe)	Ning'an area	17	Settled	Wilds	changed
 1382	Lidovka	culture	Primorye hunters (Paleo-Asiatic/Tungusic?)		6	Frontier	Wilds	changed
 1383	Sikhote-Alin	culture	Tungusic/Paleo-Asiatic forest hunters		49	Frontier	Wilds	changed
-1384	Poltse	culture	Poltse (Tungusic ancestors; Yilou?)	Khabarovsk area	28	Settled	Wilds	changed
+1384	Poltse	culture	Poltse (Tungusic ancestors; Yilou?)	Khabarovsk area	28	Settled	Frontier	changed
 1385	Zheltyi Yar	culture	Lower Amur fishers (Paleo-Asiatic/Tungusic)		14	Frontier	Wilds	changed
 1386	Amgun	culture	Tungusic/Paleo-Asiatic forest hunters		10	Frontier	Wilds	changed
 1387	Bira	culture	Uril (Amur Early Iron Age)		22	Settled	Frontier	changed
@@ -1503,7 +1503,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1552	Magar	culture	Tibeto-Burman		7	Settled	Frontier	changed
 1553	Mustang	culture	Proto-Tibetan / Zhangzhung	Lo Manthang area	4	Frontier	Frontier	
 1554	Khasa	confederation	Indo-Aryan (Khasa)		12	Settled	Frontier	changed
-1555	Tangana	tribe	Indo-Aryan / Tibeto-Burman	Joshimath	4	Settled	Wilds	changed
+1555	Tangana	tribe	Indo-Aryan / Tibeto-Burman	Joshimath	4	Settled	Frontier	changed
 1556	Kuninda	republic	Indo-Aryan		3	Settled	Settled	
 1557	Kinnaura	tribe	Tibeto-Burman (Kinnauri)		1	Settled	Frontier	changed
 1558	Kuluta	kingdom	Indo-Aryan	Naggar / Kullu	2	Settled	Settled	
@@ -1552,13 +1552,13 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1601	Markham	tribe	Austronesian (Markham) and Papuan	Nadzab	4	Frontier	Frontier	
 1602	Kuk	culture	Papuan (Trans-New Guinea, Chimbu-Wahgi)	Kuk Swamp	5	Settled	Frontier	changed
 1603	Goroka	tribe	Papuan (Trans-New Guinea, Eastern Highlands)	Goroka valley	5	Settled	Frontier	changed
-1604	Enga	tribe	Papuan (Trans-New Guinea, Engan)	Wabag area	5	Settled	Wilds	changed
-1605	Huli	tribe	Papuan (Trans-New Guinea, Engan/Huli)	Tari basin	4	Settled	Wilds	changed
+1604	Enga	tribe	Papuan (Trans-New Guinea, Engan)	Wabag area	5	Settled	Frontier	changed
+1605	Huli	tribe	Papuan (Trans-New Guinea, Engan/Huli)	Tari basin	4	Settled	Frontier	changed
 1606	Bosavi	tribe	Papuan (Bosavi / Strickland)	Mt Bosavi	5	Frontier	Frontier	
 1607	Fly	tribe	Papuan (Ok / Awin-Pa / Lake Murray)	Lake Murray	6	Settled	Frontier	changed
 1608	Kiwai	tribe	Papuan (Pahoturi / Tonda / Kiwai)	Trans-Fly savanna	6	Settled	Frontier	changed
 1609	Kikori	tribe	Papuan (Inland Gulf / Eleman)	Kikori delta	12	Frontier	Frontier	
-1610	Angan	tribe	Papuan (Angan)	Menyamya	7	Frontier	Wilds	changed
+1610	Angan	tribe	Papuan (Angan)	Menyamya	7	Frontier	Frontier	
 1611	Kosipe	tribe	Papuan (Koiarian / Goilalan)	Kosipe	2	Frontier	Frontier	
 1612	Caution Bay	culture	Austronesian (Papuan Tip Oceanic) and Koiarian Papuan	Caution Bay	1	Frontier	Frontier	
 1613	Mailu	tribe	Austronesian (Papuan Tip) and Papuan (Mailuan)	Milne Bay	3	Frontier	Frontier	
@@ -1709,7 +1709,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1759	Laguna Zope	chiefdom	Mixe-Zoque	Laguna Zope	1	Settled	Frontier	changed
 1760	Chiapa de Corzo	city-state	Mixe-Zoque (Zoque)	Chiapa de Corzo	1	Settled	Settled	
 1761	Tzutzuculi	chiefdom	Mixe-Zoque	Tzutzuculi	2	Settled	Frontier	changed
-1762	Loma San Gabriel	culture	Uto-Aztecan? (Tepehuan ancestors)		2	Settled	Wilds	changed
+1762	Loma San Gabriel	culture	Uto-Aztecan? (Tepehuan ancestors)		2	Settled	Frontier	changed
 1763	Hesperii	tribe	Atlantic (proto-Wolof/Serer)		1	Wilds	Frontier	changed
 1764	Dia	chiefdom	Mande (proto-Soninke/Marka)	Dia	1	Wilds	Frontier	changed
 1765	Gourma	nomads	Songhay / Saharan pastoralists		9	Wilds	Frontier	changed
@@ -2041,7 +2041,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2093	Kamen	culture	Iranian/Ugric (forest-steppe)		24	Settled	Frontier	changed
 2094	Baraba	culture	Iranian (Ugric admixture)		100	Settled	Frontier	changed
 2095	La Tolita	chiefdom	Andean Formative (Barbacoan?)	La Tolita	2	Frontier	Frontier	
-2096	Jama-Coaque	culture	Ecuadorian coastal Formative	San Isidro	4	Frontier	Wilds	changed
+2096	Jama-Coaque	culture	Ecuadorian coastal Formative	San Isidro	4	Frontier	Frontier	
 2097	Bahia	culture	Ecuadorian coastal Formative	Bahia de Caraquez	2	Settled	Frontier	changed
 2098	Engoroy	culture	Ecuadorian coastal Formative	Salango	1	Settled	Frontier	changed
 2099	Tejar-Daule	culture	Ecuadorian coastal Formative	Daule	2	Settled	Frontier	changed
@@ -2060,7 +2060,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2113	Sechura	culture	Andean coastal		2	Settled	Frontier	changed
 2114	Huancabamba	culture	Andean Formative	Huancabamba	1	Settled	Frontier	changed
 2115	Lambayeque	culture	Andean coastal Formative		1	Settled	Frontier	changed
-2116	Pacopampa	culture	Andean Formative	Pacopampa	2	Settled	Wilds	changed
+2116	Pacopampa	culture	Andean Formative	Pacopampa	2	Settled	Frontier	changed
 2117	Bagua	culture	Andean Formative	Bagua	4	Settled	Frontier	changed
 2118	Utcubamba	culture	Andean Formative		3	Settled	Frontier	changed
 2119	Cupisnique	culture	Andean coastal Formative		1	Settled	Frontier	changed
@@ -2108,8 +2108,8 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2161	Shakimu	culture	Amazonian	Yarinacocha	5	Frontier	Frontier	
 2162	Huallaga	tribe	Amazonian		8	Frontier	Frontier	
 2163	Tingo Maria	tribe	Amazonian/Andean		7	Frontier	Frontier	
-2164	San Francisco	culture	Andean-lowland (Formative)	Valle de San Francisco (Ledesma)	3	Frontier	Wilds	changed
-2165	Atacama	culture	Andean (proto-Atacameño)	San Antonio de los Cobres	4	Frontier	Wilds	changed
+2164	San Francisco	culture	Andean-lowland (Formative)	Valle de San Francisco (Ledesma)	3	Frontier	Frontier	
+2165	Atacama	culture	Andean (proto-Atacameño)	San Antonio de los Cobres	4	Frontier	Frontier	
 2166	Candelaria	culture	Andean-lowland (Formative)	Candelaria (Salta)	2	Settled	Frontier	changed
 2167	Condorhuasi	culture	Andean (Formative)	Hualfín valley	1	Frontier	Frontier	
 2168	San Matias	culture	proto-Tehuelche hunter-gatherers		13	Frontier	Wilds	changed
@@ -2147,13 +2147,13 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2202	Alaka	culture	Archaic Guianan (Alaka phase)		3	Wilds	Wilds	
 2203	Chiribiquete	culture	Unknown (Karijona/Witoto ancestors?)		4	Frontier	Frontier	
 2204	North Chané	tribe	Unknown		1	Settled	Frontier	changed
-2205	Umbu	culture	Unknown (Umbu/Humaitá)		10	Frontier	Frontier	
-2206	Humaitá	culture	Unknown (Humaitá tradition)		21	Settled	Frontier	changed
-2207	Serranópolis	culture	Macro-Jê (Southern Kayapó ancestors?)		9	Settled	Frontier	changed
-2208	Paranaíba	culture	Macro-Jê		7	Settled	Frontier	changed
-2209	Planalto	culture	Macro-Jê		13	Settled	Frontier	changed
-2210	Lagoa Santa	culture	Unknown		14	Settled	Frontier	changed
-2211	Sapucaí	culture	Unknown (Sapucaí tradition)		7	Settled	Frontier	changed
+2205	Umbu	culture	Unknown (Umbu/Humaitá)		10	Frontier	Wilds	changed
+2206	Humaitá	culture	Unknown (Humaitá tradition)		21	Settled	Wilds	changed
+2207	Serranópolis	culture	Macro-Jê (Southern Kayapó ancestors?)		9	Settled	Wilds	changed
+2208	Paranaíba	culture	Macro-Jê		7	Settled	Wilds	changed
+2209	Planalto	culture	Macro-Jê		13	Settled	Wilds	changed
+2210	Lagoa Santa	culture	Unknown		14	Settled	Wilds	changed
+2211	Sapucaí	culture	Unknown (Sapucaí tradition)		7	Settled	Wilds	changed
 2212	Goitacá	tribe	Unknown (Goitacá)		4	Settled	Frontier	changed
 2213	Espírito Santo	culture	Sambaqui builders		10	Settled	Wilds	changed
 2214	Guanabara	culture	Sambaqui builders		2	Settled	Wilds	changed
@@ -2161,7 +2161,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2216	Athabasca	culture	Na-Dene / Algonquian (uncertain)		1	Frontier	Wilds	changed
 2217	Groswater	culture	Paleo-Eskimo (Groswater)	Nain area	5	Wilds	Wilds	
 2218	Hamilton Inlet	culture	Paleo-Eskimo (Groswater)	Groswater Bay	5	Wilds	Wilds	
-2219	San Luis	culture	Unknown		5	Frontier	Wilds	changed
+2219	San Luis	culture	Unknown		5	Frontier	Frontier	
 2220	Little Colorado	culture	Unknown; ancestral Puebloan		2	Frontier	Frontier	
 2221	Chiricahua	culture	Unknown		2	Frontier	Frontier	
 2222	White Mountains	culture	Unknown; pre-Mogollon		6	Frontier	Frontier	
@@ -2298,7 +2298,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2353	Comanito	tribe	Cahita		1	Settled	Frontier	changed
 2354	Tahue	tribe	Taracahitic		2	Settled	Frontier	changed
 2355	Totorame	tribe	Totorame		4	Settled	Frontier	changed
-2356	Chametla	city-state	Totorame		1	Settled	Settled	
+2356	Chametla	city-state	Totorame		1	Settled	Frontier	changed
 2357	Zoe	tribe	Zoe		1	Settled	Frontier	changed
 2358	Tubar	tribe	Tubar		1	Settled	Frontier	changed
 2359	Chinipa	tribe	Taracahitic		1	Settled	Frontier	changed
@@ -2332,47 +2332,47 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2387	Coano	tribe	Coano		1	Settled	Frontier	changed
 2388	Wixarika	tribe	Corachol		1	Settled	Frontier	changed
 2389	Naayeri	tribe	Corachol		1	Settled	Frontier	changed
-2390	Xalisco	city-state	Nahuatl		2	Settled	Settled	
-2391	Aztatlan	city-state	Totorame		2	Settled	Settled	
-2392	Ixtlan	city-state	Tecual		1	Settled	Settled	
-2393	Etzatlan	city-state	Tecual		1	Settled	Settled	
-2394	Ameca	city-state	Tecual		1	Settled	Settled	
-2395	Teuchitlan	city-state	Tecual		1	Settled	Settled	
-2396	Zapotlan	city-state	Nahuatl		1	Settled	Settled	
-2397	Sayula	city-state	Nahuatl		1	Settled	Settled	
-2398	Tuxpan	city-state	Nahuatl		1	Settled	Settled	
-2399	Cihuatlan	city-state	Nahuatl		1	Settled	Settled	
-2400	Tomatlan	city-state	Nahuatl		2	Settled	Settled	
-2401	Colima	city-state	Colimotl		1	Settled	Settled	
+2390	Xalisco	city-state	Nahuatl		2	Settled	Frontier	changed
+2391	Aztatlan	city-state	Totorame		2	Settled	Frontier	changed
+2392	Ixtlan	city-state	Tecual		1	Settled	Frontier	changed
+2393	Etzatlan	city-state	Tecual		1	Settled	Frontier	changed
+2394	Ameca	city-state	Tecual		1	Settled	Frontier	changed
+2395	Teuchitlan	city-state	Tecual		1	Settled	Frontier	changed
+2396	Zapotlan	city-state	Nahuatl		1	Settled	Frontier	changed
+2397	Sayula	city-state	Nahuatl		1	Settled	Frontier	changed
+2398	Tuxpan	city-state	Nahuatl		1	Settled	Frontier	changed
+2399	Cihuatlan	city-state	Nahuatl		1	Settled	Frontier	changed
+2400	Tomatlan	city-state	Nahuatl		2	Settled	Frontier	changed
+2401	Colima	city-state	Colimotl		1	Settled	Frontier	changed
 2402	Motin	tribe	Nahuatl		1	Settled	Frontier	changed
-2403	Coalcoman	city-state	Nahuatl		1	Settled	Settled	
-2404	Tepalcatepec	city-state	Nahuatl		1	Settled	Settled	
-2405	Taos	city-state	Northern Tiwa		1	Frontier	Settled	changed
-2406	Picuris	city-state	Northern Tiwa		1	Frontier	Settled	changed
-2407	Sandia	city-state	Southern Tiwa		1	Frontier	Settled	changed
-2408	Isleta	city-state	Southern Tiwa		1	Settled	Settled	
-2409	Pecos	city-state	Towa		2	Frontier	Settled	changed
-2410	Jemez	city-state	Towa		1	Frontier	Settled	changed
-2411	Tesuque	city-state	Tewa		1	Frontier	Settled	changed
-2412	Nambe	city-state	Tewa		1	Frontier	Settled	changed
-2413	Santa Clara	city-state	Tewa		1	Settled	Settled	
-2414	Ohkay Owingeh	city-state	Tewa		1	Frontier	Settled	changed
-2415	Kewa	city-state	Keres		1	Settled	Settled	
-2416	Acoma	city-state	Keres		1	Frontier	Settled	changed
-2417	Laguna	city-state	Keres		1	Frontier	Settled	changed
-2418	Galisteo	city-state	Tano		1	Frontier	Settled	changed
-2419	Abo	city-state	Tompiro		1	Frontier	Settled	changed
-2420	Quarai	city-state	Tiwa		1	Frontier	Settled	changed
-2421	Humanas	city-state	Tompiro		2	Frontier	Settled	changed
-2422	Hawikuh	city-state	Zuni		1	Frontier	Settled	changed
-2423	Halona	city-state	Zuni		2	Frontier	Settled	changed
-2424	Matsaki	city-state	Zuni		1	Frontier	Settled	changed
-2425	Kiakima	city-state	Zuni		1	Frontier	Settled	changed
-2426	Oraibi	city-state	Hopi		1	Frontier	Settled	changed
-2427	Walpi	city-state	Hopi		1	Frontier	Settled	changed
-2428	Shungopavi	city-state	Hopi		1	Frontier	Settled	changed
-2429	Mishongnovi	city-state	Hopi		1	Frontier	Settled	changed
-2430	Awatovi	city-state	Hopi		2	Frontier	Settled	changed
+2403	Coalcoman	city-state	Nahuatl		1	Settled	Frontier	changed
+2404	Tepalcatepec	city-state	Nahuatl		1	Settled	Frontier	changed
+2405	Taos	city-state	Northern Tiwa		1	Frontier	Frontier	
+2406	Picuris	city-state	Northern Tiwa		1	Frontier	Frontier	
+2407	Sandia	city-state	Southern Tiwa		1	Frontier	Frontier	
+2408	Isleta	city-state	Southern Tiwa		1	Settled	Frontier	changed
+2409	Pecos	city-state	Towa		2	Frontier	Frontier	
+2410	Jemez	city-state	Towa		1	Frontier	Frontier	
+2411	Tesuque	city-state	Tewa		1	Frontier	Frontier	
+2412	Nambe	city-state	Tewa		1	Frontier	Frontier	
+2413	Santa Clara	city-state	Tewa		1	Settled	Frontier	changed
+2414	Ohkay Owingeh	city-state	Tewa		1	Frontier	Frontier	
+2415	Kewa	city-state	Keres		1	Settled	Frontier	changed
+2416	Acoma	city-state	Keres		1	Frontier	Frontier	
+2417	Laguna	city-state	Keres		1	Frontier	Frontier	
+2418	Galisteo	city-state	Tano		1	Frontier	Frontier	
+2419	Abo	city-state	Tompiro		1	Frontier	Frontier	
+2420	Quarai	city-state	Tiwa		1	Frontier	Frontier	
+2421	Humanas	city-state	Tompiro		2	Frontier	Frontier	
+2422	Hawikuh	city-state	Zuni		1	Frontier	Frontier	
+2423	Halona	city-state	Zuni		2	Frontier	Frontier	
+2424	Matsaki	city-state	Zuni		1	Frontier	Frontier	
+2425	Kiakima	city-state	Zuni		1	Frontier	Frontier	
+2426	Oraibi	city-state	Hopi		1	Frontier	Frontier	
+2427	Walpi	city-state	Hopi		1	Frontier	Frontier	
+2428	Shungopavi	city-state	Hopi		1	Frontier	Frontier	
+2429	Mishongnovi	city-state	Hopi		1	Frontier	Frontier	
+2430	Awatovi	city-state	Hopi		2	Frontier	Frontier	
 2431	Piro	tribe	Tanoan Piro		4	Wilds	Wilds	
 2432	Manso	tribe	Uto-Aztecan		2	Wilds	Frontier	changed
 2433	Suma	tribe	Uto-Aztecan		5	Settled	Frontier	changed
@@ -2587,8 +2587,8 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2642	Kishkat	tribe	Wichita Caddoan		3	Frontier	Wilds	changed
 2643	Tancoa	tribe	Wichita Caddoan		2	Settled	Wilds	changed
 2644	Tabas	tribe	Wichita Caddoan		1	Settled	Wilds	changed
-2645	Quivira	city-state	Wichita Caddoan		3	Settled	Settled	
-2646	Etzanoa	city-state	Wichita Caddoan		1	Settled	Settled	
+2645	Quivira	city-state	Wichita Caddoan		3	Settled	Wilds	changed
+2646	Etzanoa	city-state	Wichita Caddoan		1	Settled	Wilds	changed
 2647	Cuartelejo	tribe	Apachean		5	Frontier	Wilds	changed
 2648	Paloma	tribe	Apachean		2	Settled	Wilds	changed
 2649	Padouca	tribe	Apachean		12	Frontier	Wilds	changed
@@ -3179,19 +3179,19 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3235	Tapé	tribe	Guaraní		7	Settled	Frontier	changed
 3236	Carijó	tribe	Guaraní		6	Settled	Frontier	changed
 3237	Kaingang	tribe	Jê		10	Settled	Wilds	changed
-3238	Xokleng	tribe	Jê		2	Settled	Frontier	changed
+3238	Xokleng	tribe	Jê		2	Settled	Wilds	changed
 3239	Xetá	tribe	Tupí-Guaraní		6	Settled	Frontier	changed
-3240	Panará	tribe	Jê		12	Settled	Frontier	changed
-3241	Puri	tribe	Macro-Jê		4	Settled	Frontier	changed
-3242	Coropó	tribe	Macro-Jê		4	Settled	Frontier	changed
-3243	Cataguá	tribe	Macro-Jê		6	Settled	Frontier	changed
+3240	Panará	tribe	Jê		12	Settled	Wilds	changed
+3241	Puri	tribe	Macro-Jê		4	Settled	Wilds	changed
+3242	Coropó	tribe	Macro-Jê		4	Settled	Wilds	changed
+3243	Cataguá	tribe	Macro-Jê		6	Settled	Wilds	changed
 3244	Charrúa	tribe	Charruan		3	Frontier	Wilds	changed
 3245	Minuano	tribe	Charruan		3	Frontier	Wilds	changed
 3246	Yaró	tribe	Charruan		2	Frontier	Wilds	changed
 3247	Bohán	tribe	Charruan		2	Frontier	Wilds	changed
 3248	Arachán	tribe	Charruan		1	Settled	Wilds	changed
 3249	Chaná	tribe	Charruan		3	Frontier	Wilds	changed
-3250	Querandí	tribe	Pampean		17	Frontier	Wilds	changed
+3250	Querandí	tribe	Pampean		17	Frontier	Frontier	
 3251	Timbú	tribe	Chaná-Timbú		1	Frontier	Wilds	changed
 3252	Corondá	tribe	Chaná-Timbú		1	Frontier	Wilds	changed
 3253	Colastiné	tribe	Chaná-Timbú		1	Frontier	Wilds	changed
@@ -3207,10 +3207,10 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3263	Kinikinau	tribe	Arawak		2	Settled	Frontier	changed
 3264	Layana	tribe	Arawak		2	Settled	Frontier	changed
 3265	Maskoy	tribe	Mascoyan		4	Frontier	Wilds	changed
-3266	Laklãnõ	tribe	Southern Jê		8	Settled	Frontier	changed
-3267	Ingain	tribe	Southern Jê		5	Settled	Frontier	changed
-3268	Guayaná	tribe	Southern Jê		14	Settled	Frontier	changed
-3269	Guaianá	tribe	Jê		4	Settled	Frontier	changed
+3266	Laklãnõ	tribe	Southern Jê		8	Settled	Wilds	changed
+3267	Ingain	tribe	Southern Jê		5	Settled	Wilds	changed
+3268	Guayaná	tribe	Southern Jê		14	Settled	Wilds	changed
+3269	Guaianá	tribe	Jê		4	Settled	Wilds	changed
 3270	Tape	tribe	Guaraní		9	Settled	Frontier	changed
 3271	Tafí	tribe	Diaguita-Calchaquí		1	Frontier	Frontier	
 3272	Yocavil	tribe	Cacán		1	Frontier	Frontier	
@@ -3277,7 +3277,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3333	Ignaciano	tribe	Arawakan		1	Frontier	Frontier	
 3334	Karitiana	tribe	Tupian		4	Settled	Frontier	changed
 3335	Karipuna	tribe	Tupi-Guarani		5	Settled	Frontier	changed
-3336	Uru-Eu-Wau-Wau	tribe	Tupi-Guarani		3	Settled	Wilds	changed
+3336	Uru-Eu-Wau-Wau	tribe	Tupi-Guarani		3	Settled	Frontier	changed
 3337	Wari	tribe	Chapacuran		6	Settled	Frontier	changed
 3338	Tupari	tribe	Tupian		1	Settled	Frontier	changed
 3339	Lupaca	tribe	Aymaran		1	Settled	Frontier	changed
@@ -3285,7 +3285,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3341	Omasuyo	tribe	Aymaran		1	Settled	Frontier	changed
 3342	Colla	tribe	Aymaran		2	Settled	Frontier	changed
 3343	Puquina	tribe	Puquina		1	Settled	Frontier	changed
-3344	Tiwanaku	city-state	Aymaran		1	Settled	Settled	
+3344	Tiwanaku	city-state	Aymaran		1	Settled	Frontier	changed
 3345	Kallawaya	tribe	Puquina		2	Settled	Frontier	changed
 3346	Canchi	tribe	Quechuan		2	Settled	Frontier	changed
 3347	Canas	tribe	Quechuan		1	Settled	Frontier	changed
@@ -3424,13 +3424,13 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3480	Krikati	tribe	Timbira Jê		5	Settled	Wilds	changed
 3481	Apanyekra	tribe	Timbira Jê		4	Settled	Wilds	changed
 3482	Pykobjê	tribe	Timbira Jê		4	Frontier	Wilds	changed
-3483	Akroá	tribe	Central Jê		6	Settled	Frontier	changed
-3484	Akroá-Mirim	tribe	Central Jê		5	Frontier	Frontier	
-3485	Xakriabá	tribe	Central Jê		17	Settled	Frontier	changed
+3483	Akroá	tribe	Central Jê		6	Settled	Wilds	changed
+3484	Akroá-Mirim	tribe	Central Jê		5	Frontier	Wilds	changed
+3485	Xakriabá	tribe	Central Jê		17	Settled	Wilds	changed
 3486	Avá-Canoeiro	tribe	Tupi-Guarani		9	Settled	Frontier	changed
-3487	Kayapó	tribe	Jê		10	Settled	Frontier	changed
+3487	Kayapó	tribe	Jê		10	Settled	Wilds	changed
 3488	Gueguê	tribe	Tapuya (unclassified)		5	Settled	Wilds	changed
-3489	Acoroá	tribe	Jê		6	Settled	Frontier	changed
+3489	Acoroá	tribe	Jê		6	Settled	Wilds	changed
 3490	Pimenteira	tribe	Unclassified		4	Settled	Frontier	changed
 3491	Jaicó	tribe	Tapuya (Kariri?)		10	Settled	Wilds	changed
 3492	Aranhi	tribe	Tapuya (unclassified)		2	Settled	Wilds	changed
@@ -3504,7 +3504,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3560	Wanano	tribe	Tukanoan		1	Frontier	Frontier	
 3561	Barasana	tribe	Tukanoan		1	Frontier	Frontier	
 3562	Makuna	tribe	Tukanoan		1	Frontier	Frontier	
-3563	Piratapuya	tribe	Tukanoan		1	Frontier	Wilds	changed
+3563	Piratapuya	tribe	Tukanoan		1	Frontier	Frontier	
 3564	Arapaso	tribe	Tukanoan		1	Frontier	Frontier	
 3565	Yurutí	tribe	Tukanoan		1	Frontier	Frontier	
 3566	Taiwano	tribe	Tukanoan		1	Frontier	Frontier	
@@ -3575,7 +3575,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3631	Bahuana	tribe	Arawakan		10	Frontier	Frontier	
 3632	Passe	tribe	Arawakan		10	Frontier	Frontier	
 3633	Juri	tribe	Juri		3	Frontier	Frontier	
-3634	Uainuma	tribe	Arawakan		9	Frontier	Wilds	changed
+3634	Uainuma	tribe	Arawakan		9	Frontier	Frontier	
 3635	Marawa	tribe	Arawakan		7	Frontier	Frontier	
 3636	Tupinambarana	tribe	Tupian		4	Frontier	Frontier	
 3637	Andira	tribe	Tupian		3	Frontier	Frontier	
@@ -3619,7 +3619,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3675	Xipaya	tribe	Juruna		5	Frontier	Frontier	
 3676	Parakana	tribe	Tupi-Guarani		2	Frontier	Frontier	
 3677	Araweté	tribe	Tupi-Guarani		2	Frontier	Frontier	
-3678	Mebengokre	tribe	Jê		3	Frontier	Frontier	
+3678	Mebengokre	tribe	Jê		3	Frontier	Wilds	changed
 3679	Anapuru	tribe	Arawakan		6	Frontier	Frontier	
 3680	Mapua	tribe	Arawakan		3	Frontier	Frontier	
 3681	Pacaja	tribe	Tupian		3	Frontier	Frontier	
@@ -3842,9 +3842,9 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3898	Epekwitk	island	Algonquian Mi'kmaq		3	Settled	Wilds	changed
 3899	Siknikt	tribe	Algonquian Mi'kmaq		10	Frontier	Wilds	changed
 3900	Kespek	tribe	Algonquian Mi'kmaq		6	Settled	Wilds	changed
-3901	Stadacona	city-state	Iroquoian Laurentian		9	Settled	Settled	
-3902	Hochelaga	city-state	Iroquoian Laurentian		5	Settled	Settled	
-3903	Achelacy	city-state	Iroquoian Laurentian		11	Settled	Settled	
+3901	Stadacona	city-state	Iroquoian Laurentian		9	Settled	Wilds	changed
+3902	Hochelaga	city-state	Iroquoian Laurentian		5	Settled	Wilds	changed
+3903	Achelacy	city-state	Iroquoian Laurentian		11	Settled	Wilds	changed
 3904	Kichesipirini	tribe	Algonquian Algonquin		8	Frontier	Wilds	changed
 3905	Weskarini	tribe	Algonquian Algonquin		7	Frontier	Wilds	changed
 3906	Matouweskarini	tribe	Algonquian Algonquin		8	Frontier	Wilds	changed
@@ -3951,7 +3951,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4007	Balanta	tribe	Atlantic		1	Settled	Frontier	changed
 4008	Bijago	island	Atlantic		2	Settled	Frontier	changed
 4009	Jola	tribe	Atlantic		1	Settled	Frontier	changed
-4010	Bainuk	tribe	Atlantic		1	Settled	Wilds	changed
+4010	Bainuk	tribe	Atlantic		1	Settled	Frontier	changed
 4011	Mandinka	tribe	Mande		3	Settled	Frontier	changed
 4012	Serer	tribe	Atlantic		1	Settled	Frontier	changed
 4013	Wolof	tribe	Atlantic		4	Settled	Frontier	changed
@@ -3961,7 +3961,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4017	Malinke	tribe	Mande		17	Settled	Frontier	changed
 4018	Bambara	tribe	Mande		10	Settled	Frontier	changed
 4019	Bozo	tribe	Mande		5	Settled	Frontier	changed
-4020	Djenne-Djenno	city-state	Mande		1	Settled	Settled	
+4020	Djenne-Djenno	city-state	Mande		1	Settled	Frontier	changed
 4021	Dogon	tribe	Dogon		6	Settled	Frontier	changed
 4022	Samo	tribe	Mande		1	Settled	Frontier	changed
 4023	Bwa	tribe	Gur		2	Settled	Frontier	changed
@@ -3997,12 +3997,12 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4053	Lamtuna	tribe	Sanhaja Berber		17	Wilds	Frontier	changed
 4054	Massufa	tribe	Sanhaja Berber		15	Wilds	Frontier	changed
 4055	Gudala	tribe	Sanhaja Berber		1	Wilds	Frontier	changed
-4056	Akreijit	city-state	Tichitt Tradition (Mande?)		2	Wilds	Settled	changed
-4057	Dakhlet	city-state	Tichitt Tradition (Mande?)		3	Wilds	Settled	changed
+4056	Akreijit	city-state	Tichitt Tradition (Mande?)		2	Wilds	Frontier	changed
+4057	Dakhlet	city-state	Tichitt Tradition (Mande?)		3	Wilds	Frontier	changed
 4058	Tichitt	oasis	Tichitt Tradition (Mande?)		1	Wilds	Frontier	changed
 4059	Akjoujt	chiefdom	Saharan copper smiths		10	Wilds	Frontier	changed
-4060	Bou Khzama	city-state	Dhar Nema farmers (Mande?)		2	Wilds	Settled	changed
-4061	Mema	kingdom	Soninke		11	Wilds	Settled	changed
+4060	Bou Khzama	city-state	Dhar Nema farmers (Mande?)		2	Wilds	Frontier	changed
+4061	Mema	kingdom	Soninke		11	Wilds	Frontier	changed
 4062	Walata	oasis	Soninke		3	Wilds	Frontier	changed
 4063	Asante	tribe	Akan		2	Settled	Frontier	changed
 4064	Bono	tribe	Akan		4	Settled	Frontier	changed
@@ -4017,13 +4017,13 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4073	Egba	tribe	Yoruba		2	Settled	Frontier	changed
 4074	Ijebu	tribe	Yoruba		1	Settled	Frontier	changed
 4075	Oyo	tribe	Yoruba		3	Settled	Frontier	changed
-4076	Ife	city-state	Yoruba		1	Settled	Settled	
+4076	Ife	city-state	Yoruba		1	Settled	Frontier	changed
 4077	Ijesha	tribe	Yoruba		1	Settled	Frontier	changed
 4078	Ondo	tribe	Yoruba		2	Settled	Frontier	changed
 4079	Ilaje	tribe	Yoruba		1	Settled	Frontier	changed
 4080	Ekiti	tribe	Yoruba		1	Settled	Frontier	changed
 4081	Igbomina	tribe	Yoruba		2	Settled	Frontier	changed
-4082	Owo	city-state	Yoruba		1	Settled	Settled	
+4082	Owo	city-state	Yoruba		1	Settled	Frontier	changed
 4083	Akoko	tribe	Yoruba		1	Settled	Frontier	changed
 4084	Yagba	tribe	Yoruba		1	Settled	Frontier	changed
 4085	Bunu	tribe	Yoruba		1	Settled	Frontier	changed
@@ -4034,7 +4034,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4090	Urhobo	tribe	Edo		2	Settled	Frontier	changed
 4091	Isoko	tribe	Edo		1	Frontier	Frontier	
 4092	Ukwuani	tribe	Igboid		1	Frontier	Frontier	
-4093	Nri	city-state	Igbo		1	Settled	Settled	
+4093	Nri	city-state	Igbo		1	Settled	Frontier	changed
 4094	Awka	tribe	Igbo		1	Frontier	Frontier	
 4095	Nsukka	tribe	Igbo		1	Settled	Frontier	changed
 4096	Afikpo	tribe	Igbo		1	Settled	Frontier	changed
@@ -4077,7 +4077,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4133	Nanumba	tribe	Gur		1	Settled	Frontier	changed
 4134	Kusaal	tribe	Gur		1	Settled	Frontier	changed
 4135	Frafra	tribe	Gur		1	Settled	Frontier	changed
-4136	Builsa	tribe	Gur		1	Settled	Wilds	changed
+4136	Builsa	tribe	Gur		1	Settled	Frontier	changed
 4137	Kasena	tribe	Gur		3	Settled	Frontier	changed
 4138	Lyele	tribe	Gur		1	Settled	Frontier	changed
 4139	Sisala	tribe	Gur		1	Settled	Frontier	changed
@@ -4090,9 +4090,9 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4146	Gow	tribe	Songhay		4	Wilds	Frontier	changed
 4147	Hausa	tribe	Chadic		1	Settled	Frontier	changed
 4148	Gobir	tribe	Chadic		5	Settled	Frontier	changed
-4149	Katsina	city-state	Chadic		4	Settled	Settled	
-4150	Daura	city-state	Chadic		1	Settled	Settled	
-4151	Zazzau	city-state	Chadic		1	Settled	Settled	
+4149	Katsina	city-state	Chadic		4	Settled	Frontier	changed
+4150	Daura	city-state	Chadic		1	Settled	Frontier	changed
+4151	Zazzau	city-state	Chadic		1	Settled	Frontier	changed
 4152	Arawa	tribe	Chadic		4	Settled	Frontier	changed
 4153	Mawri	tribe	Chadic		5	Settled	Frontier	changed
 4154	Manga	tribe	Saharan		13	Wilds	Frontier	changed
@@ -4151,23 +4151,23 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4207	Viye	chiefdom	Umbundu Bantu		2	Settled	Frontier	changed
 4208	Civanda	chiefdom	Umbundu Bantu		2	Settled	Frontier	changed
 4209	Kakonda	chiefdom	Umbundu Bantu		3	Settled	Frontier	changed
-4210	Sele	tribe	Umbundu Bantu		1	Settled	Frontier	changed
+4210	Sele	tribe	Umbundu Bantu		1	Settled	Wilds	changed
 4211	Ukuma	chiefdom	Umbundu Bantu		1	Settled	Frontier	changed
-4212	Hanya	tribe	Umbundu Bantu		1	Settled	Frontier	changed
-4213	Ndombe	tribe	Bantu		4	Settled	Frontier	changed
-4214	Kisama	tribe	Mbundu Bantu		1	Settled	Frontier	changed
-4215	Libolo	tribe	Mbundu Bantu		8	Settled	Frontier	changed
+4212	Hanya	tribe	Umbundu Bantu		1	Settled	Wilds	changed
+4213	Ndombe	tribe	Bantu		4	Settled	Wilds	changed
+4214	Kisama	tribe	Mbundu Bantu		1	Settled	Wilds	changed
+4215	Libolo	tribe	Mbundu Bantu		8	Settled	Wilds	changed
 4216	Ndongo	chiefdom	Mbundu Bantu		8	Settled	Frontier	changed
 4217	Matamba	tribe	Mbundu Bantu		1	Settled	Frontier	changed
 4218	Mbondo	tribe	Mbundu Bantu		4	Settled	Frontier	changed
-4219	Songo	tribe	Bantu		7	Settled	Frontier	changed
-4220	Kasanje	tribe	Bantu		1	Settled	Frontier	changed
+4219	Songo	tribe	Bantu		7	Settled	Wilds	changed
+4220	Kasanje	tribe	Bantu		1	Settled	Wilds	changed
 4221	Dembo	tribe	Mbundu Bantu		4	Settled	Frontier	changed
-4222	Chokwe	tribe	Bantu		1	Settled	Frontier	changed
+4222	Chokwe	tribe	Bantu		1	Settled	Wilds	changed
 4223	Lunda	tribe	Bantu		23	Settled	Frontier	changed
-4224	Luvale	tribe	Bantu		13	Settled	Frontier	changed
-4225	Luchazi	tribe	Bantu		4	Frontier	Frontier	
-4226	Mbunda	tribe	Bantu		8	Frontier	Frontier	
+4224	Luvale	tribe	Bantu		13	Settled	Wilds	changed
+4225	Luchazi	tribe	Bantu		4	Frontier	Wilds	changed
+4226	Mbunda	tribe	Bantu		8	Frontier	Wilds	changed
 4227	Luimbe	tribe	Ngangela Bantu		2	Settled	Wilds	changed
 4228	Ngonjelo	tribe	Ngangela Bantu		4	Settled	Wilds	changed
 4229	Kongo	tribe	Kikongo Bantu		3	Settled	Frontier	changed
@@ -4188,7 +4188,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4244	Kamba	tribe	Kikongo Bantu		1	Settled	Frontier	changed
 4245	Yaka	tribe	Bantu		4	Settled	Frontier	changed
 4246	Suku	tribe	Bantu		1	Settled	Frontier	changed
-4247	Hungana	tribe	Bantu		1	Settled	Wilds	changed
+4247	Hungana	tribe	Bantu		1	Settled	Frontier	changed
 4248	Mbala	tribe	Bantu		3	Settled	Frontier	changed
 4249	Pende	tribe	Bantu		5	Settled	Frontier	changed
 4250	Kwese	tribe	Bantu		1	Settled	Frontier	changed
@@ -4232,7 +4232,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4288	Babongo	tribe	Bantu		2	Settled	Frontier	changed
 4289	Okanda	tribe	Bantu		2	Settled	Frontier	changed
 4290	Aka	tribe	Bantu		2	Frontier	Frontier	
-4291	Pomo	tribe	Bantu		3	Frontier	Wilds	changed
+4291	Pomo	tribe	Bantu		3	Frontier	Frontier	
 4292	Bomitaba	tribe	Bantu		3	Frontier	Frontier	
 4293	Mboshi	tribe	Bantu		2	Frontier	Frontier	
 4294	Kuyu	tribe	Bantu		2	Frontier	Frontier	
@@ -4247,9 +4247,9 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4303	Bolia	tribe	Bantu		2	Settled	Frontier	changed
 4304	Ekonda	tribe	Mongo Bantu		2	Frontier	Frontier	
 4305	Sengele	tribe	Bantu		5	Frontier	Frontier	
-4306	Ngandu	tribe	Mongo Bantu		4	Frontier	Wilds	changed
+4306	Ngandu	tribe	Mongo Bantu		4	Frontier	Frontier	
 4307	Mpama	tribe	Bantu		4	Settled	Frontier	changed
-4308	Twa	tribe	Bantu		2	Frontier	Wilds	changed
+4308	Twa	tribe	Bantu		2	Frontier	Frontier	
 4309	Batanga	tribe	Coastal Bantu		1	Frontier	Frontier	
 4310	Yassa	tribe	Coastal Bantu		1	Frontier	Frontier	
 4311	Mabi	tribe	Bantu A		1	Frontier	Frontier	
@@ -4266,7 +4266,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4322	Lemande	tribe	Bantu A		1	Settled	Frontier	changed
 4323	Bafia	tribe	Bantu A		1	Settled	Frontier	changed
 4324	Yambasa	tribe	Bantu A		1	Settled	Frontier	changed
-4325	Tikar	kingdom	Tikar		1	Settled	Settled	
+4325	Tikar	kingdom	Tikar		1	Settled	Frontier	changed
 4326	Nso	chiefdom	Grassfields		2	Settled	Frontier	changed
 4327	Bali	chiefdom	Grassfields		1	Settled	Frontier	changed
 4328	Aghem	chiefdom	Grassfields		1	Frontier	Frontier	
@@ -4280,7 +4280,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4336	Kwakum	tribe	Bantu A		1	Settled	Frontier	changed
 4337	Southwest Maka	tribe	Bantu A		1	Settled	Frontier	changed
 4338	Mpompo	tribe	Bantu A		2	Settled	Frontier	changed
-4339	Bangando	tribe	Bantu A		1	Frontier	Wilds	changed
+4339	Bangando	tribe	Bantu A		1	Frontier	Frontier	
 4340	Bomwali	tribe	Bantu A		1	Frontier	Frontier	
 4341	Mpiemo	tribe	Bantu A		1	Settled	Frontier	changed
 4342	Mbenzele	tribe	Pygmy forest		3	Frontier	Wilds	changed
@@ -4308,9 +4308,9 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4364	Tupuri	tribe	Adamawa		2	Settled	Frontier	changed
 4365	Masa	tribe	Chadic		2	Settled	Frontier	changed
 4366	Musgum	tribe	Chadic		2	Settled	Frontier	changed
-4367	Mundang	kingdom	Adamawa		2	Settled	Settled	
+4367	Mundang	kingdom	Adamawa		2	Settled	Frontier	changed
 4368	Kuka	tribe	Chadic		4	Settled	Frontier	changed
-4369	Baguirmi	kingdom	Chadic		1	Settled	Settled	
+4369	Baguirmi	kingdom	Chadic		1	Settled	Frontier	changed
 4370	Mogum	tribe	Chadic		5	Settled	Frontier	changed
 4371	Kenga	tribe	Chadic		2	Settled	Frontier	changed
 4372	Dangaleat	tribe	Chadic		1	Settled	Frontier	changed
@@ -4328,9 +4328,9 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4384	Gude	tribe	Chadic		1	Settled	Frontier	changed
 4385	Kapsiki	tribe	Chadic		1	Settled	Frontier	changed
 4386	Giziga	tribe	Chadic		1	Settled	Frontier	changed
-4387	Wandala	kingdom	Chadic		2	Settled	Settled	
+4387	Wandala	kingdom	Chadic		2	Settled	Frontier	changed
 4388	Glavda	tribe	Chadic		1	Settled	Frontier	changed
-4389	Kanuri	kingdom	Saharan		1	Settled	Settled	
+4389	Kanuri	kingdom	Saharan		1	Settled	Frontier	changed
 4390	Bade	tribe	Chadic		22	Wilds	Frontier	changed
 4391	Ngizim	tribe	Chadic		3	Settled	Frontier	changed
 4392	Karekare	tribe	Chadic		6	Settled	Frontier	changed
@@ -4338,21 +4338,21 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4394	Ngamo	tribe	Chadic		1	Settled	Frontier	changed
 4395	Tangale	tribe	Chadic		2	Settled	Frontier	changed
 4396	Waja	tribe	Adamawa		2	Settled	Frontier	changed
-4397	Bachama	kingdom	Chadic		2	Settled	Settled	
+4397	Bachama	kingdom	Chadic		2	Settled	Frontier	changed
 4398	Bata	tribe	Chadic		1	Settled	Frontier	changed
 4399	Mumuye	tribe	Adamawa		2	Settled	Frontier	changed
 4400	Chamba	tribe	Adamawa		2	Settled	Frontier	changed
-4401	Jukun	kingdom	Jukunoid		3	Settled	Settled	
+4401	Jukun	kingdom	Jukunoid		3	Settled	Frontier	changed
 4402	Kuteb	tribe	Jukunoid		1	Settled	Frontier	changed
 4403	Tarok	tribe	Plateau		4	Settled	Frontier	changed
 4404	Zaar	tribe	Chadic		5	Settled	Frontier	changed
 4405	Dowayo	tribe	Adamawa		2	Settled	Frontier	changed
 4406	Koma	tribe	Adamawa		2	Settled	Frontier	changed
 4407	Vere	tribe	Adamawa		1	Settled	Frontier	changed
-4408	Sao	city-state	Chadic		1	Settled	Settled	
-4409	Makary	city-state	Kotoko		2	Settled	Settled	
-4410	Goulfei	city-state	Kotoko		2	Settled	Settled	
-4411	Afade	city-state	Kotoko		1	Settled	Settled	
+4408	Sao	city-state	Chadic		1	Settled	Frontier	changed
+4409	Makary	city-state	Kotoko		2	Settled	Frontier	changed
+4410	Goulfei	city-state	Kotoko		2	Settled	Frontier	changed
+4411	Afade	city-state	Kotoko		1	Settled	Frontier	changed
 4412	Gajiganna	tribe	Chadic		1	Settled	Frontier	changed
 4413	Kanembu	tribe	Saharan		1	Wilds	Frontier	changed
 4414	Teda	tribe	Tubu Saharan		11	Wilds	Frontier	changed
@@ -4414,47 +4414,47 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4470	Kxauein	tribe	Kx'a San		1	Frontier	Wilds	changed
 4471	Hietshware	tribe	Khoe San		5	Settled	Wilds	changed
 4472	Kwengo	tribe	Khoe San		8	Frontier	Wilds	changed
-4473	Ila	tribe	Bantu		4	Settled	Frontier	changed
-4474	Tonga	tribe	Bantu		5	Settled	Frontier	changed
-4475	Leya	tribe	Bantu		4	Frontier	Frontier	
-4476	Toka	tribe	Bantu		2	Settled	Frontier	changed
-4477	Lenje	tribe	Bantu		7	Settled	Frontier	changed
-4478	Soli	tribe	Bantu		4	Settled	Frontier	changed
-4479	Sala	tribe	Bantu		5	Settled	Frontier	changed
-4480	Subia	tribe	Bantu		2	Settled	Frontier	changed
-4481	Totela	tribe	Bantu		2	Settled	Frontier	changed
-4482	Fwe	tribe	Bantu		4	Frontier	Frontier	
-4483	Mbukushu	tribe	Bantu		4	Frontier	Frontier	
-4484	Yeyi	tribe	Bantu		5	Frontier	Frontier	
-4485	Gciriku	tribe	Bantu		4	Frontier	Frontier	
-4486	Kwangali	tribe	Bantu		5	Frontier	Frontier	
-4487	Mbwela	tribe	Bantu		3	Frontier	Frontier	
-4488	Nkangala	tribe	Bantu		1	Frontier	Frontier	
-4489	Luyana	tribe	Bantu		6	Settled	Frontier	changed
-4490	Nkoya	tribe	Bantu		5	Frontier	Frontier	
-4491	Simaa	tribe	Bantu		3	Frontier	Frontier	
-4492	Mashi	tribe	Bantu		2	Settled	Frontier	changed
-4493	Makoma	tribe	Bantu		1	Settled	Frontier	changed
-4494	Nyengo	tribe	Bantu		2	Frontier	Frontier	
-4495	Kalanga	tribe	Bantu		7	Settled	Frontier	changed
-4496	Nambya	tribe	Bantu		4	Frontier	Frontier	
-4497	Korekore	tribe	Bantu		14	Settled	Frontier	changed
-4498	Zezuru	tribe	Bantu		7	Settled	Frontier	changed
-4499	Karanga	tribe	Bantu		10	Settled	Frontier	changed
-4500	Manyika	tribe	Bantu		4	Settled	Frontier	changed
-4501	Ndau	tribe	Bantu		8	Frontier	Frontier	
-4502	Tavara	tribe	Bantu		4	Settled	Frontier	changed
-4503	Barwe	tribe	Bantu		4	Settled	Frontier	changed
-4504	Nyungwe	tribe	Bantu		3	Settled	Frontier	changed
-4505	Sena	tribe	Bantu		9	Settled	Frontier	changed
-4506	Chuwabo	tribe	Bantu		5	Settled	Frontier	changed
-4507	Lomwe	tribe	Bantu		5	Settled	Frontier	changed
-4508	Mang'anja	tribe	Bantu		3	Settled	Frontier	changed
-4509	Chewa	tribe	Bantu		9	Settled	Frontier	changed
-4510	Tswa	tribe	Bantu		16	Settled	Frontier	changed
-4511	Hlengwe	tribe	Bantu		10	Settled	Frontier	changed
-4512	Lemba	tribe	Bantu		2	Settled	Frontier	changed
-4513	Venda	tribe	Bantu		6	Settled	Frontier	changed
+4473	Ila	tribe	Bantu		4	Settled	Wilds	changed
+4474	Tonga	tribe	Bantu		5	Settled	Wilds	changed
+4475	Leya	tribe	Bantu		4	Frontier	Wilds	changed
+4476	Toka	tribe	Bantu		2	Settled	Wilds	changed
+4477	Lenje	tribe	Bantu		7	Settled	Wilds	changed
+4478	Soli	tribe	Bantu		4	Settled	Wilds	changed
+4479	Sala	tribe	Bantu		5	Settled	Wilds	changed
+4480	Subia	tribe	Bantu		2	Settled	Wilds	changed
+4481	Totela	tribe	Bantu		2	Settled	Wilds	changed
+4482	Fwe	tribe	Bantu		4	Frontier	Wilds	changed
+4483	Mbukushu	tribe	Bantu		4	Frontier	Wilds	changed
+4484	Yeyi	tribe	Bantu		5	Frontier	Wilds	changed
+4485	Gciriku	tribe	Bantu		4	Frontier	Wilds	changed
+4486	Kwangali	tribe	Bantu		5	Frontier	Wilds	changed
+4487	Mbwela	tribe	Bantu		3	Frontier	Wilds	changed
+4488	Nkangala	tribe	Bantu		1	Frontier	Wilds	changed
+4489	Luyana	tribe	Bantu		6	Settled	Wilds	changed
+4490	Nkoya	tribe	Bantu		5	Frontier	Wilds	changed
+4491	Simaa	tribe	Bantu		3	Frontier	Wilds	changed
+4492	Mashi	tribe	Bantu		2	Settled	Wilds	changed
+4493	Makoma	tribe	Bantu		1	Settled	Wilds	changed
+4494	Nyengo	tribe	Bantu		2	Frontier	Wilds	changed
+4495	Kalanga	tribe	Bantu		7	Settled	Wilds	changed
+4496	Nambya	tribe	Bantu		4	Frontier	Wilds	changed
+4497	Korekore	tribe	Bantu		14	Settled	Wilds	changed
+4498	Zezuru	tribe	Bantu		7	Settled	Wilds	changed
+4499	Karanga	tribe	Bantu		10	Settled	Wilds	changed
+4500	Manyika	tribe	Bantu		4	Settled	Wilds	changed
+4501	Ndau	tribe	Bantu		8	Frontier	Wilds	changed
+4502	Tavara	tribe	Bantu		4	Settled	Wilds	changed
+4503	Barwe	tribe	Bantu		4	Settled	Wilds	changed
+4504	Nyungwe	tribe	Bantu		3	Settled	Wilds	changed
+4505	Sena	tribe	Bantu		9	Settled	Wilds	changed
+4506	Chuwabo	tribe	Bantu		5	Settled	Wilds	changed
+4507	Lomwe	tribe	Bantu		5	Settled	Wilds	changed
+4508	Mang'anja	tribe	Bantu		3	Settled	Wilds	changed
+4509	Chewa	tribe	Bantu		9	Settled	Wilds	changed
+4510	Tswa	tribe	Bantu		16	Settled	Wilds	changed
+4511	Hlengwe	tribe	Bantu		10	Settled	Wilds	changed
+4512	Lemba	tribe	Bantu		2	Settled	Wilds	changed
+4513	Venda	tribe	Bantu		6	Settled	Wilds	changed
 4514	Luba	chiefdom	Bantu (Luba)		13	Settled	Frontier	changed
 4515	Songye	tribe	Bantu (Songe)		6	Settled	Frontier	changed
 4516	Kete	tribe	Bantu (Kete)		2	Settled	Frontier	changed
@@ -4464,18 +4464,18 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4520	Pyaang	tribe	Bantu (Kuba)		1	Settled	Frontier	changed
 4521	Lulua	tribe	Bantu (Luba-Kasai)		3	Settled	Frontier	changed
 4522	Ruund	tribe	Bantu (Lunda)		6	Settled	Frontier	changed
-4523	Ndembu	tribe	Bantu (Lunda)		3	Frontier	Frontier	
-4524	Kaonde	tribe	Bantu (Kaonde)		7	Frontier	Frontier	
-4525	Lukolwe	tribe	Bantu (Luyana)		4	Frontier	Frontier	
-4526	Sanga	tribe	Bantu (Sanga)		1	Settled	Frontier	changed
-4527	Lomotwa	tribe	Bantu (Lomotwa)		13	Settled	Frontier	changed
+4523	Ndembu	tribe	Bantu (Lunda)		3	Frontier	Wilds	changed
+4524	Kaonde	tribe	Bantu (Kaonde)		7	Frontier	Wilds	changed
+4525	Lukolwe	tribe	Bantu (Luyana)		4	Frontier	Wilds	changed
+4526	Sanga	tribe	Bantu (Sanga)		1	Settled	Wilds	changed
+4527	Lomotwa	tribe	Bantu (Lomotwa)		13	Settled	Wilds	changed
 4528	Hemba	tribe	Bantu (Hemba)		7	Settled	Frontier	changed
 4529	Bangubangu	tribe	Bantu (Bangubangu)		9	Settled	Frontier	changed
 4530	Kanyok	tribe	Bantu (Luba-Kasai)		7	Settled	Frontier	changed
 4531	Kalundwe	tribe	Bantu (Luba-Kasai)		7	Settled	Frontier	changed
 4532	Binji	tribe	Bantu (Binji)		1	Settled	Frontier	changed
 4533	Lwalwa	tribe	Bantu (Lwalwa)		7	Settled	Frontier	changed
-4534	Salampasu	tribe	Bantu (Salampasu)		8	Settled	Frontier	changed
+4534	Salampasu	tribe	Bantu (Salampasu)		8	Settled	Wilds	changed
 4535	Songomeno	tribe	Bantu (Songomeno)		4	Settled	Frontier	changed
 4536	Ndengese	tribe	Bantu (Ndengese)		2	Frontier	Frontier	
 4537	Tetela	tribe	Bantu (Tetela)		5	Settled	Frontier	changed
@@ -4495,9 +4495,9 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4551	Kanu	tribe	Bantu (Kanu)		2	Settled	Frontier	changed
 4552	Topoke	tribe	Bantu (Topoke)		2	Frontier	Frontier	
 4553	Cwa	tribe	Forest foragers (Twa)		3	Frontier	Wilds	changed
-4554	Kunda	tribe	Bantu (Kunda)		2	Settled	Frontier	changed
+4554	Kunda	tribe	Bantu (Kunda)		2	Settled	Wilds	changed
 4555	Zela	tribe	Bantu (Bemba)		10	Settled	Frontier	changed
-4556	Lwena	tribe	Bantu (Luvale)		4	Frontier	Frontier	
+4556	Lwena	tribe	Bantu (Luvale)		4	Frontier	Wilds	changed
 4557	Haya	tribe	Bantu (Haya)		2	Settled	Frontier	changed
 4558	Hangaza	tribe	Bantu (Great Lakes)		1	Settled	Frontier	changed
 4559	Zinza	tribe	Bantu (Great Lakes)		1	Settled	Frontier	changed
@@ -4537,7 +4537,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4593	Mbuti	tribe	Pygmy (Mbuti)		4	Settled	Wilds	changed
 4594	Kiga	tribe	Bantu (Kiga)		1	Settled	Frontier	changed
 4595	Konjo	tribe	Bantu (Konjo)		1	Settled	Frontier	changed
-4596	Nkore	kingdom	Bantu (Nkore)		2	Settled	Settled	
+4596	Nkore	kingdom	Bantu (Nkore)		2	Settled	Frontier	changed
 4597	Ganda	tribe	Bantu (Luganda)		3	Frontier	Frontier	
 4598	Gusii	tribe	Bantu (Gusii)		1	Frontier	Frontier	
 4599	Suba	tribe	Bantu (Suba)		2	Frontier	Frontier	
@@ -4566,35 +4566,35 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4622	Hehe	tribe	Bantu (Hehe)		8	Settled	Frontier	changed
 4623	Bena	tribe	Bantu (Bena)		2	Settled	Frontier	changed
 4624	Kinga	tribe	Bantu (Kinga)		1	Settled	Frontier	changed
-4625	Pangwa	tribe	Bantu (Pangwa)		1	Settled	Frontier	changed
-4626	Manda	tribe	Bantu (Manda)		2	Settled	Frontier	changed
-4627	Matengo	tribe	Bantu (Matengo)		1	Settled	Frontier	changed
-4628	Ndendeule	tribe	Bantu (Ndendeule)		1	Settled	Frontier	changed
+4625	Pangwa	tribe	Bantu (Pangwa)		1	Settled	Wilds	changed
+4626	Manda	tribe	Bantu (Manda)		2	Settled	Wilds	changed
+4627	Matengo	tribe	Bantu (Matengo)		1	Settled	Wilds	changed
+4628	Ndendeule	tribe	Bantu (Ndendeule)		1	Settled	Wilds	changed
 4629	Pogoro	tribe	Bantu (Pogoro)		1	Settled	Frontier	changed
 4630	Ndamba	tribe	Bantu (Ndamba)		2	Settled	Frontier	changed
-4631	Ngindo	tribe	Bantu (Ngindo)		13	Settled	Frontier	changed
-4632	Makhuwa	tribe	Bantu (Makhuwa)		16	Settled	Frontier	changed
-4633	Nyanja	tribe	Bantu (Nyanja)		4	Settled	Frontier	changed
-4634	Tumbuka	tribe	Bantu (Tumbuka)		1	Settled	Frontier	changed
-4635	Henga	tribe	Bantu (Tumbuka)		1	Settled	Frontier	changed
+4631	Ngindo	tribe	Bantu (Ngindo)		13	Settled	Wilds	changed
+4632	Makhuwa	tribe	Bantu (Makhuwa)		16	Settled	Wilds	changed
+4633	Nyanja	tribe	Bantu (Nyanja)		4	Settled	Wilds	changed
+4634	Tumbuka	tribe	Bantu (Tumbuka)		1	Settled	Wilds	changed
+4635	Henga	tribe	Bantu (Tumbuka)		1	Settled	Wilds	changed
 4636	Ngonde	tribe	Bantu (Nyakyusa-Ngonde)		1	Settled	Frontier	changed
 4637	Nyakyusa	tribe	Bantu (Nyakyusa-Ngonde)		1	Settled	Frontier	changed
-4638	Safwa	tribe	Bantu (Safwa)		1	Settled	Frontier	changed
-4639	Lambya	tribe	Bantu (Lambya)		3	Settled	Frontier	changed
+4638	Safwa	tribe	Bantu (Safwa)		1	Settled	Wilds	changed
+4639	Lambya	tribe	Bantu (Lambya)		3	Settled	Wilds	changed
 4640	Nyiha	tribe	Bantu (Nyiha)		3	Settled	Frontier	changed
-4641	Namwanga	tribe	Bantu (Namwanga)		6	Settled	Frontier	changed
-4642	Iwa	tribe	Bantu (Iwa)		1	Settled	Frontier	changed
+4641	Namwanga	tribe	Bantu (Namwanga)		6	Settled	Wilds	changed
+4642	Iwa	tribe	Bantu (Iwa)		1	Settled	Wilds	changed
 4643	Mambwe	tribe	Bantu (Mambwe)		2	Settled	Frontier	changed
 4644	Lungu	tribe	Bantu (Lungu)		1	Settled	Frontier	changed
 4645	Tabwa	tribe	Bantu (Tabwa)		1	Settled	Frontier	changed
-4646	Bemba	tribe	Bantu (Bemba)		1	Settled	Frontier	changed
-4647	Senga	tribe	Bantu (Senga)		3	Settled	Frontier	changed
-4648	Nsenga	tribe	Bantu (Nsenga)		5	Settled	Frontier	changed
-4649	Lala	tribe	Bantu (Lala)		8	Settled	Frontier	changed
-4650	Ambo	tribe	Bantu (Ambo)		1	Frontier	Frontier	
-4651	Unga	tribe	Bantu (Unga)		1	Settled	Frontier	changed
-4652	Aushi	tribe	Bantu (Aushi)		1	Settled	Frontier	changed
-4653	Shila	tribe	Bantu (Shila)		9	Settled	Frontier	changed
+4646	Bemba	tribe	Bantu (Bemba)		1	Settled	Wilds	changed
+4647	Senga	tribe	Bantu (Senga)		3	Settled	Wilds	changed
+4648	Nsenga	tribe	Bantu (Nsenga)		5	Settled	Wilds	changed
+4649	Lala	tribe	Bantu (Lala)		8	Settled	Wilds	changed
+4650	Ambo	tribe	Bantu (Ambo)		1	Frontier	Wilds	changed
+4651	Unga	tribe	Bantu (Unga)		1	Settled	Wilds	changed
+4652	Aushi	tribe	Bantu (Aushi)		1	Settled	Wilds	changed
+4653	Shila	tribe	Bantu (Shila)		9	Settled	Wilds	changed
 4654	Bwile	tribe	Bantu (Bwile)		4	Settled	Frontier	changed
 4655	Taita	tribe	Bantu (Taita)		2	Settled	Frontier	changed
 4656	Waata	tribe	Cushitic (Waata)		1	Settled	Frontier	changed
@@ -4622,7 +4622,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4678	Bangba	tribe	Ngbaka		4	Frontier	Frontier	
 4679	Mayogo	tribe	Ngbaka		1	Frontier	Frontier	
 4680	Babwa	tribe	Bantu		7	Frontier	Frontier	
-4681	Mangbetu	kingdom	Central Sudanic		2	Frontier	Settled	changed
+4681	Mangbetu	kingdom	Central Sudanic		2	Frontier	Frontier	
 4682	Medje	tribe	Mangbetu		1	Frontier	Frontier	
 4683	Popoi	tribe	Mangbetu		2	Frontier	Frontier	
 4684	Lombi	tribe	Mangbetu		1	Frontier	Frontier	
@@ -4633,7 +4633,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4689	Asua	tribe	Central Sudanic		1	Frontier	Frontier	
 4690	Sua	tribe	Central Sudanic		9	Frontier	Frontier	
 4691	Tua	tribe	Twa		7	Frontier	Wilds	changed
-4692	Bongandu	tribe	Mongo		7	Frontier	Wilds	changed
+4692	Bongandu	tribe	Mongo		7	Frontier	Frontier	
 4693	Ngombe	tribe	Ngombe		2	Frontier	Frontier	
 4694	Budja	tribe	Bantu		5	Settled	Frontier	changed
 4695	Ngelema	tribe	Bantu		5	Settled	Frontier	changed
@@ -4665,7 +4665,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4721	Shatt	tribe	Eastern Sudanic		1	Settled	Frontier	changed
 4722	Birgid	tribe	Eastern Sudanic		8	Wilds	Frontier	changed
 4723	Beigo	tribe	Eastern Sudanic		8	Settled	Frontier	changed
-4724	Fur	kingdom	Fur		5	Wilds	Settled	changed
+4724	Fur	kingdom	Fur		5	Wilds	Frontier	changed
 4725	Lendu	tribe	Central Sudanic		3	Frontier	Frontier	
 4726	Ndo	tribe	Central Sudanic		1	Settled	Frontier	changed
 4727	Okebo	tribe	Central Sudanic		1	Settled	Frontier	changed
@@ -4817,7 +4817,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 4873	Phazanii	tribe	Libyan		11	Wilds	Frontier	changed
 4874	Garama	city-state	Garamantian		2	Wilds	Settled	changed
 4875	Acrauceles	tribe	Libyan		1	Wilds	Frontier	changed
-4876	Troglodytes	tribe	Teda		12	Wilds	Wilds	
+4876	Troglodytes	tribe	Teda		12	Wilds	Frontier	changed
 4877	Philaeni	city-state	Punic		1	Wilds	Settled	changed
 4878	Zranka	tribe	Eastern Iranian		5	Wilds	Frontier	changed
 4879	Phrada	city-state	Eastern Iranian		4	Wilds	Settled	changed
@@ -5013,7 +5013,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 5069	Manas	nomads	Saka (Eastern Iranian)	Manas river camp	5	Settled	Frontier	changed
 5070	Alakol	nomads	Saka (Eastern Iranian)	Alakol lake camp	8	Settled	Frontier	changed
 5071	Magan	culture	Old Omani (Semitic/Arabian)	Samad	1	Frontier	Frontier	
-5072	Sambaqui	culture	unknown coastal foragers	Itanhaem shell mounds	1	Settled	Frontier	changed
+5072	Sambaqui	culture	unknown coastal foragers	Itanhaem shell mounds	1	Settled	Wilds	changed
 5073	Sami	tribe	Sami (Uralic)	Rybachy shore	1	Wilds	Wilds	
 5074	Kindigir	tribe	Kindigir (Tungusic)	Shilka headwater camp	32	Frontier	Wilds	changed
 5075	Hori	tribe	Hori (Mongolic)	Ingoda valley	7	Frontier	Frontier	
@@ -5025,7 +5025,7 @@ tag	name	type	culture	seat	hexes	was mostly	now
 5081	Wuhuan	tribe	Wuhuan (Mongolic)	Wuhuan mountain	12	Settled	Frontier	changed
 5082	Xiajiadian	culture	Xiajiadian (Altaic substrate)	Liaoxi hill sites	12	Settled	Frontier	changed
 5083	Kumoxi	tribe	Kumoxi (Mongolic)	Horqin steppe camp	9	Settled	Wilds	changed
-5084	Buyeo	tribe	Buyeo (Tungusic)	Nen plain camp	13	Settled	Wilds	changed
+5084	Buyeo	tribe	Buyeo (Tungusic)	Nen plain camp	13	Settled	Frontier	changed
 5085	Orochon	tribe	Orochon (Tungusic)	Zeya valley camp	12	Frontier	Wilds	changed
 5086	Evenk	tribe	Evenk (Tungusic)	Selemdzha forest camp	12	Frontier	Wilds	changed
 5087	Negidal	tribe	Negidal (Tungusic)	Lower Amur bank camp	9	Frontier	Wilds	changed
@@ -5101,8 +5101,8 @@ tag	name	type	culture	seat	hexes	was mostly	now
 5157	Nemnyar	clan	Nemnyar Tungusic-ancestral hunters	Lena-Vitim confluence camps	24	Frontier	Wilds	changed
 5158	Chapogir	clan	Chapogir Tungusic-ancestral hunters	Chapo-Ologo camps on the Vitim	25	Frontier	Wilds	changed
 5159	Tungir	clan	Tungir Tungusic-ancestral hunters	Tungir and Olekma camps	16	Frontier	Wilds	changed
-5160	Mwani	tribe	Mwani (Bantu, Swahili-related)	Quirimbas coast	10	Settled	Frontier	changed
-5161	Koti	tribe	Koti (Bantu)	Angoche coast	4	Settled	Frontier	changed
+5160	Mwani	tribe	Mwani (Bantu, Swahili-related)	Quirimbas coast	10	Settled	Wilds	changed
+5161	Koti	tribe	Koti (Bantu)	Angoche coast	4	Settled	Wilds	changed
 5162	Tuhe	tribe	Tuhe (Liaoxi northern people)	Tuhe (Jinzhou)	5	Settled	Frontier	changed
 5163	Taokas	tribe	Austronesian (Formosan, Taokas)	Pourompon	2	Settled	Frontier	changed
 5164	Dyakovo	tribe	Early Finnic and Baltic hillfort peoples (Dyakovo culture)	Dyakovo hillfort	13	Settled	Frontier	changed

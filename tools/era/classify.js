@@ -12,10 +12,10 @@ const FORAGER = new RegExp([
   // words
   "hunter", "forager", "fishers", "\\bcamps?\\b", "Archaic", "LSA\\b", "Shellmidden", "Sambaqui", "bison",
   // north Asia and the Arctic
-  "Yukaghir", "Odul", "Samoyed", "Selkup", "Nenets", "Enets", "Ngan", "Tungus", "Evenk", "Yenisei", "\\bKet\\b", "Khanty", "Mansi", "Ob-Ugric", "Saami", "\\bSami\\b",
-  "Chukot", "Koryak", "Itelmen", "Eskimo", "Inuit", "Dorset", "Thule", "Aleut", "Paleo-Siberian", "Palaeo-European", "North Asian", "Amuric", "Nivkh", "Ymyyakhtakh",
+  "Yukaghir", "Odul", "Samoyed", "Selkup", "Nenets", "Enets", "\\bNgan", "Tungus", "Evenk", "Yenisei", "\\bKet\\b", "Khanty", "Mansi", "Ob-Ugric", "Saami", "\\bSami\\b",
+  "Chukot", "Koryak", "Itelmen", "Eskimo", "Inuit", "Dorset", "Aleut", "Paleo-Siberian", "Palaeo-European", "North Asian", "Amuric", "Nivkh", "Ymyyakhtakh",
   "Ust-Mil", "Belkachi", "Syalakh", "Glazkovo", "Negidal", "Oroch", "Nanai", "Birar", "Udege", "Ainu", "Epi-Jomon", "^Jomon", "Susuya", "Okhotsk", "Sushen", "Yilou", "Kulai",
-  "Pre-Nenets", "Hasava", "Ngarka", "Nadym", "\\bPur\\b", "Tsepan", "Kindigir", "Dingling",
+  "Pre-Nenets", "Hasava", "Ngarka", "Nadym", "\\bPur\\b", "Tsepan", "Kindigir",
   // Australia, south and south-east Asia
   "Aboriginal", "Tasmanian", "Negrito", "Andaman", "Vedda", "Indigenous forest peoples",
   // Africa
@@ -27,21 +27,31 @@ const FORAGER = new RegExp([
   "Waikuri", "\\bSeri\\b", "Yokuts", "Miwok", "Wintu", "Maidu", "Takic", "Achomawi", "Pomo", "Chumash", "Kiowa", "Tanoan", "Chichimeca", "Zacateco", "Toboso", "Concho", "Pisone",
   "Janambre", "Jumano", "Mayran", "Xixime", "Woodland", "Salishan", "Beothuk",
   // South America
-  "Tehuelche", "Chonan", "Aonikenk", "Kawesqar", "Chono", "Yaghan", "Selk'nam", "Pampa", "Puelche", "Gununa", "Charr[uú]a", "Chaná", "Querand", "Guaicuru", "Mataguay", "Zamuco",
-  "Enlhet", "Mascoy", "Lule-Vilela", "Huarpe", "Comeching", "Sanavir", "Tonocot", "\\bJ[eê]\\b", "Tapuya", "Kayapo", "Timbira", "Botocudo", "Maxakal", "Kamakã", "Kariri", "Bororo",
+  "Tehuelche", "Chonan", "Aonikenk", "Kawesqar", "Chono", "Yaghan", "Selk'nam", "\\bPampa", "Puelche", "Gununa", "Charr[uú]a", "Chaná", "Querand", "Guaicuru", "Mataguay", "Zamuco",
+  "Enlhet", "Mascoy", "Lule-Vilela", "Huarpe", "Comeching", "Sanavir", "Tonocot", "(?<![A-Za-z])J[eêé](?![a-zà-ÿ])", "Tapuya", "Kayapo", "Timbira", "Botocudo", "Maxakal", "Kamakã", "Kariri", "Bororo",
   "Karaja", "Xukuru", "Tarairiu", "Payayá", "Ofaié", "Nambikwar", "Nadahup", "Yanomam", "\\bMura\\b", "Guahib", "Yaruro", "Chango", "\\bUru\\b", "Huilliche", "Mapudungun", "Picunche",
   "Warao", "Matanawi", "Katukinan", "Harakmbut",
 ].join("|"), "i");
 // ... except these, who farmed, herded or lived in ranked villages (checked first)
-const NOTFORAGER = /Yayoi|Adena|mound|Kwakwala|Wakashan|Nuu-chah-nulth|Tsimshian|Coast Salish|Chinook|Haida|Tlingit|Basketmaker|Early Agricultural|O'odham|pastoral|farmers|hillfort|metallurg|Sanhaja|Sandawe-speaking farmers/i;
+const NOTFORAGER = /^Germanic(?!.*hunt)|^Finnic|^Andean|^Ecuadorian|Buyeo|Okjeo|Yemaek|Poltse|Dingling|Yayoi|Adena|mound|Kwakwala|Wakashan|Nuu-chah-nulth|Tsimshian|Coast Salish|Chinook|Haida|Tlingit|Basketmaker|Early Agricultural|O'odham|pastoral|farmers|hillfort|metallurg|Sanhaja|Sandawe-speaking farmers/i;
 const tierOf = r => { const [, name, type, cult, seat] = r, s = cult + " | " + seat;
+  // names of later centuries used for 320 BC lands: no such kingdom or town existed yet, the people there were villagers or foragers
+  if (SETTLED.has(type) && /Wichita|Iroquoian/.test(cult)) return 2;   // Quivira, Hochelaga ...: 16th century AD names
+  if (SETTLED.has(type) && /Tiwa|Towa|Tewa|Keres|Tano|Tompiro|Zuni|Hopi|Totorame|Nahuatl|Tecual|Colimotl|Yoruba|Igbo|Chadic|Kotoko|Mande|Tichitt|Dhar Nema|Aymaran|Soninke|Tikar|Adamawa|^Saharan|Jukunoid|Bantu|Central Sudani|^Fur/.test(cult)) return 1;   // pueblos, West Mexico, West and Central African towns and kingdoms of later ages
   if (SETTLED.has(type)) return 0;
   if (FRONTIER.has(type)) return 1;
   if (type === "clan") return 2;
-  if (NOTFORAGER.test(s)) return 1;
-  return FORAGER.test(s) || FORAGER.test(name) ? 2 : 1; };
+  if (NOTFORAGER.test(cult)) return 1;
+  if (/Bantu/.test(cult) && +r[9] <= -10) return 2;   // Bantu farmers had not yet come south of about 10 S in 320 BC: still forager country
+  return FORAGER.test(cult) || /\bcamps?\b/i.test(seat) ? 2 : 1; };
 // single states judged by hand (name -> tier), on top of the rules. Add here, with the reason.
 const HAND = {
+  "Thule": 2,            // Iceland: nobody lived there in 320 BC (the name is from Pytheas)
+  "Jumano": 2,           // Texas plains hunters
+  "Iyrcae": 2,           // Herodotus: live only by hunting
+  "Thyssagetae": 2,      // Herodotus: live by hunting
+  "Ati": 2, "Ata": 2,    // Negrito foragers of the Visayas
+  "Humaitá": 2, "Humaita": 2, "Umbu": 2, "Lagoa Santa": 2, "Sapucaí": 2,   // Brazilian forager stone-tool traditions
 };
 const out = {}, clash = [], N = ["Settled", "Frontier", "Wilds"], sum = [[0, 0], [0, 0], [0, 0]], review = [];
 for (const r of rows) { const name = r[1], t = name in HAND ? HAND[name] : tierOf(r); if (name in out && out[name] !== t) clash.push(name); out[name] = t;
