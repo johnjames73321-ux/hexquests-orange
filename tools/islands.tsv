@@ -10,16 +10,23 @@ France / Society Islands	1	1	73	556	ok
 French Polynesia / Tuamotu	1	1	78	537	ok
 France / Marquesas	1	1	92	468	ok
 France / Marquesas	1	1	97	487	ok
+Chile / Easter Island	1	1	188	612	ok
+Ecuador / Galápagos	1	1	226	456	ok
+Ecuador / Galápagos	1	1	236	462	ok
+Ecuador / Galápagos	1	1	246	456	ok
 Belize / Corozal District	35	55	393	312	ok
 Greenland / Kujalleq	1	1	375	10	ok
 Bahamas / North Abaco	3	3	404	273	ok
 United States of America / Alabama	3	3	402	290	ok
 Jamaica / Manchester	4	4	404	340	ok
 Bahamas / Cat Island	6	6	419	292	ok
+Falkland Is. / Wóos	1	1	418	795	ok
 Haiti / Sud-Est	21	35	449	336	ok
+Falkland Is. / Kipa	1	1	428	795	ok
 Cuba / Villa Clara	3	3	434	307	ok
 Cuba / Camagüey	1	1	438	318	ok
 Venezuela / Bolívar	1	1	438	390	ok
+Falkland Is. / Stanley	1	1	442	792	ok
 Cuba / Camagüey	1	1	447	312	ok
 Trinidad and Tobago / Chaguanas	1	1	447	396	ok
 Trinidad and Tobago / Port of Spain	1	1	471	404	ok
@@ -29,6 +36,7 @@ St. Kitts and Nevis / Saint George Basseterre	1	1	481	354	ok
 Barbados / Saint Philip	1	1	486	396	ok
 United States of America / Ohio	2	2	498	178	ok
 Puerto Rico / Fajardo	2	2	500	340	ok
+United Kingdom / South Georgia	1	1	519	803	ok
 Portugal / Azores	2	2	534	271	ok
 Portugal / Azores	5	5	550	285	ok
 Greenland / Sermersooq	131	166	582	26	ok
@@ -48,6 +56,7 @@ Iceland / East	32	44	646	61	ok
 Norway / Jan Mayen	2	2	675	3	ok
 United Kingdom / Ascension	1	1	687	578	ok
 United Kingdom / Scotland	2	2	697	82	ok
+United Kingdom / Tristan da Cunha	1	1	702	792	ok
 United Kingdom / Scotland	2	2	721	96	ok
 Spain / Valencia	2	2	738	292	ok
 United Kingdom / Saint Helena	1	1	735	639	ok
@@ -61,13 +70,19 @@ Poland / West Pomerania	1	1	836	143	ok
 Sweden / Södermanland	3	3	862	119	ok
 Greece / Crete	3	3	903	321	ok
 Turkey / Antalya	1	1	922	321	ok
+Comoros / Comoros	1	1	1028	653	ok
+Comoros / Comoros	1	1	1038	659	ok
 Madagascar / Atsimo-Andrefana	102	125	1059	707	ok
+France / Comoros	1	1	1052	656	ok
 Russia / Nenets	3	3	1076	18	ok
 Yemen / Socotra	4	4	1107	495	ok
 Russia / Arkhangelskaya	6	6	1122	3	ok
 Seychelles / Seychelles	1	1	1114	620	ok
 Madagascar / Analanjirofo	1	1	1124	720	ok
+France / Mascarene Islands	1	1	1148	723	ok
+Mauritius / Mascarene Islands	1	1	1162	714	ok
 France / Kerguelen	2	2	1162	745	ok
+Mauritius / Mascarene Islands	1	1	1201	709	ok
 Maldives / Lhaviyani	12	15	1247	573	ok
 British Indian Ocean Ter. / Chagos	1	1	1249	637	ok
 France / Amsterdam Island	1	1	1282	756	ok

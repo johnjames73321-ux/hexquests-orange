@@ -28,6 +28,27 @@ const seaPick = +Object.keys(botSeas).sort((a, b) => botSeas[b] - botSeas[a])[0]
 for (let i = 0; i < N && SEAREF < 0; i++) if (quiet(i) && D.sea[i] === seaPick) SEAREF = i;
 if (SEAREF < 0) throw new Error("no quiet sea hex for the new water");
 console.log("new water is", D.seas[seaPick]);
+// islands the main game lacks (Orange only), one hex each: [region, old world x, old world y]. Placed by hand against the nearby coasts,
+// because this map is not to scale and the game lat/lon table (LLT) is junk over open ocean. A number = an unused region the main data
+// already carries for that island; an array = a new region.
+const ADDED = new Set();
+{ const cc = c => +Object.keys(D.ccodes).find(k => D.ccodes[k] === c);
+  const ISLANDS = [[27810, 226, 458], [27812, 236, 463], [27813, 247, 459],                // Galapagos: Isabela, Santa Cruz, San Cristobal
+    [2834, 418, 792], [2836, 428, 797], [2887, 440, 793],                                   // Falklands: west, middle, Stanley
+    [27948, 1026, 655], [27950, 1038, 660], [27951, 1050, 655],                             // Comoros: Grande Comore, Anjouan, Mayotte
+    [27955, 1146, 722], [27958, 1160, 714], [27960, 1198, 708],                             // Reunion, Mauritius, Rodrigues
+    [["Grytviken", "United Kingdom", "South Georgia", 30, 1, 0, "", -54.28, -36.5, cc("GS")], 520, 803],
+    [["Edinburgh of the Seven Seas", "United Kingdom", "Tristan da Cunha", 250, 1, 0, "", -37.11, -12.28, cc("SH")], 700, 790],
+    [["Rapa Nui", "Chile", "Easter Island", 7750, 1, 0, "", -27.12, -109.36, cc("CL")], 188, 612]];
+  const usedReg = new Set(D.reg), nbs = i => [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]].map(([a, b]) => idx.get((D.q[i] + a) * 65536 + D.r[i] + b));
+  for (const [e, px, py] of ISLANDS) { let g = e; if (Array.isArray(e)) { g = D.regions.length; D.regions.push(e); } else if (usedReg.has(g)) throw new Error("island region already on the map: " + g);
+    const R = D.regions[g]; let best = -1, bd = 1e9;
+    for (let i = 0; i < N; i++) { if (!quiet(i)) continue; const y = yOf(D.q[i], D.r[i]); if (y > bot - 36) continue; const d = Math.hypot(xOf(D.q[i]) - px, y - py); if (d >= bd) continue;
+      if (nbs(i).some(j => j === undefined || D.reg[j] >= 0)) continue; best = i; bd = d; }   // open sea all round: every added hex is an island of its own
+    if (best < 0 || bd > 8) throw new Error("no sea hex for island " + R[0] + " (" + bd.toFixed(0) + " px off)");
+    let near = -1, nd = 1e9; for (let i = 0; i < N; i++) if (G.hcul[i] >= 0 && !ADDED.has(i)) { const d = Math.hypot(xOf(D.q[i]) - xOf(D.q[best]), yOf(D.q[i], D.r[i]) - yOf(D.q[best], D.r[best])); if (d < nd) { nd = d; near = i; } }
+    D.reg[best] = g; D.sea[best] = -1; G.pop[best] = R[3]; G.hrel[best] = G.hrel[near]; G.hcul[best] = G.hcul[near]; ADDED.add(best);
+    console.log("island added:", R[1] + " / " + (R[2] || R[0]) + " / " + R[0], "at old", xOf(D.q[best]).toFixed(0), yOf(D.q[best], D.r[best]).toFixed(0)); } }
 const colBot = new Map(); for (let i = 0; i < N; i++) { const c = colBot.get(D.q[i]); if (c === undefined || D.r[i] > D.r[c]) colBot.set(D.q[i], i); }
 // hex under a world point (cube rounding), for a given grid origin
 const hexAt = (px, py, oy) => {
@@ -119,7 +140,7 @@ const st = remapEdges(D.st), dm = remapEdges(D.dm); console.log("straits", D.st.
 const pick = a => src.map(s => a[s]);
 // people are shared out between the copies of a hex, so no country gains people from the warp
 const seenC = new Int32Array(N), pop = src.map(s => { const c = copies[s], p = G.pop[s] || 0, k = seenC[s]++; return Math.floor(p / c) + (k < p % c ? 1 : 0); });
-const eo = new Int16Array(Uint8Array.from(Buffer.from(ERA.own, "base64")).buffer), en = Int16Array.from(src, s => eo[s]);
+const eo = new Int16Array(Uint8Array.from(Buffer.from(ERA.own, "base64")).buffer), en = Int16Array.from(src, s => ADDED.has(s) ? -2 : eo[s]);
 const hn = {}; for (let i = 0; i < M; i++) { const v = ERA.hn[src[i]]; if (v !== undefined) hn[i] = v; }
 const landOld = D.reg.filter(v => v >= 0).length, landNew = src.filter(s => D.reg[s] >= 0).length;
 const popOld = G.pop.slice(0, N).reduce((a, b) => a + b, 0), popNew = pop.reduce((a, b) => a + b, 0);
