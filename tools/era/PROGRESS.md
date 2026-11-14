@@ -31,3 +31,8 @@ Only Orange changes. The main game (~/hex-atlas-play) is not touched.
   * North America: all Wilds except Adena, North-West Coast, South-West early farmers (Frontier)
   * Bantu-named tribes south of 10 S = Wilds (Bantu farmers arrived there after 320 BC)
   * region lat/lon in the Americas is unreliable in the main data: never classify there by position, only by culture text
+- step 4 (owner: "tier 2 looks same as tier 3, no tier 1s in new world"):
+  * Settled now also covers lands of towns and temple centres even when the data calls the people tribe / chiefdom / culture:
+    Mesoamerica and the central Andes + coastal Ecuador (TOWNLANDS in classify.js). New World Settled: 203 states / 358 hexes.
+  * Looks: Frontier tint 0.22 toward white (was 0.45), Wilds 0.78 (was 0.68); stripes 0.21 / 0.55 of a hex. Patches in mods/patches.js.
+  * Totals: Settled 484 states / 2365 hexes, Frontier 2942 / 13015, Wilds 1711 / 11189.
