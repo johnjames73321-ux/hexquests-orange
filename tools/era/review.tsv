@@ -1675,40 +1675,40 @@ tag	name	type	culture	seat	hexes	was mostly	now
 1725	Ssese	tribe	East African foragers / Bantu		1	Frontier	Wilds	changed
 1726	Pemba	tribe	East African foragers		1	Frontier	Wilds	changed
 1727	Mafia	tribe	East African foragers		1	Settled	Wilds	changed
-1728	El Mirador	city-state	Mayan (Lowland Maya)	El Mirador	1	Frontier	Settled	changed
-1729	Nakbe	city-state	Mayan (Lowland Maya)	Nakbe	1	Settled	Settled	
-1730	Calakmul	city-state	Mayan (Lowland Maya)	Calakmul	2	Settled	Settled	
-1731	Becan	city-state	Mayan (Lowland Maya)	Becan	2	Settled	Settled	
-1732	Kaanul	city-state	Mayan (Lowland Maya)	Dzibanche	1	Settled	Settled	
-1733	Mutul	city-state	Mayan (Lowland Maya)	Tikal	1	Frontier	Settled	changed
-1734	Nixtun	city-state	Mayan (Lowland Maya)	Nixtun-Ch'ich'	1	Settled	Settled	
-1735	Ceibal	city-state	Mayan (Lowland Maya)	Ceibal	1	Settled	Settled	
-1736	Edzna	city-state	Mayan (Lowland Maya)	Edzna	1	Settled	Settled	
-1737	Komchen	city-state	Mayan (Yucatec)	Komchen	1	Settled	Settled	
-1738	Ek Balam	chiefdom	Mayan (Yucatec)	Ek Balam	1	Settled	Settled	
-1739	Kaminaljuyu	city-state	Mayan (Highland Maya)	Kaminaljuyu	1	Settled	Settled	
-1740	Copan	chiefdom	Mayan / Lencan	Copan	1	Settled	Settled	
-1741	Izapa	city-state	Mixe-Zoque	Izapa	1	Settled	Settled	
-1742	Chalchuapa	city-state	Mayan (Poqom?) / Lencan	Chalchuapa	1	Settled	Settled	
+1728	El Mirador	city-state	Mayan (Lowland Maya)	El Mirador	1	Frontier	Frontier	
+1729	Nakbe	city-state	Mayan (Lowland Maya)	Nakbe	1	Settled	Frontier	changed
+1730	Calakmul	city-state	Mayan (Lowland Maya)	Calakmul	2	Settled	Frontier	changed
+1731	Becan	city-state	Mayan (Lowland Maya)	Becan	2	Settled	Frontier	changed
+1732	Kaanul	city-state	Mayan (Lowland Maya)	Dzibanche	1	Settled	Frontier	changed
+1733	Mutul	city-state	Mayan (Lowland Maya)	Tikal	1	Frontier	Frontier	
+1734	Nixtun	city-state	Mayan (Lowland Maya)	Nixtun-Ch'ich'	1	Settled	Frontier	changed
+1735	Ceibal	city-state	Mayan (Lowland Maya)	Ceibal	1	Settled	Frontier	changed
+1736	Edzna	city-state	Mayan (Lowland Maya)	Edzna	1	Settled	Frontier	changed
+1737	Komchen	city-state	Mayan (Yucatec)	Komchen	1	Settled	Frontier	changed
+1738	Ek Balam	chiefdom	Mayan (Yucatec)	Ek Balam	1	Settled	Frontier	changed
+1739	Kaminaljuyu	city-state	Mayan (Highland Maya)	Kaminaljuyu	1	Settled	Frontier	changed
+1740	Copan	chiefdom	Mayan / Lencan	Copan	1	Settled	Frontier	changed
+1741	Izapa	city-state	Mixe-Zoque	Izapa	1	Settled	Frontier	changed
+1742	Chalchuapa	city-state	Mayan (Poqom?) / Lencan	Chalchuapa	1	Settled	Frontier	changed
 1743	Quelepa	chiefdom	Lencan	Quelepa	1	Settled	Frontier	changed
 1744	Sarigua	chiefdom	Chibchan (Gran Cocle)	La Mula-Sarigua	1	Frontier	Frontier	
-1745	Tres Zapotes	city-state	Mixe-Zoque (Epi-Olmec)	Tres Zapotes	1	Frontier	Settled	changed
-1746	Cerro de las Mesas	city-state	Mixe-Zoque (Epi-Olmec)	Cerro de las Mesas	1	Settled	Settled	
-1747	Cuicuilco	city-state	Unknown (Oto-Manguean?)	Cuicuilco	1	Settled	Settled	
-1748	Tlapacoya	city-state	Unknown (Oto-Manguean?)	Tlapacoya	1	Settled	Settled	
-1749	Xochitecatl	city-state	Unknown (Oto-Manguean?)	Xochitecatl	1	Settled	Settled	
-1750	Cholula	city-state	Unknown (Oto-Manguean?)	Cholula	1	Settled	Settled	
-1751	Cantona	city-state	Unknown (Oto-Manguean / Totonacan?)	Cantona	2	Settled	Settled	
-1752	Quachilco	chiefdom	Oto-Manguean (Popolocan)	Quachilco	1	Settled	Settled	
-1753	Monte Alban	city-state	Oto-Manguean (Zapotec)	Monte Alban	2	Settled	Settled	
-1754	Monte Negro	city-state	Oto-Manguean (Mixtec)	Monte Negro	1	Settled	Settled	
-1755	Yucuita	city-state	Oto-Manguean (Mixtec)	Yucuita	1	Settled	Settled	
-1756	Huamelulpan	city-state	Oto-Manguean (Mixtec)	Huamelulpan	1	Settled	Settled	
-1757	Cuicatec	chiefdom	Oto-Manguean (Cuicatec)		1	Settled	Settled	
-1758	Rio Viejo	chiefdom	Oto-Manguean (Chatino-Zapotec?)	Rio Viejo	1	Settled	Settled	
-1759	Laguna Zope	chiefdom	Mixe-Zoque	Laguna Zope	1	Settled	Settled	
-1760	Chiapa de Corzo	city-state	Mixe-Zoque (Zoque)	Chiapa de Corzo	1	Settled	Settled	
-1761	Tzutzuculi	chiefdom	Mixe-Zoque	Tzutzuculi	2	Settled	Settled	
+1745	Tres Zapotes	city-state	Mixe-Zoque (Epi-Olmec)	Tres Zapotes	1	Frontier	Frontier	
+1746	Cerro de las Mesas	city-state	Mixe-Zoque (Epi-Olmec)	Cerro de las Mesas	1	Settled	Frontier	changed
+1747	Cuicuilco	city-state	Unknown (Oto-Manguean?)	Cuicuilco	1	Settled	Frontier	changed
+1748	Tlapacoya	city-state	Unknown (Oto-Manguean?)	Tlapacoya	1	Settled	Frontier	changed
+1749	Xochitecatl	city-state	Unknown (Oto-Manguean?)	Xochitecatl	1	Settled	Frontier	changed
+1750	Cholula	city-state	Unknown (Oto-Manguean?)	Cholula	1	Settled	Frontier	changed
+1751	Cantona	city-state	Unknown (Oto-Manguean / Totonacan?)	Cantona	2	Settled	Frontier	changed
+1752	Quachilco	chiefdom	Oto-Manguean (Popolocan)	Quachilco	1	Settled	Frontier	changed
+1753	Monte Alban	city-state	Oto-Manguean (Zapotec)	Monte Alban	2	Settled	Frontier	changed
+1754	Monte Negro	city-state	Oto-Manguean (Mixtec)	Monte Negro	1	Settled	Frontier	changed
+1755	Yucuita	city-state	Oto-Manguean (Mixtec)	Yucuita	1	Settled	Frontier	changed
+1756	Huamelulpan	city-state	Oto-Manguean (Mixtec)	Huamelulpan	1	Settled	Frontier	changed
+1757	Cuicatec	chiefdom	Oto-Manguean (Cuicatec)		1	Settled	Frontier	changed
+1758	Rio Viejo	chiefdom	Oto-Manguean (Chatino-Zapotec?)	Rio Viejo	1	Settled	Frontier	changed
+1759	Laguna Zope	chiefdom	Mixe-Zoque	Laguna Zope	1	Settled	Frontier	changed
+1760	Chiapa de Corzo	city-state	Mixe-Zoque (Zoque)	Chiapa de Corzo	1	Settled	Frontier	changed
+1761	Tzutzuculi	chiefdom	Mixe-Zoque	Tzutzuculi	2	Settled	Frontier	changed
 1762	Loma San Gabriel	culture	Uto-Aztecan? (Tepehuan ancestors)		2	Settled	Frontier	changed
 1763	Hesperii	tribe	Atlantic (proto-Wolof/Serer)		1	Wilds	Frontier	changed
 1764	Dia	chiefdom	Mande (proto-Soninke/Marka)	Dia	1	Wilds	Frontier	changed
@@ -2040,78 +2040,78 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2092	Chingiz	nomads	Iranian (Saka)		25	Settled	Frontier	changed
 2093	Kamen	culture	Iranian/Ugric (forest-steppe)		24	Settled	Frontier	changed
 2094	Baraba	culture	Iranian (Ugric admixture)		100	Settled	Frontier	changed
-2095	La Tolita	chiefdom	Andean Formative (Barbacoan?)	La Tolita	2	Frontier	Settled	changed
-2096	Jama-Coaque	culture	Ecuadorian coastal Formative	San Isidro	4	Frontier	Settled	changed
-2097	Bahia	culture	Ecuadorian coastal Formative	Bahia de Caraquez	2	Settled	Settled	
-2098	Engoroy	culture	Ecuadorian coastal Formative	Salango	1	Settled	Settled	
-2099	Tejar-Daule	culture	Ecuadorian coastal Formative	Daule	2	Settled	Settled	
-2100	Jambeli	culture	Ecuadorian coastal Formative	Jambeli	3	Settled	Settled	
-2101	Tsachila	culture	Ecuadorian Formative (proto-Barbacoan, Tsachila area)		2	Settled	Settled	
-2102	Cotocollao	culture	Ecuadorian highland Formative	Cotocollao	2	Settled	Settled	
-2104	Tuncahuan	culture	Ecuadorian highland Formative (Puruha ancestors)	Riobamba area	2	Settled	Settled	
-2105	Narrio	culture	Ecuadorian highland Formative (Canari ancestors)	Cerro Narrio	1	Settled	Settled	
-2106	Pirincay	culture	Ecuadorian highland Formative (Canari ancestors)	Pirincay	2	Settled	Settled	
-2107	Catamayo	culture	Ecuadorian highland Formative (Palta ancestors)	Catamayo	1	Settled	Settled	
-2108	Mayo-Chinchipe	culture	Upper Amazon Formative	Santa Ana-La Florida	1	Settled	Settled	
-2109	Upano	culture	Upper Amazon Formative	Sangay-Huapula	10	Frontier	Settled	changed
+2095	La Tolita	chiefdom	Andean Formative (Barbacoan?)	La Tolita	2	Frontier	Frontier	
+2096	Jama-Coaque	culture	Ecuadorian coastal Formative	San Isidro	4	Frontier	Frontier	
+2097	Bahia	culture	Ecuadorian coastal Formative	Bahia de Caraquez	2	Settled	Frontier	changed
+2098	Engoroy	culture	Ecuadorian coastal Formative	Salango	1	Settled	Frontier	changed
+2099	Tejar-Daule	culture	Ecuadorian coastal Formative	Daule	2	Settled	Frontier	changed
+2100	Jambeli	culture	Ecuadorian coastal Formative	Jambeli	3	Settled	Frontier	changed
+2101	Tsachila	culture	Ecuadorian Formative (proto-Barbacoan, Tsachila area)		2	Settled	Frontier	changed
+2102	Cotocollao	culture	Ecuadorian highland Formative	Cotocollao	2	Settled	Frontier	changed
+2104	Tuncahuan	culture	Ecuadorian highland Formative (Puruha ancestors)	Riobamba area	2	Settled	Frontier	changed
+2105	Narrio	culture	Ecuadorian highland Formative (Canari ancestors)	Cerro Narrio	1	Settled	Frontier	changed
+2106	Pirincay	culture	Ecuadorian highland Formative (Canari ancestors)	Pirincay	2	Settled	Frontier	changed
+2107	Catamayo	culture	Ecuadorian highland Formative (Palta ancestors)	Catamayo	1	Settled	Frontier	changed
+2108	Mayo-Chinchipe	culture	Upper Amazon Formative	Santa Ana-La Florida	1	Settled	Frontier	changed
+2109	Upano	culture	Upper Amazon Formative	Sangay-Huapula	10	Frontier	Frontier	
 2110	Quijos	culture	Amazonian		4	Frontier	Frontier	
-2111	Garbanzal	culture	Andean Formative	Garbanzal	2	Settled	Settled	
-2112	Nananique	culture	Andean Formative	Chulucanas	2	Settled	Settled	
-2113	Sechura	culture	Andean coastal		2	Settled	Settled	
-2114	Huancabamba	culture	Andean Formative	Huancabamba	1	Settled	Settled	
-2115	Lambayeque	culture	Andean coastal Formative		1	Settled	Settled	
-2116	Pacopampa	culture	Andean Formative	Pacopampa	2	Settled	Settled	
-2117	Bagua	culture	Andean Formative	Bagua	4	Settled	Settled	
-2118	Utcubamba	culture	Andean Formative		3	Settled	Settled	
-2119	Cupisnique	culture	Andean coastal Formative		1	Settled	Settled	
-2120	Kuntur Wasi	chiefdom	Andean Formative	Kuntur Wasi	1	Settled	Settled	
-2121	Layzon	culture	Andean Formative	Layzon	1	Settled	Settled	
-2122	Salinar	chiefdom	Andean coastal	Cerro Arena	2	Settled	Settled	
-2123	Moorin	culture	Andean coastal		1	Settled	Settled	
-2124	Huamachuco	culture	Andean Formative	Sausagocha	2	Settled	Settled	
-2125	Pataz	culture	Andean Formative		2	Settled	Settled	
-2126	Cayhuamarca	culture	Andean coastal		1	Settled	Settled	
-2127	Nepena	chiefdom	Andean coastal	Caylan	1	Settled	Settled	
-2128	Chankillo	chiefdom	Andean coastal	Chankillo	2	Settled	Settled	
-2129	Huaraz	culture	Andean (pre-Recuay)	Huaraz	1	Settled	Settled	
-2130	Conchucos	culture	Andean Formative	Chavin de Huantar	2	Settled	Settled	
-2131	Kotosh	culture	Andean Formative	Kotosh	2	Settled	Settled	
-2132	Supe	culture	Andean coastal		2	Settled	Settled	
-2133	Ancon	culture	Andean coastal	Ancon	2	Settled	Settled	
-2134	Lurin	culture	Andean coastal (pre-Lima)		1	Settled	Settled	
-2135	Huarochiri	culture	Andean		1	Settled	Settled	
-2136	Junin	culture	Andean (camelid pastoralists)		5	Settled	Settled	
-2137	Pirwapukio	culture	Andean Formative		2	Settled	Settled	
-2138	Atalla	chiefdom	Andean Formative	Atalla	4	Settled	Settled	
-2139	Chupas	culture	Andean Formative	Chupas	1	Settled	Settled	
-2140	Lucanas	culture	Andean		2	Frontier	Settled	changed
-2141	Chanapata	culture	Andean Formative	Chanapata	1	Settled	Settled	
-2142	Topara	culture	Andean coastal		1	Wilds	Settled	changed
-2143	Paracas	chiefdom	Andean coastal	Cerro Colorado	2	Settled	Settled	
-2144	Ocucaje	culture	Andean coastal	Ocucaje	2	Wilds	Settled	changed
-2145	Nazca	culture	Andean coastal	Palpa	2	Wilds	Settled	changed
-2146	Hacha	culture	Andean coastal	Hacha	4	Wilds	Settled	changed
-2147	Camana	culture	Andean coastal		10	Wilds	Settled	changed
-2148	Siguas	culture	Andean		2	Settled	Settled	
-2149	Huaracane	culture	Andean		5	Settled	Settled	
-2150	Caplina	culture	Andean		2	Settled	Settled	
-2151	Pucara	chiefdom	Andean (Titicaca Basin, proto-Puquina?)	Pucara	2	Settled	Settled	
-2152	Carabaya	culture	Andean/Amazonian		2	Settled	Settled	
-2153	Sillumocco	culture	Andean (Titicaca Basin)	Juli	1	Settled	Settled	
-2154	Chiripa	chiefdom	Andean (Titicaca Basin)	Chiripa	1	Settled	Settled	
-2155	Wankarani	culture	Andean (altiplano)	La Joya	4	Settled	Settled	
-2156	Alto Ramirez	culture	Andean (north Chilean Formative)	Azapa	5	Wilds	Settled	changed
-2157	Intersalar	culture	Andean (camelid pastoralists)		3	Wilds	Settled	changed
-2158	Llallagua	culture	Andean		2	Settled	Settled	
-2159	Cochabamba	culture	Andean		3	Frontier	Settled	changed
-2160	Mizque	culture	Andean		5	Frontier	Settled	changed
+2111	Garbanzal	culture	Andean Formative	Garbanzal	2	Settled	Frontier	changed
+2112	Nananique	culture	Andean Formative	Chulucanas	2	Settled	Frontier	changed
+2113	Sechura	culture	Andean coastal		2	Settled	Frontier	changed
+2114	Huancabamba	culture	Andean Formative	Huancabamba	1	Settled	Frontier	changed
+2115	Lambayeque	culture	Andean coastal Formative		1	Settled	Frontier	changed
+2116	Pacopampa	culture	Andean Formative	Pacopampa	2	Settled	Frontier	changed
+2117	Bagua	culture	Andean Formative	Bagua	4	Settled	Frontier	changed
+2118	Utcubamba	culture	Andean Formative		3	Settled	Frontier	changed
+2119	Cupisnique	culture	Andean coastal Formative		1	Settled	Frontier	changed
+2120	Kuntur Wasi	chiefdom	Andean Formative	Kuntur Wasi	1	Settled	Frontier	changed
+2121	Layzon	culture	Andean Formative	Layzon	1	Settled	Frontier	changed
+2122	Salinar	chiefdom	Andean coastal	Cerro Arena	2	Settled	Frontier	changed
+2123	Moorin	culture	Andean coastal		1	Settled	Frontier	changed
+2124	Huamachuco	culture	Andean Formative	Sausagocha	2	Settled	Frontier	changed
+2125	Pataz	culture	Andean Formative		2	Settled	Frontier	changed
+2126	Cayhuamarca	culture	Andean coastal		1	Settled	Frontier	changed
+2127	Nepena	chiefdom	Andean coastal	Caylan	1	Settled	Frontier	changed
+2128	Chankillo	chiefdom	Andean coastal	Chankillo	2	Settled	Frontier	changed
+2129	Huaraz	culture	Andean (pre-Recuay)	Huaraz	1	Settled	Frontier	changed
+2130	Conchucos	culture	Andean Formative	Chavin de Huantar	2	Settled	Frontier	changed
+2131	Kotosh	culture	Andean Formative	Kotosh	2	Settled	Frontier	changed
+2132	Supe	culture	Andean coastal		2	Settled	Frontier	changed
+2133	Ancon	culture	Andean coastal	Ancon	2	Settled	Frontier	changed
+2134	Lurin	culture	Andean coastal (pre-Lima)		1	Settled	Frontier	changed
+2135	Huarochiri	culture	Andean		1	Settled	Frontier	changed
+2136	Junin	culture	Andean (camelid pastoralists)		5	Settled	Frontier	changed
+2137	Pirwapukio	culture	Andean Formative		2	Settled	Frontier	changed
+2138	Atalla	chiefdom	Andean Formative	Atalla	4	Settled	Frontier	changed
+2139	Chupas	culture	Andean Formative	Chupas	1	Settled	Frontier	changed
+2140	Lucanas	culture	Andean		2	Frontier	Frontier	
+2141	Chanapata	culture	Andean Formative	Chanapata	1	Settled	Frontier	changed
+2142	Topara	culture	Andean coastal		1	Wilds	Frontier	changed
+2143	Paracas	chiefdom	Andean coastal	Cerro Colorado	2	Settled	Frontier	changed
+2144	Ocucaje	culture	Andean coastal	Ocucaje	2	Wilds	Frontier	changed
+2145	Nazca	culture	Andean coastal	Palpa	2	Wilds	Frontier	changed
+2146	Hacha	culture	Andean coastal	Hacha	4	Wilds	Frontier	changed
+2147	Camana	culture	Andean coastal		10	Wilds	Frontier	changed
+2148	Siguas	culture	Andean		2	Settled	Frontier	changed
+2149	Huaracane	culture	Andean		5	Settled	Frontier	changed
+2150	Caplina	culture	Andean		2	Settled	Frontier	changed
+2151	Pucara	chiefdom	Andean (Titicaca Basin, proto-Puquina?)	Pucara	2	Settled	Frontier	changed
+2152	Carabaya	culture	Andean/Amazonian		2	Settled	Frontier	changed
+2153	Sillumocco	culture	Andean (Titicaca Basin)	Juli	1	Settled	Frontier	changed
+2154	Chiripa	chiefdom	Andean (Titicaca Basin)	Chiripa	1	Settled	Frontier	changed
+2155	Wankarani	culture	Andean (altiplano)	La Joya	4	Settled	Frontier	changed
+2156	Alto Ramirez	culture	Andean (north Chilean Formative)	Azapa	5	Wilds	Frontier	changed
+2157	Intersalar	culture	Andean (camelid pastoralists)		3	Wilds	Frontier	changed
+2158	Llallagua	culture	Andean		2	Settled	Frontier	changed
+2159	Cochabamba	culture	Andean		3	Frontier	Frontier	
+2160	Mizque	culture	Andean		5	Frontier	Frontier	
 2161	Shakimu	culture	Amazonian	Yarinacocha	5	Frontier	Frontier	
 2162	Huallaga	tribe	Amazonian		8	Frontier	Frontier	
 2163	Tingo Maria	tribe	Amazonian/Andean		7	Frontier	Frontier	
 2164	San Francisco	culture	Andean-lowland (Formative)	Valle de San Francisco (Ledesma)	3	Frontier	Frontier	
-2165	Atacama	culture	Andean (proto-Atacameño)	San Antonio de los Cobres	4	Frontier	Settled	changed
+2165	Atacama	culture	Andean (proto-Atacameño)	San Antonio de los Cobres	4	Frontier	Frontier	
 2166	Candelaria	culture	Andean-lowland (Formative)	Candelaria (Salta)	2	Settled	Frontier	changed
-2167	Condorhuasi	culture	Andean (Formative)	Hualfín valley	1	Frontier	Settled	changed
+2167	Condorhuasi	culture	Andean (Formative)	Hualfín valley	1	Frontier	Frontier	
 2168	San Matias	culture	proto-Tehuelche hunter-gatherers		13	Frontier	Wilds	changed
 2169	Chubut	culture	Chonan/Tehuelche hunter-gatherers		17	Frontier	Wilds	changed
 2170	San Jorge	culture	Chonan/Tehuelche hunter-gatherers		10	Frontier	Wilds	changed
@@ -2297,8 +2297,8 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2352	Ocoroni	tribe	Cahita		1	Settled	Frontier	changed
 2353	Comanito	tribe	Cahita		1	Settled	Frontier	changed
 2354	Tahue	tribe	Taracahitic		2	Settled	Frontier	changed
-2355	Totorame	tribe	Totorame		4	Settled	Settled	
-2356	Chametla	city-state	Totorame		1	Settled	Settled	
+2355	Totorame	tribe	Totorame		4	Settled	Frontier	changed
+2356	Chametla	city-state	Totorame		1	Settled	Frontier	changed
 2357	Zoe	tribe	Zoe		1	Settled	Frontier	changed
 2358	Tubar	tribe	Tubar		1	Settled	Frontier	changed
 2359	Chinipa	tribe	Taracahitic		1	Settled	Frontier	changed
@@ -2332,21 +2332,21 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2387	Coano	tribe	Coano		1	Settled	Frontier	changed
 2388	Wixarika	tribe	Corachol		1	Settled	Frontier	changed
 2389	Naayeri	tribe	Corachol		1	Settled	Frontier	changed
-2390	Xalisco	city-state	Nahuatl		2	Settled	Settled	
-2391	Aztatlan	city-state	Totorame		2	Settled	Settled	
-2392	Ixtlan	city-state	Tecual		1	Settled	Settled	
-2393	Etzatlan	city-state	Tecual		1	Settled	Settled	
-2394	Ameca	city-state	Tecual		1	Settled	Settled	
-2395	Teuchitlan	city-state	Tecual		1	Settled	Settled	
-2396	Zapotlan	city-state	Nahuatl		1	Settled	Settled	
-2397	Sayula	city-state	Nahuatl		1	Settled	Settled	
-2398	Tuxpan	city-state	Nahuatl		1	Settled	Settled	
-2399	Cihuatlan	city-state	Nahuatl		1	Settled	Settled	
-2400	Tomatlan	city-state	Nahuatl		2	Settled	Settled	
-2401	Colima	city-state	Colimotl		1	Settled	Settled	
-2402	Motin	tribe	Nahuatl		1	Settled	Settled	
-2403	Coalcoman	city-state	Nahuatl		1	Settled	Settled	
-2404	Tepalcatepec	city-state	Nahuatl		1	Settled	Settled	
+2390	Xalisco	city-state	Nahuatl		2	Settled	Frontier	changed
+2391	Aztatlan	city-state	Totorame		2	Settled	Frontier	changed
+2392	Ixtlan	city-state	Tecual		1	Settled	Frontier	changed
+2393	Etzatlan	city-state	Tecual		1	Settled	Frontier	changed
+2394	Ameca	city-state	Tecual		1	Settled	Frontier	changed
+2395	Teuchitlan	city-state	Tecual		1	Settled	Frontier	changed
+2396	Zapotlan	city-state	Nahuatl		1	Settled	Frontier	changed
+2397	Sayula	city-state	Nahuatl		1	Settled	Frontier	changed
+2398	Tuxpan	city-state	Nahuatl		1	Settled	Frontier	changed
+2399	Cihuatlan	city-state	Nahuatl		1	Settled	Frontier	changed
+2400	Tomatlan	city-state	Nahuatl		2	Settled	Frontier	changed
+2401	Colima	city-state	Colimotl		1	Settled	Frontier	changed
+2402	Motin	tribe	Nahuatl		1	Settled	Frontier	changed
+2403	Coalcoman	city-state	Nahuatl		1	Settled	Frontier	changed
+2404	Tepalcatepec	city-state	Nahuatl		1	Settled	Frontier	changed
 2405	Taos	city-state	Northern Tiwa		1	Frontier	Frontier	
 2406	Picuris	city-state	Northern Tiwa		1	Frontier	Frontier	
 2407	Sandia	city-state	Southern Tiwa		1	Frontier	Frontier	
@@ -2404,65 +2404,65 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2459	Falls Creek	village	Archaic		4	Frontier	Frontier	
 2460	Cowboy Cave	village	Archaic		6	Frontier	Frontier	
 2461	Tularosa	village	Archaic		2	Frontier	Frontier	
-2462	Mixe	tribe	Mixe-Zoquean		1	Settled	Settled	
-2463	Zoque	tribe	Mixe-Zoquean		4	Settled	Settled	
-2464	Popoluca	tribe	Mixe-Zoquean		2	Frontier	Settled	changed
-2465	Ikoots	tribe	Huave		2	Settled	Settled	
-2466	Tequistlatec	tribe	Tequistlatecan		2	Settled	Settled	
-2467	Dainzu	city-state	Zapotec		1	Settled	Settled	
+2462	Mixe	tribe	Mixe-Zoquean		1	Settled	Frontier	changed
+2463	Zoque	tribe	Mixe-Zoquean		4	Settled	Frontier	changed
+2464	Popoluca	tribe	Mixe-Zoquean		2	Frontier	Frontier	
+2465	Ikoots	tribe	Huave		2	Settled	Frontier	changed
+2466	Tequistlatec	tribe	Tequistlatecan		2	Settled	Frontier	changed
+2467	Dainzu	city-state	Zapotec		1	Settled	Frontier	changed
 2468	Amuzgo	tribe	Amuzgoan		1	Settled	Frontier	changed
-2469	Chatino	tribe	Zapotecan		1	Settled	Settled	
+2469	Chatino	tribe	Zapotecan		1	Settled	Frontier	changed
 2470	Ñuu Savi	tribe	Mixtecan		1	Settled	Frontier	changed
-2471	Tlapanec	tribe	Subtiaba-Tlapanec		2	Settled	Settled	
-2472	Yope	tribe	Subtiaba-Tlapanec		3	Settled	Settled	
-2473	Cuitlatec	tribe	Cuitlatec		5	Settled	Settled	
-2474	Matlatzinca	tribe	Otomi-Pamean		1	Settled	Settled	
-2475	Mazahua	tribe	Otomi-Pamean		2	Settled	Settled	
-2476	Ocuiltec	tribe	Otomi-Pamean		1	Settled	Settled	
-2477	Hñähñu	tribe	Otomi-Pamean		2	Settled	Settled	
+2471	Tlapanec	tribe	Subtiaba-Tlapanec		2	Settled	Frontier	changed
+2472	Yope	tribe	Subtiaba-Tlapanec		3	Settled	Frontier	changed
+2473	Cuitlatec	tribe	Cuitlatec		5	Settled	Frontier	changed
+2474	Matlatzinca	tribe	Otomi-Pamean		1	Settled	Frontier	changed
+2475	Mazahua	tribe	Otomi-Pamean		2	Settled	Frontier	changed
+2476	Ocuiltec	tribe	Otomi-Pamean		1	Settled	Frontier	changed
+2477	Hñähñu	tribe	Otomi-Pamean		2	Settled	Frontier	changed
 2478	Pame	nomads	Otomi-Pamean		6	Settled	Frontier	changed
 2479	Uza	nomads	Otomi-Pamean		2	Settled	Frontier	changed
-2480	Tepehua	tribe	Totonacan		1	Settled	Settled	
-2481	Tutunaku	tribe	Totonacan		1	Settled	Settled	
-2482	Teenek	tribe	Mayan		6	Settled	Settled	
+2480	Tepehua	tribe	Totonacan		1	Settled	Frontier	changed
+2481	Tutunaku	tribe	Totonacan		1	Settled	Frontier	changed
+2482	Teenek	tribe	Mayan		6	Settled	Frontier	changed
 2483	Chinantec	tribe	Chinantecan		1	Settled	Frontier	changed
 2484	Mazatec	tribe	Popolocan		1	Settled	Frontier	changed
-2485	Purepecha	tribe	Purepecha		4	Settled	Settled	
-2486	Loma Alta	chiefdom	Purepecha		1	Settled	Settled	
-2487	Chalcatzingo	city-state	Morelos Formative		1	Settled	Settled	
-2488	Gualupita	tribe	Morelos Formative		1	Settled	Settled	
-2489	Copilco	tribe	Valley of Mexico		1	Settled	Settled	
-2490	Cuanalan	tribe	Valley of Mexico		1	Settled	Settled	
+2485	Purepecha	tribe	Purepecha		4	Settled	Frontier	changed
+2486	Loma Alta	chiefdom	Purepecha		1	Settled	Frontier	changed
+2487	Chalcatzingo	city-state	Morelos Formative		1	Settled	Frontier	changed
+2488	Gualupita	tribe	Morelos Formative		1	Settled	Frontier	changed
+2489	Copilco	tribe	Valley of Mexico		1	Settled	Frontier	changed
+2490	Cuanalan	tribe	Valley of Mexico		1	Settled	Frontier	changed
 2491	Matagalpa	tribe	Misumalpan		1	Settled	Frontier	changed
 2492	Ulwa	tribe	Misumalpan		3	Frontier	Frontier	
 2493	Lenca	tribe	Lencan		1	Settled	Frontier	changed
 2494	Poton	tribe	Lencan		1	Settled	Frontier	changed
-2495	Subtiaba	tribe	Subtiaba-Tlapanec		2	Settled	Settled	
+2495	Subtiaba	tribe	Subtiaba-Tlapanec		2	Settled	Frontier	changed
 2496	Rama	tribe	Chibchan		1	Settled	Frontier	changed
 2497	Brunka	tribe	Chibchan		1	Frontier	Frontier	
 2498	Bokota	tribe	Chibchan		1	Frontier	Frontier	
-2499	Mam	tribe	Mayan		1	Settled	Settled	
-2500	Tojolabal	tribe	Mayan		1	Settled	Settled	
-2501	Achi	tribe	Mayan		1	Settled	Settled	
-2502	Mopan	tribe	Mayan		1	Settled	Settled	
-2503	Tzeltal	tribe	Mayan		1	Frontier	Settled	changed
-2504	Tzotzil	tribe	Mayan		1	Settled	Settled	
-2505	Chol	tribe	Mayan		2	Settled	Settled	
-2506	Lacantun	tribe	Mayan		1	Settled	Settled	
-2507	Acalan	tribe	Mayan		2	Settled	Settled	
-2508	Champoton	city-state	Mayan		1	Settled	Settled	
-2509	Ah Canul	tribe	Mayan		1	Settled	Settled	
-2510	Ceh Pech	tribe	Mayan		1	Settled	Settled	
-2511	Chel	tribe	Mayan		1	Settled	Settled	
-2512	Sotuta	tribe	Mayan		1	Settled	Settled	
-2513	Tutul Xiu	tribe	Mayan		1	Settled	Settled	
-2514	Cochuah	tribe	Mayan		2	Settled	Settled	
-2515	Ecab	tribe	Mayan		2	Settled	Settled	
-2516	Cozumel	island	Mayan		1	Settled	Settled	
-2517	Uaymil	tribe	Mayan		2	Settled	Settled	
-2518	Chetumal	tribe	Mayan		1	Settled	Settled	
-2519	Dzibilchaltun	city-state	Mayan		1	Settled	Settled	
-2520	Oxkintok	city-state	Mayan		1	Settled	Settled	
+2499	Mam	tribe	Mayan		1	Settled	Frontier	changed
+2500	Tojolabal	tribe	Mayan		1	Settled	Frontier	changed
+2501	Achi	tribe	Mayan		1	Settled	Frontier	changed
+2502	Mopan	tribe	Mayan		1	Settled	Frontier	changed
+2503	Tzeltal	tribe	Mayan		1	Frontier	Frontier	
+2504	Tzotzil	tribe	Mayan		1	Settled	Frontier	changed
+2505	Chol	tribe	Mayan		2	Settled	Frontier	changed
+2506	Lacantun	tribe	Mayan		1	Settled	Frontier	changed
+2507	Acalan	tribe	Mayan		2	Settled	Frontier	changed
+2508	Champoton	city-state	Mayan		1	Settled	Frontier	changed
+2509	Ah Canul	tribe	Mayan		1	Settled	Frontier	changed
+2510	Ceh Pech	tribe	Mayan		1	Settled	Frontier	changed
+2511	Chel	tribe	Mayan		1	Settled	Frontier	changed
+2512	Sotuta	tribe	Mayan		1	Settled	Frontier	changed
+2513	Tutul Xiu	tribe	Mayan		1	Settled	Frontier	changed
+2514	Cochuah	tribe	Mayan		2	Settled	Frontier	changed
+2515	Ecab	tribe	Mayan		2	Settled	Frontier	changed
+2516	Cozumel	island	Mayan		1	Settled	Frontier	changed
+2517	Uaymil	tribe	Mayan		2	Settled	Frontier	changed
+2518	Chetumal	tribe	Mayan		1	Settled	Frontier	changed
+2519	Dzibilchaltun	city-state	Mayan		1	Settled	Frontier	changed
+2520	Oxkintok	city-state	Mayan		1	Settled	Frontier	changed
 2521	Guanahatabey	tribe	Archaic Cuban		7	Settled	Wilds	changed
 2522	Ciboney	tribe	Archaic Cuban		6	Settled	Wilds	changed
 2523	Calusa	chiefdom	Calusa		6	Frontier	Frontier	
@@ -2474,26 +2474,26 @@ tag	name	type	culture	seat	hexes	was mostly	now
 2529	Pisone	nomads	Pisone		7	Settled	Frontier	changed
 2530	Guachichil	nomads	Chichimeca		14	Settled	Frontier	changed
 2531	Guamare	nomads	Chichimeca		4	Settled	Frontier	changed
-2532	Totonac	tribe	Totonacan		2	Settled	Settled	
-2533	Bene Zaa	tribe	Zapotec		1	Settled	Settled	
-2534	Binniza	tribe	Zapotec		1	Settled	Settled	
-2535	Yokotan	tribe	Mayan Cholan		5	Settled	Settled	
-2536	Chiapanec	tribe	Otomanguean Mangue		1	Settled	Settled	
-2537	Chikinchel	tribe	Mayan Yucatecan		2	Settled	Settled	
-2538	Canpech	tribe	Mayan Yucatecan		2	Settled	Settled	
-2539	Chanputun	tribe	Mayan Chontal		2	Settled	Settled	
-2540	Caracol	chiefdom	Maya		1	Settled	Settled	
-2541	Rio Azul	chiefdom	Maya		1	Settled	Settled	
-2542	Salinas de los Nueve Cerros	chiefdom	Maya		1	Settled	Settled	
-2543	Santa Leticia	chiefdom	Mixe-Zoquean		1	Settled	Settled	
-2544	Waka	city-state	Maya		1	Frontier	Settled	changed
-2545	San Lorenzo	city-state	Mixe-Zoquean		1	Settled	Settled	
-2546	Laguna de los Cerros	chiefdom	Mixe-Zoquean		1	Settled	Settled	
-2547	Remojadas	chiefdom	Totonacan		3	Settled	Settled	
+2532	Totonac	tribe	Totonacan		2	Settled	Frontier	changed
+2533	Bene Zaa	tribe	Zapotec		1	Settled	Frontier	changed
+2534	Binniza	tribe	Zapotec		1	Settled	Frontier	changed
+2535	Yokotan	tribe	Mayan Cholan		5	Settled	Frontier	changed
+2536	Chiapanec	tribe	Otomanguean Mangue		1	Settled	Frontier	changed
+2537	Chikinchel	tribe	Mayan Yucatecan		2	Settled	Frontier	changed
+2538	Canpech	tribe	Mayan Yucatecan		2	Settled	Frontier	changed
+2539	Chanputun	tribe	Mayan Chontal		2	Settled	Frontier	changed
+2540	Caracol	chiefdom	Maya		1	Settled	Frontier	changed
+2541	Rio Azul	chiefdom	Maya		1	Settled	Frontier	changed
+2542	Salinas de los Nueve Cerros	chiefdom	Maya		1	Settled	Frontier	changed
+2543	Santa Leticia	chiefdom	Mixe-Zoquean		1	Settled	Frontier	changed
+2544	Waka	city-state	Maya		1	Frontier	Frontier	
+2545	San Lorenzo	city-state	Mixe-Zoquean		1	Settled	Frontier	changed
+2546	Laguna de los Cerros	chiefdom	Mixe-Zoquean		1	Settled	Frontier	changed
+2547	Remojadas	chiefdom	Totonacan		3	Settled	Frontier	changed
 2548	Chupicuaro	chiefdom	Mesoamerican		1	Settled	Frontier	changed
 2549	Mamulique	nomads	Coahuiltecan		5	Settled	Frontier	changed
-2550	Mangue	tribe	Otomanguean Chorotegan		2	Settled	Settled	
-2551	Nicoya	tribe	Otomanguean Chorotegan		1	Settled	Settled	
+2550	Mangue	tribe	Otomanguean Chorotegan		2	Settled	Frontier	changed
+2551	Nicoya	tribe	Otomanguean Chorotegan		1	Settled	Frontier	changed
 2552	Karankawa	tribe	Karankawan		1	Settled	Wilds	changed
 2553	Copane	tribe	Karankawan		2	Settled	Wilds	changed
 2554	Coco	tribe	Karankawan		1	Settled	Wilds	changed
@@ -3113,8 +3113,8 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3169	Peñas Coloradas	village	Atacama puna		4	Frontier	Frontier	
 3170	Lipes	tribe	Uru		5	Settled	Wilds	changed
 3171	Chipaya	tribe	Uru		1	Wilds	Wilds	
-3172	Carangas	tribe	Aymara		3	Settled	Settled	
-3173	Quillacas	tribe	Aymara		2	Settled	Settled	
+3172	Carangas	tribe	Aymara		3	Settled	Frontier	changed
+3173	Quillacas	tribe	Aymara		2	Settled	Frontier	changed
 3174	Calchaquí	tribe	Kakan Diaguita		1	Frontier	Frontier	
 3175	Quilmes	tribe	Kakan Diaguita		1	Frontier	Frontier	
 3176	Tolombón	tribe	Kakan Diaguita		1	Frontier	Frontier	
@@ -3130,11 +3130,11 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3186	Casabindo	tribe	Puna Andean		1	Frontier	Frontier	
 3187	Cochinoca	tribe	Puna Andean		2	Settled	Frontier	changed
 3188	Chicha	tribe	Chichas Andean		4	Settled	Frontier	changed
-3189	Tomata	tribe	Andean		2	Settled	Settled	
+3189	Tomata	tribe	Andean		2	Settled	Frontier	changed
 3190	Churumata	tribe	Andean Chaco		7	Settled	Frontier	changed
-3191	Yampara	tribe	Quechua Aymara		2	Frontier	Settled	changed
-3192	Charcas	tribe	Aymara Quechua		3	Settled	Settled	
-3193	Tomina	tribe	Andean		4	Settled	Settled	
+3191	Yampara	tribe	Quechua Aymara		2	Frontier	Frontier	
+3192	Charcas	tribe	Aymara Quechua		3	Settled	Frontier	changed
+3193	Tomina	tribe	Andean		4	Settled	Frontier	changed
 3194	Tonocoté	tribe	Tonocoté		10	Frontier	Wilds	changed
 3195	Juríes	tribe	Tonocoté		5	Frontier	Wilds	changed
 3196	Sanavirón	tribe	Sanavirón		9	Frontier	Wilds	changed
@@ -3280,25 +3280,25 @@ tag	name	type	culture	seat	hexes	was mostly	now
 3336	Uru-Eu-Wau-Wau	tribe	Tupi-Guarani		3	Settled	Frontier	changed
 3337	Wari	tribe	Chapacuran		6	Settled	Frontier	changed
 3338	Tupari	tribe	Tupian		1	Settled	Frontier	changed
-3339	Lupaca	tribe	Aymaran		1	Settled	Settled	
-3340	Pacajes	tribe	Aymaran		1	Settled	Settled	
-3341	Omasuyo	tribe	Aymaran		1	Settled	Settled	
-3342	Colla	tribe	Aymaran		2	Settled	Settled	
-3343	Puquina	tribe	Puquina		1	Settled	Settled	
+3339	Lupaca	tribe	Aymaran		1	Settled	Frontier	changed
+3340	Pacajes	tribe	Aymaran		1	Settled	Frontier	changed
+3341	Omasuyo	tribe	Aymaran		1	Settled	Frontier	changed
+3342	Colla	tribe	Aymaran		2	Settled	Frontier	changed
+3343	Puquina	tribe	Puquina		1	Settled	Frontier	changed
 3344	Tiwanaku	city-state	Aymaran		1	Settled	Frontier	changed
-3345	Kallawaya	tribe	Puquina		2	Settled	Settled	
-3346	Canchi	tribe	Quechuan		2	Settled	Settled	
-3347	Canas	tribe	Quechuan		1	Settled	Settled	
-3348	Ayarmaca	tribe	Quechuan		1	Settled	Settled	
-3349	Anta	tribe	Quechuan		1	Settled	Settled	
-3350	Chumbivilca	tribe	Quechuan		1	Settled	Settled	
-3351	Cotabamba	tribe	Quechuan		1	Frontier	Settled	changed
-3352	Aymara	tribe	Quechuan		2	Frontier	Settled	changed
-3353	Chanka	tribe	Quechuan		1	Settled	Settled	
-3354	Sora	tribe	Quechuan		1	Frontier	Settled	changed
-3355	Collagua	tribe	Aymaran		1	Settled	Settled	
-3356	Cabana	tribe	Quechuan		1	Frontier	Settled	changed
-3357	Conde	tribe	Quechuan		2	Frontier	Settled	changed
+3345	Kallawaya	tribe	Puquina		2	Settled	Frontier	changed
+3346	Canchi	tribe	Quechuan		2	Settled	Frontier	changed
+3347	Canas	tribe	Quechuan		1	Settled	Frontier	changed
+3348	Ayarmaca	tribe	Quechuan		1	Settled	Frontier	changed
+3349	Anta	tribe	Quechuan		1	Settled	Frontier	changed
+3350	Chumbivilca	tribe	Quechuan		1	Settled	Frontier	changed
+3351	Cotabamba	tribe	Quechuan		1	Frontier	Frontier	
+3352	Aymara	tribe	Quechuan		2	Frontier	Frontier	
+3353	Chanka	tribe	Quechuan		1	Settled	Frontier	changed
+3354	Sora	tribe	Quechuan		1	Frontier	Frontier	
+3355	Collagua	tribe	Aymaran		1	Settled	Frontier	changed
+3356	Cabana	tribe	Quechuan		1	Frontier	Frontier	
+3357	Conde	tribe	Quechuan		2	Frontier	Frontier	
 3358	Makurap	tribe	Tupari Tupian		1	Settled	Frontier	changed
 3359	Mekens	tribe	Tupari Tupian		1	Frontier	Frontier	
 3360	Kanoe	tribe	Kanoe isolate		1	Settled	Frontier	changed

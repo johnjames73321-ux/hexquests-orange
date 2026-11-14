@@ -56,11 +56,12 @@ module.exports = [
   ],
   ["if (at(na, nc, iy) && !edge) continue;", "if (at(na, nc, iy) && !edge) continue; if (!orS) { tcol(t, cx, cz, iy, 0, cS); orS = 1; }"],
   // 320 BC land lines: Frontier and Wilds stripes both a little thicker and further apart in width (owner 11-14)
-  ["const W = [0, S * 0.17, S * 0.40], P = [null", "const W = [0, S * 0.21, S * 0.55], P = [null"],
-  // Frontier keeps most of its colour, Wilds go nearly white: the two must never look alike (owner 11-14)
-  ["const f = t === 1 ? 0.45 : 0.68,", "const f = t === 1 ? 0.22 : 0.78,"],
-  ['background:repeating-linear-gradient(135deg,#c6c9e0 0 3px,#fff 3px 5px)', 'background:repeating-linear-gradient(135deg,#aab0d4 0 4px,#fff 4px 5px)'],
-  ['background:repeating-linear-gradient(135deg,#e0e2ef 0 2px,#fff 2px 6px)', 'background:repeating-linear-gradient(135deg,#e6e8f2 0 2px,#fff 2px 6px)'],
+  ["const W = [0, S * 0.17, S * 0.40], P = [null", "const W = [0, S * 0.17, S * 0.36], P = [null"],
+  // owner 11-14 (third pass): Wilds must still show their colour (not white), Frontier darker than that, both apart from Settled.
+  // whiteness with stripes: Frontier about 28%, Wilds about 60%
+  ["const f = t === 1 ? 0.45 : 0.68,", "const f = t === 1 ? 0.10 : 0.32,"],
+  ['background:repeating-linear-gradient(135deg,#c6c9e0 0 3px,#fff 3px 5px)', 'background:repeating-linear-gradient(135deg,#8f96c4 0 4px,#fff 4px 5px)'],
+  ['background:repeating-linear-gradient(135deg,#e0e2ef 0 2px,#fff 2px 6px)', 'background:repeating-linear-gradient(135deg,#b4b9da 0 3px,#fff 3px 5.5px)'],
   // 320 BC tiers now say what kind of society a state was (mods/era-tiers.json), not how many people a province had
   ['const LAND_CLASS = ["Settled land · 500+ people per province", "Frontier · 50-500 people per province", "Wilds · under 50 people per province"];',
    'const LAND_CLASS = ["Settled land · a state with towns and rulers", "Frontier · tribes, chiefdoms and herders without a state", "Wilds · hunter-gatherer bands"];'],

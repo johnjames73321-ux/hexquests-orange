@@ -36,3 +36,7 @@ Only Orange changes. The main game (~/hex-atlas-play) is not touched.
     Mesoamerica and the central Andes + coastal Ecuador (TOWNLANDS in classify.js). New World Settled: 203 states / 358 hexes.
   * Looks: Frontier tint 0.22 toward white (was 0.45), Wilds 0.78 (was 0.68); stripes 0.21 / 0.55 of a hex. Patches in mods/patches.js.
   * Totals: Settled 484 states / 2365 hexes, Frontier 2942 / 13015, Wilds 1711 / 11189.
+- step 5 (owner, angry: step 4 was the opposite of what he said). "no tier 1s in new world" was an ORDER, not a complaint:
+  * OWNER RULE: no tier 1 (Settled) anywhere in the New World. Maya, Oaxaca, Andes = Frontier. TOWNLANDS removed. Never promote them again.
+  * Looks: Wilds must still show their colour (he hated near-white). Now Frontier tint 0.10 + stripes 0.17 of a hex, Wilds tint 0.32 + stripes 0.36.
+  * Totals: Settled 281 states / 2007 hexes (all Old World), Frontier 3145 / 13373, Wilds 1711 / 11189.

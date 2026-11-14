@@ -34,16 +34,12 @@ const FORAGER = new RegExp([
 ].join("|"), "i");
 // ... except these, who farmed, herded or lived in ranked villages (checked first)
 const NOTFORAGER = /^Germanic(?!.*hunt)|^Finnic|^Andean|^Ecuadorian|Buyeo|Okjeo|Yemaek|Poltse|Dingling|Yayoi|Adena|mound|Kwakwala|Wakashan|Nuu-chah-nulth|Tsimshian|Coast Salish|Chinook|Haida|Tlingit|Basketmaker|Early Agricultural|O'odham|pastoral|farmers|hillfort|metallurg|Sanhaja|Sandawe-speaking farmers/i;
-// lands of towns, temple centres and dense farming villages in 320 BC even where the data calls the people a tribe, chiefdom or culture:
-// Mesoamerica (Late Preclassic Maya, Oaxaca, central Mexico, Gulf coast, West Mexico) and the central Andes with coastal Ecuador
-// (end of Chavin, Paracas, Salinar, Pukara, Chiripa, Chorrera, Upano)
-const TOWNLANDS = /^Maya|Mixe-Zoque|Oto-Mangue|Otomangue|Zapotec|Valley of Mexico|Morelos|Totonac|Otomi|Purepecha|Cuitlatec|Tlapanec|Huave|Tequistlatec|Nahuatl|Tecual|Totorame|Colimotl|^Andean|Quechua|Aymara|Puquina|^Ecuadorian|Upper Amazon Formative/;
 const tierOf = r => { const [, name, type, cult, seat] = r, s = cult + " | " + seat;
   // names of later centuries used for 320 BC lands: no such kingdom or town existed yet, the people there were villagers or foragers
   if (SETTLED.has(type) && /Wichita|Iroquoian/.test(cult)) return 2;   // Quivira, Hochelaga ...: 16th century AD names
   if (SETTLED.has(type) && /Tiwa|Towa|Tewa|Keres|Tano|Tompiro|Zuni|Hopi|Yoruba|Igbo|Chadic|Kotoko|Mande|Tichitt|Dhar Nema|Aymaran|Soninke|Tikar|Adamawa|^Saharan|Jukunoid|Bantu|Central Sudani|^Fur/.test(cult)) return 1;   // pueblos, West and Central African towns and kingdoms of later ages
+  if (SETTLED.has(type) && +r[10] < -30) return 1;   // OWNER RULE (11-14): no tier 1 anywhere in the New World. Maya, Oaxaca, Andes towns = Frontier. Never promote them.
   if (SETTLED.has(type)) return 0;
-  if (type !== "nomads" && TOWNLANDS.test(cult) && !/Chaco|lowland/.test(cult)) return 0;
   if (FRONTIER.has(type)) return 1;
   if (type === "clan") return 2;
   if (NOTFORAGER.test(cult)) return 1;
