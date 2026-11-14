@@ -7,7 +7,7 @@
      seam between the two runs down the open ocean (SEAM: per row, the sea gap between the Americas and the Old World)
    - the Europe band (old x WX) is SX wider, all the way down, so nothing east of it shears */
 const OR = ((TOP, SEAM, BOT) => {
-  const YT = 310, SX = 0.25, AX = 0.22, WX = [640, 670, 1030, 1060], P = [[0, 0], [60, 0.30], [215, 0.30], [315, 0.08]], CB = [322, 402], SA = 56;
+  const YT = 310, SX = 0.25, AX = 0.22, WX = [640, 670, 1030, 1060], P = [[0, 0], [60, 0.30], [215, 0.30], [315, 0.08]], CB = [322, 402], SA = 56, DB = 44;   /* DB: the map is this much taller south of the Tunis line. The Old World stretches evenly down to it (Africa, Australia a bit taller); South America only gives up SA - DB */
   const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
   const E = t => {
     if (t <= 0) return 0; let e = 0;
@@ -17,15 +17,15 @@ const OR = ((TOP, SEAM, BOT) => {
   };
   // 1 on the Americas side of the Atlantic, 0 on the Old World side (only used south of the Tunis line)
   const B = (x, y) => { if (!SEAM) return 0; const f = Math.min(SEAM.a.length - 1.001, Math.max(0, (y - SEAM.y0) / SEAM.dy)), i = f | 0, u = f - i; return 1 - ss(SEAM.a[i] + (SEAM.a[i + 1] - SEAM.a[i]) * u, SEAM.b[i] + (SEAM.b[i + 1] - SEAM.b[i]) * u, x); };
-  const A = y => SA * Math.min(1, Math.max(0, (y - CB[0]) / (CB[1] - CB[0]))) * (1 - Math.min(1, Math.max(0, (y - CB[1]) / (BOT - CB[1]))));   /* fades back to 0 at the bottom edge: South America is a bit shorter, so every continent ends on the same bottom line, no extra sea */
+  const A = y => SA * Math.min(1, Math.max(0, (y - CB[0]) / (CB[1] - CB[0]))) * (1 - (1 - DB / SA) * Math.min(1, Math.max(0, (y - CB[1]) / (BOT - CB[1])))), O = y => DB * Math.min(1, Math.max(0, (y - YT) / (BOT - YT))), SH = (x, y) => { const o = O(y); return o + B(x, y) * (A(y) - o); };   /* eases back to DB at the bottom edge, where the Old World (O) arrives too: every continent ends on the same bottom line, no extra sea */
   const X0 = -300, XN = 2600, XT = new Float64Array(XN + 1);
   for (let i = 1; i <= XN; i++) { const x = X0 + i - 0.5; XT[i] = XT[i - 1] + 1 + SX * ss(WX[0], WX[1], x) * (1 - ss(WX[2], WX[3], x)) + (x > -10 ? AX * (1 - ss(500, 530, x)) : 0); }   /* AX: the Americas are wider too, so their taller north is not left looking squeezed */
   const fx = x => { const u = Math.min(XN - 1e-9, Math.max(0, x - X0)), i = u | 0; return X0 + XT[i] + (XT[i + 1] - XT[i]) * (u - i); };
   const ux = xn => { const v = xn - X0; let lo = 0, hi = XN; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (XT[m] <= v) lo = m; else hi = m; } return X0 + lo + (v - XT[lo]) / (XT[hi] - XT[lo]); };
-  const DH = E(YT - TOP), DW = XT[XN] - XN, DB = 0;
-  const fy = (xo, yo) => yo >= YT ? yo + DH + B(xo, yo) * A(yo) : YT + DH - ((YT - yo) + E(YT - yo));
+  const DH = E(YT - TOP), DW = XT[XN] - XN;
+  const fy = (xo, yo) => yo >= YT ? yo + DH + SH(xo, yo) : YT + DH - ((YT - yo) + E(YT - yo));
   const uy = (xo, yn) => {
-    if (yn >= YT + DH) { const v = yn - DH; if (v <= CB[0]) return v; let lo = Math.max(YT, v - SA), hi = v; for (let k = 0; k < 40; k++) { const m = (lo + hi) / 2; if (m + B(xo, m) * A(m) < v) lo = m; else hi = m; } return (lo + hi) / 2; }
+    if (yn >= YT + DH) { const v = yn - DH; let lo = Math.max(YT, v - SA), hi = v; for (let k = 0; k < 40; k++) { const m = (lo + hi) / 2; if (m + SH(xo, m) < v) lo = m; else hi = m; } return (lo + hi) / 2; }
     const T = YT + DH - yn; let lo = 0, hi = T; for (let k = 0; k < 40; k++) { const m = (lo + hi) / 2; if (m + E(m) < T) lo = m; else hi = m; }
     return YT - (lo + hi) / 2;
   };
