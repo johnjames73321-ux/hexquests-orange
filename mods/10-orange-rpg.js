@@ -7,6 +7,7 @@
    fault here can never stop the base game. */
 (() => {
   "use strict";
+  const OX = window.ORANGE = { jExtra: [], onInit: [], onTick: [], onKey: [], rumours: [] };
   const SKEY = "orange-rpg", DEF = { daynight: 1, autores: 1, fps: 0, compass: 1 };
   const st = (() => { let s = {}; try { s = JSON.parse(localStorage.getItem(SKEY) || "{}") || {}; } catch (e) {} return Object.assign({ deeds: {}, quest: null, done: 0, log: [], found: {}, souls: 0, clock: 9, seen: 0, opt: {} }, s); })();
   let saveT = 0; const save = () => { clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem(SKEY, JSON.stringify(st)); } catch (e) {} }, 400); };
@@ -36,7 +37,9 @@
 #orCmp{position:relative;width:min(460px,62vw);height:26px;overflow:hidden;border-top:1px solid rgba(255,255,255,.45);border-bottom:1px solid rgba(255,255,255,.45);background:linear-gradient(90deg,transparent,rgba(0,0,0,.34) 18%,rgba(0,0,0,.34) 82%,transparent)}
 #orCmp i{position:absolute;top:0;left:0;height:26px;display:grid;place-items:center;font:700 13px system-ui;font-style:normal;white-space:nowrap;will-change:transform}
 #orCmp i.c{font-size:15px;letter-spacing:.04em}#orCmp i.t{opacity:.55;font-size:10px}
-#orCmp i.mob{color:#ff5a4a;font-size:10px}#orCmp i.boss{color:#ff5a4a;font-size:15px}#orCmp i.gate{color:#8fdcff;font-size:12px}#orCmp i.q{color:#ffd23a;font-size:17px}
+#orCmp i.mob{color:#ff5a4a;font-size:10px}#orCmp i.boss{color:#ff5a4a;font-size:15px}#orCmp i.gate{color:#8fdcff;font-size:12px}#orCmp i.q{color:#ffd23a;font-size:17px}#orCmp i.poi{color:#fff;font-size:13px}#orCmp i.npc{color:#e8ecff;font-size:9px;opacity:.8}
+#orDlg{position:absolute;left:50%;bottom:150px;transform:translateX(-50%);z-index:33;width:min(480px,88vw);background:rgba(12,14,24,.9);border:1px solid #8a6a2a;border-radius:12px;padding:12px 16px;color:#e8ecff;font:13px system-ui;display:grid;gap:5px;box-shadow:0 12px 34px rgba(0,0,0,.5)}
+#orDlg[hidden]{display:none}#orDlg b{font:400 19px Georgia,serif;color:#ffd23a}#orDlg p{margin:0 0 4px;line-height:1.45}#orDlg kbd{font:700 11px system-ui;padding:1px 7px;border-radius:5px;background:rgba(255,255,255,.14);margin-right:6px}
 #orRow{display:flex;gap:14px;align-items:center;font:600 12px system-ui}
 #orShout{display:flex;gap:6px;align-items:center}#orShout b{display:block;width:74px;height:6px;border-radius:3px;background:rgba(0,0,0,.5);overflow:hidden}#orShout b u{display:block;height:100%;background:#8fdcff}
 #orTgt{display:grid;justify-items:center;gap:2px;font:700 13px system-ui}#orTgt[hidden]{display:none}
@@ -58,8 +61,8 @@
     const top = mk("div", "orTop", `<div id="orCmp"></div><div id="orRow"><div id="orShout">Stormvoice <b><u></u></b></div><div id="orClock"></div></div><div id="orTgt" hidden><span></span><b><u></u></b></div>`);
     const cmp = $("orCmp"), fixed = [];
     for (let a = 0; a < 360; a += 15) { const e = document.createElement("i"), card = { 0: "N", 45: "NE", 90: "E", 135: "SE", 180: "S", 225: "SW", 270: "W", 315: "NW" }[a]; e.className = card && card.length === 1 ? "c" : "t"; e.textContent = card || "·"; cmp.appendChild(e); fixed.push([a * Math.PI / 180, e]); }
-    ui = { root: top, cmp, fixed, pool: [], ban: mk("div", "orBan", "<small></small><b></b>"), q: mk("div", "orQ"), sneak: mk("div", "orSneak"), fps: mk("div", "orFps"), j: mk("div", "orJ") };
-    ui.q.hidden = ui.sneak.hidden = ui.fps.hidden = ui.j.hidden = true; ui.j.onclick = jClick;
+    ui = { root: top, cmp, fixed, pool: [], ban: mk("div", "orBan", "<small></small><b></b>"), q: mk("div", "orQ"), sneak: mk("div", "orSneak"), fps: mk("div", "orFps"), j: mk("div", "orJ"), dlg: mk("div", "orDlg") };
+    ui.q.hidden = ui.sneak.hidden = ui.fps.hidden = ui.j.hidden = ui.dlg.hidden = true; ui.j.onclick = jClick;
     return ui;
   };
   const banQ = []; let banBusy = 0;
@@ -95,13 +98,24 @@
     const q = pool[Math.floor(Math.random() * pool.length)](); q.land = O.land.key; q.landName = O.land.name; q.giver = giver; st.quest = q; save(); questArm(me);
     banner("New quest", q.title, 3000); try { me.tone(520, .07); } catch (e) {} return q;
   };
-  const onTalk = me => {
-    const msg = $("svMsg"), name = msg ? msg.textContent.split(":")[0] : "Villager", q = st.quest, O = me.orange; let line;
-    if (!q) { const n = questOffer(me, name); if (!n) return; line = n.say + `  (L = journal)`; }
-    else if (q.land === O.land.key || q.type === "courier") line = q.type === "hunt" ? `Still ${q.need - q.n} to go. Good hunting.` : q.type === "courier" ? `That letter won't carry itself to ${q.toName}.` : q.type === "peak" ? "Follow the golden light to the high ground." : "It is still out there. Be careful.";
-    else line = `You have work waiting in ${q.landName}. Finish it, or drop it in your journal (L).`;
-    me.say(`${name}: ${line}`, 5600);
-  };
+  const DIRN = ["north", "north-east", "east", "south-east", "south", "south-west", "west", "north-west"], dirWord = (me, x, z) => DIRN[Math.round(wrap(Math.atan2(x - me.pos.x, -(z - me.pos.z))) / (Math.PI / 4) + 8) % 8];
+  const IDLE = ["Safe travels, stranger.", "Keep your blade close, the beasts are bold here.", "The blue lights at the edge of the land lead elsewhere.", "Mind the nights. Things hunt in the dark."];
+  const workLine = (me, name) => { const q = st.quest, O = me.orange;
+    if (!q) { const n = questOffer(me, name); return n ? n.say + "  (L = journal)" : "Nothing needs doing today. Come back later."; }
+    if (q.land === O.land.key || q.type === "courier") return q.type === "hunt" ? `Still ${q.need - q.n} to go. Good hunting.` : q.type === "courier" ? `That letter won't carry itself to ${q.toName}.` : q.type === "peak" ? "Follow the golden light to the high ground." : "It is still out there. Be careful.";
+    return `You have work waiting in ${q.landName}. Finish it, or drop it in your journal (L).`; };
+  const rumour = me => { const O = me.orange, out = [];
+    for (const p of O.pois) if (!p.found) out.push(() => { p.hint = 1; return `They say ${p.rumour} to the ${dirWord(me, p.x, p.z)}. I have marked the way for you.`; });
+    const dk = me.mobs.find(m => m.drake && !m.dead); if (dk) out.push(() => `A drake was seen to the ${dirWord(me, dk.root.position.x, dk.root.position.z)}. Stay clear, or bring fire of your own.`);
+    const bs = me.mobs.find(m => m.boss && !m.dead); if (bs) out.push(() => `The great beast of this land prowls to the ${dirWord(me, bs.root.position.x, bs.root.position.z)}.`);
+    for (const f of OX.rumours) { try { const t = f(me); if (t) out.push(() => t); } catch (e) {} }
+    return out.length ? out[Math.floor(Math.random() * out.length)]() : IDLE[Math.floor(Math.random() * IDLE.length)]; };
+  const dlgDraw = (me, line) => { const u = ensureUI(), d = me.orange.dlg; if (!u) return; if (!d) { u.dlg.hidden = true; return; } u.dlg.hidden = false;
+    u.dlg.innerHTML = `<b>${esc(d.name)}</b><p>${esc(line)}</p><span><kbd>1</kbd>Any work for me?</span><span><kbd>2</kbd>Heard any rumours?</span><span><kbd>3</kbd>Train me (skills and training)</span><span><kbd>4</kbd>Farewell</span>`; };
+  const dlgClose = me => { me.orange.dlg = null; const u = ensureUI(); if (u) u.dlg.hidden = true; };
+  const dlgKey = (me, code) => { const d = me.orange.dlg; if (!d) return false; const n = { Digit1: 1, Digit2: 2, Digit3: 3, Digit4: 4, Numpad1: 1, Numpad2: 2, Numpad3: 3, Numpad4: 4, Escape: 4, KeyE: 4 }[code]; if (!n) return false;
+    if (n === 1) dlgDraw(me, workLine(me, d.name)); else if (n === 2) dlgDraw(me, rumour(me)); else if (n === 3) { dlgClose(me); me.toggleTree && me.toggleTree(); } else dlgClose(me); try { me.tone && me.tone(700, .03); } catch (e) {} return true; };
+  const onTalk = me => { const msg = $("svMsg"), name = msg ? msg.textContent.split(":")[0] : "Villager"; if (msg) msg.hidden = true; me.orange.dlg = { name, x: me.pos.x, z: me.pos.z }; dlgDraw(me, "Well met, traveller. What do you need?"); };
 
   // ---------- drake: a winged world boss that breathes fire ----------
   let puffT = null; const puff = T => { if (!puffT) { const c = document.createElement("canvas"); c.width = c.height = 32; const x = c.getContext("2d"), g = x.createRadialGradient(16, 16, 0, 16, 16, 16); g.addColorStop(0, "rgba(255,255,255,1)"); g.addColorStop(.5, "rgba(255,255,255,.55)"); g.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = g; x.fillRect(0, 0, 32, 32); puffT = new T.CanvasTexture(c); } return puffT; };
@@ -182,6 +196,7 @@
 <h4>Quest</h4>${q ? `<div class="d"><b><span>${esc(q.title)}</span><span>+${q.r.c} coins · +${q.r.xp} XP</span></b><span>${esc(questText(q))} · ${esc(q.landName)}${q.giver ? " · from " + esc(q.giver) : ""}</span></div><p><button data-a="drop">Drop this quest</button></p>` : `<p>No quest. Talk to a villager (<kbd>E</kbd>) to get one.</p>`}
 <h4>Skills (they grow as you use them)</h4><div class="g">${Object.entries(DEEDS).map(([k, [n, h]]) => { const d = deed(k); return `<div class="d"><b><span>${n}</span><span>${d.l}</span></b><span>${h}</span><u style="width:${Math.round(100 * d.x / dNeed(d.l))}%"></u></div>`; }).join("")}</div>
 <h4>Stormvoice · level ${voiceLvl()} of 5</h4><p><kbd>U</kbd> a shockwave that staggers and throws back what is in front of you · ready every ${voiceCd()} s · each drake soul makes it stronger</p>
+${OX.jExtra.map(f => { try { return f(); } catch (e) { return ""; } }).join("")}
 <h4>How it works</h4><p><kbd>Ctrl</kbd> crouch, then strike a beast that has not noticed you: sneak attack, triple damage or more · the bar at the top is your compass: red = hostile, blue = the way to the next land, gold = your quest</p>
 ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("")}` : ""}
 <h4>Options</h4><p style="display:flex;gap:6px;flex-wrap:wrap">${O.map(([k, n]) => `<button data-o="${k}" class="${opt(k) ? "on" : ""}">${n}: ${opt(k) ? "on" : "off"}</button>`).join("")}</p><p style="opacity:.6"><kbd>L</kbd> close</p>`;
@@ -212,12 +227,13 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
   const marker = (u, i, cls, txt) => { let e = u.pool[i]; if (!e) { e = document.createElement("i"); u.cmp.appendChild(e); u.pool[i] = e; } if (e.className !== cls) e.className = cls; if (e.textContent !== txt) e.textContent = txt; return e; };
   const tick = (me, dt, t) => {
     const O = me.orange, u = ensureUI(), now = performance.now(), rdt = Math.min(.1, (now - (O.now || now)) / 1000); O.now = now; if (!u) return;
-    fpsTick(me, now); drakeTick(me, dt, t);
+    fpsTick(me, now); drakeTick(me, dt, t); for (const f of OX.onTick) f(me, dt, t, rdt);
+    if (O.dlg && Math.hypot(me.pos.x - O.dlg.x, me.pos.z - O.dlg.z) > 5) dlgClose(me);
     for (let i = O.push.length - 1; i >= 0; i--) { const p = O.push[i]; p.t -= dt; if (p.t <= 0 || p.m.dead) { O.push.splice(i, 1); continue; } const x = p.m.root.position.x + p.vx * dt, z = p.m.root.position.z + p.vz * dt; if (dry(me, x, z)) { p.m.root.position.x = x; p.m.root.position.z = z; } }
     if (O.shCd > 0) O.shCd -= rdt;
     st.clock = (st.clock + rdt * 24 / (24 * 60)) % 24;   // one day = 24 minutes
     // athletics
-    { const dx = me.pos.x - O.lx, dz = me.pos.z - O.lz, d = Math.hypot(dx, dz); O.lx = me.pos.x; O.lz = me.pos.z; if (d < 3 && me.runNow && !me.flying) { O.ran += d; if (O.ran > 60) { O.ran = 0; dGain(me, "athletics", 3); } } }
+    { const dx = me.pos.x - O.lx, dz = me.pos.z - O.lz, d = Math.hypot(dx, dz); O.lx = me.pos.x; O.lz = me.pos.z; if (d < 3 && me.runNow && !me.flying) { O.ran += d; if (O.ran > 40) { O.ran = 0; dGain(me, "athletics", 3); } } }
     // quests that finish by where you stand
     const q = st.quest; if (q && q.type === "peak" && O.qPos && Math.hypot(me.pos.x - O.qPos[0], me.pos.z - O.qPos[1]) < 6) questDone(me);
     if ((O.slowT += rdt) < .066) return; const sdt = O.slowT; O.slowT = 0;   // the HUD itself: 15 times a second is plenty
@@ -228,6 +244,8 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
       for (const [a, e] of u.fixed) put(e, wrap(a + me.yaw));
       let i = 0; const rel = (x, z) => wrap(Math.atan2(x - me.pos.x, -(z - me.pos.z)) + me.yaw);
       for (const g of O.gates) put(marker(u, i++, "gate", "◆"), rel(g[0], g[1]));
+      for (const p of O.pois) if (p.found || p.hint || Math.hypot(p.x - me.pos.x, p.z - me.pos.z) < 140) put(marker(u, i++, "poi", p.icon), rel(p.x, p.z));
+      if (!q) for (const n of O.npcs) if (Math.hypot(n.position.x - me.pos.x, n.position.z - me.pos.z) < 90) put(marker(u, i++, "npc", "○"), rel(n.position.x, n.position.z));
       for (const m of me.mobs) { if (m.dead || m.tame) continue; const d = Math.hypot(m.root.position.x - me.pos.x, m.root.position.z - me.pos.z); if (m.boss || m.drake) put(marker(u, i++, "boss", m.drake ? "🐲" : "☠"), rel(m.root.position.x, m.root.position.z)); else if (m.angry > 0 && d < 70) put(marker(u, i++, "mob", "●"), rel(m.root.position.x, m.root.position.z)); }
       let qp = O.qPos; if (q && q.land === O.land.key && (q.type === "boss" || q.type === "drake" || q.type === "hunt")) { let best = null, bd = 1e9; for (const m of me.mobs) { if (m.dead) continue; if (q.type === "hunt" ? m.k !== q.kind : q.type === "boss" ? !m.boss : !m.drake) continue; const d = Math.hypot(m.root.position.x - me.pos.x, m.root.position.z - me.pos.z); if (d < bd) { bd = d; best = m; } } qp = best ? [best.root.position.x, best.root.position.z] : null; }
       if (qp) put(marker(u, i++, "q", "▼"), rel(qp[0], qp[1]));
@@ -244,9 +262,10 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
   // ---------- once per land ----------
   const init = me => {
     if (!me || me.orange || !me.T || !me.scene || !me.mobs) return; const land = landOf(me.hex);
-    const O = me.orange = { land, push: [], fireP: [], gates: [], shCd: 0, tgt: null, tgtT: 0, lx: me.pos.x, lz: me.pos.z, ran: 0, slowT: 0, px: 1.5, f: { n: 0, slow: 0, fast: 0, hold: 0 } };
+    const O = me.orange = { land, push: [], fireP: [], gates: [], pois: [], npcs: [], dlg: null, shCd: 0, tgt: null, tgtT: 0, lx: me.pos.x, lz: me.pos.z, ran: 0, slowT: 0, px: 1.5, f: { n: 0, slow: 0, fast: 0, hold: 0 } };
     for (let d = 0; d < 6; d++) { const j = nb(me.hex, d); if (j < 0 || D.reg[j] < 0) continue; const a = Math.atan2(cy[j] - cy[me.hex], cx[j] - cx[me.hex]); O.gates.push([Math.cos(a) * 600, Math.sin(a) * 600]); }
-    ensureUI();
+    ensureUI(); dlgClose(me);
+    try { O.npcs = me.scene.children.filter(o => o.isGroup && o.children.filter(c => c.isGroup).length === 4 && [6, 9].includes(o.children.filter(c => c.isMesh).length)); } catch (e) { O.npcs = []; }   /* villagers: the only groups built as 4 limbs + 6 or 9 body parts */
     const hit0 = me.onHit, kill0 = me.onKill, par0 = me.parried, up0 = me.up, talk0 = me.talk;
     me.onHit = (m, dmg, crit, heavy) => { try { hit0 && hit0(m, dmg, crit, heavy); } catch (e) { warn(e); }
       try { O.tgt = m; O.tgtT = 6; if (O.shouting) return; const k = me.weapon === "bow" ? "archery" : /axe|hammer/.test(String(me.melee || "")) ? "twohand" : "onehand"; let extra = dmg * .01 * (dLvl(k) - 1);
@@ -264,9 +283,10 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
     if (!st.found[land.key]) { st.found[land.key] = 1; save(); setTimeout(() => { if (cur() !== me) return; banner("Discovered", land.name, 3800); try { me.tone(392, .12); setTimeout(() => me.tone && me.tone(587, .2), 160); me.gainXP(15); } catch (e) {} }, 900); }
     else setTimeout(() => { if (cur() === me) banner(land.country || "", land.name, 1800); }, 700);
     try { questArm(me); } catch (e) { warn(e); }
+    for (const f of OX.onInit) { try { f(me); } catch (e) { warn(e); } }
     // a drake haunts about one land in seven once you can stand up to it
     try { const lvl = (me.prog && me.prog.lvl) || 1; if (!O.drake && lvl >= 4 && hash(land.key + "|drake") % 7 === 0 && !(st.slain && st.slain[land.key])) setTimeout(() => { if (cur() === me && !O.drake) spawnDrake(me); }, 6000); } catch (e) { warn(e); }
-    if ((st.seen = (st.seen || 0) + 1) <= 4) setTimeout(() => { if (cur() === me) me.say("New: L journal and quests · U Stormvoice · crouch + strike = sneak attack · talk to villagers (E) for quests", 7000); }, 5200);
+    if ((st.seen = (st.seen || 0) + 1) <= 4) setTimeout(() => { if (cur() === me) me.say("New: L journal · U Stormvoice · I firebolt · P frost · hold O heal · crouch + strike = sneak attack · talk to villagers (E)", 8000); }, 5200);
     save();
   };
 
@@ -274,8 +294,8 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
   window.hxRestore = me => { try { restore0 && restore0(me); } finally { try { init(me); } catch (e) { warn(e); } } };
   const key0 = window.hxKey;
   window.hxKey = (code, me) => {
-    try { if (me && me.orange) { if (code === "KeyL") { jToggle(); return true; } if (code === "KeyU") return shout(me); } } catch (e) { warn(e); }
+    try { if (me && me.orange) { if (dlgKey(me, code)) return true; if (code === "KeyL") { jToggle(); return true; } if (code === "KeyU") return shout(me); for (const f of OX.onKey) if (f(me, code)) return true; } } catch (e) { warn(e); }
     return key0 ? key0(code, me) : false;
   };
-  window.ORANGE = { st, banner, shout, spawnDrake, questOffer, jToggle, nightOf, save };   // for tests
+  Object.assign(OX, { st, banner, shout, spawnDrake, questOffer, jToggle, jDraw, nightOf, save, dGain, dLvl, DEEDS, opt, cur, warn, clamp, dry, hash, rngOf, esc, landOf, ensureUI, voiceLvl });   // shared with the other Orange mods, and for tests
 })();

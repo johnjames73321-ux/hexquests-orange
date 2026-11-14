@@ -52,7 +52,7 @@ module.exports = [
   // start menu: the Orange keys
   [
     "<span><kbd>Esc</kbd> back to map</span></div>",
-    "<span><kbd>Esc</kbd> back to map</span><span><kbd>L</kbd> journal · quests</span><span><kbd>U</kbd> Stormvoice shout</span><span><kbd>Ctrl</kbd> + strike = sneak attack</span></div>",
+    "<span><kbd>Esc</kbd> back to map</span><span><kbd>L</kbd> journal · quests</span><span><kbd>U</kbd> Stormvoice shout</span><span><kbd>Ctrl</kbd> + strike = sneak attack</span><span><kbd>I</kbd> firebolt · <kbd>P</kbd> frost</span><span><kbd>O</kbd> hold = heal</span></div>",
   ],
   ["if (at(na, nc, iy) && !edge) continue;", "if (at(na, nc, iy) && !edge) continue; if (!orS) { tcol(t, cx, cz, iy, 0, cS); orS = 1; }"],
 ];

@@ -18,15 +18,32 @@ for (let i = 0; i < N; i++) {
   idx.set(D.q[i] * 65536 + D.r[i], i); const y = yOf(D.q[i], D.r[i]); top = Math.min(top, y); bot = Math.max(bot, y); qmin = Math.min(qmin, D.q[i]); qmax = Math.max(qmax, D.q[i]);
   const c = colTop.get(D.q[i]); if (c === undefined || D.r[i] < D.r[c]) colTop.set(D.q[i], i);
 }
-const WARP = fs.readFileSync(path.join(__dirname, "warp.js"), "utf8"), OR = require("./warp.js")(top), DH = OR.DH;
+// the Atlantic seam: for every 6 px row band south of the Tunis line, the open-sea gap between the Americas and the Old World
+// (the widest stretch of water between x 200 and 760), narrowed by its neighbour rows so no land ever sits inside it
+const SEAM = (() => {
+  const y0 = 300, dy = 6, n = Math.ceil((bot + 12 - y0) / dy) + 1, xs = Array.from({ length: n }, () => []);
+  for (let i = 0; i < N; i++) { if (D.reg[i] < 0) continue; const x = xOf(D.q[i]), y = yOf(D.q[i], D.r[i]); if (x < 200 || x > 760) continue; const k = Math.round((y - y0) / dy); for (let j = k - 1; j <= k + 1; j++) if (j >= 0 && j < n) xs[j].push(x); }
+  const a = [], b = [];
+  let mid = 540;   // followed row by row from the open Atlantic east of the Antilles
+  for (let k = 0; k < n; k++) { const v = [150, ...xs[k].sort((p, q) => p - q), 900]; let best = null;
+    for (let j = 1; j < v.length; j++) { const w = v[j] - v[j - 1]; if (w < 24) continue; const c = Math.min(v[j], Math.max(v[j - 1], mid)), d = Math.abs(c - mid); if (!best || d < best[2]) best = [v[j - 1], v[j], d]; }
+    let g0 = best[0], g1 = Math.min(best[1], best[0] + 140); if (g0 === 150 && k) { g0 = a[k - 1]; g1 = b[k - 1]; } a.push(g0); b.push(g1); mid = Math.min(g1 - 12, Math.max(g0 + 12, mid)); }
+  const A2 = a.map((_, k) => Math.max(a[Math.max(0, k - 1)], a[k], a[Math.min(n - 1, k + 1)]) + 5), B2 = b.map((_, k) => Math.min(b[Math.max(0, k - 1)], b[k], b[Math.min(n - 1, k + 1)]) - 5);
+  let tight = 1e9; for (let k = 0; k < n; k++) { if (B2[k] - A2[k] > 90) { const m = (A2[k] + B2[k]) / 2; A2[k] = m - 45; B2[k] = m + 45; } tight = Math.min(tight, B2[k] - A2[k]); }
+  if (tight < 8) console.log(a.map((v, k) => (y0 + k * dy) + ":" + Math.round(v) + "-" + Math.round(b[k])).join(" ")); if (tight < 8) throw new Error("the Atlantic seam closes up (" + tight.toFixed(1) + " px)");
+  console.log("Atlantic seam: narrowest", tight.toFixed(0), "px");
+  return { y0, dy, a: A2.map(v => +v.toFixed(1)), b: B2.map(v => +v.toFixed(1)) };
+})();
+const WARP = fs.readFileSync(path.join(__dirname, "warp.js"), "utf8"), OR = require("./warp.js")(top, SEAM), DH = OR.DH, DB = OR.DB;
 const oyN = D.oy + DH;
-// open sea used for the new water above the Americas: a quiet Arctic hex nobody owns
+// open sea for the new water under the Old World (South America now reaches further south than the old bottom edge)
 const quiet = i => D.reg[i] < 0 && !(G.pop[i] > 0) && !(G.own[i] >= 0) && !D.own[i] && ERA.hn[i] === undefined;
-const topSeas = {}; for (let i = 0; i < N; i++) if (quiet(i) && yOf(D.q[i], D.r[i]) < top + 40 && xOf(D.q[i]) < 545) topSeas[D.sea[i]] = (topSeas[D.sea[i]] || 0) + 1;
-const seaPick = +Object.keys(topSeas).sort((a, b) => topSeas[b] - topSeas[a])[0]; let SEAREF = -1;
+const botSeas = {}; for (let i = 0; i < N; i++) if (quiet(i) && yOf(D.q[i], D.r[i]) > bot - 40 && xOf(D.q[i]) > 700) botSeas[D.sea[i]] = (botSeas[D.sea[i]] || 0) + 1;
+const seaPick = +Object.keys(botSeas).sort((a, b) => botSeas[b] - botSeas[a])[0]; let SEAREF = -1;
 for (let i = 0; i < N && SEAREF < 0; i++) if (quiet(i) && D.sea[i] === seaPick) SEAREF = i;
 if (SEAREF < 0) throw new Error("no quiet sea hex for the new water");
 console.log("new water is", D.seas[seaPick]);
+const colBot = new Map(); for (let i = 0; i < N; i++) { const c = colBot.get(D.q[i]); if (c === undefined || D.r[i] > D.r[c]) colBot.set(D.q[i], i); }
 // hex under a world point (cube rounding), for a given grid origin
 const hexAt = (px, py, oy) => {
   const x = px - D.ox, y = py - oy, fq = (2 / 3) * x / S, fr = (-x / 3 + SQ3 / 3 * y) / S, fz = -fq - fr;
@@ -34,24 +51,34 @@ const hexAt = (px, py, oy) => {
   if (dq > dr && dq > dz) rq = -rr - rz; else if (dr > dz) rr = -rq - rz;
   return [rq, rr];
 };
-const jag = c => 1.5 + 1.6 * Math.sin(c * 0.37) + 1.3 * Math.sin(c * 0.11 + 2) + 0.9 * Math.sin(c * 0.83 + 1);
 // new hex list, column by column (same order as the old map: q, then r); every new hex copies one old hex (src)
 const q = [], r = [], src = []; let made = 0;
 const qEnd = qmax + Math.ceil(OR.DW / (1.5 * S)) + 2;
 for (let qq = qmin; qq <= qEnd; qq++) {
   const xn = xOf(qq), xo = OR.ux(xn);
-  const r0 = Math.floor((top - oyN) / ROW - qq / 2) - 1, r1 = Math.ceil((bot + DH - oyN) / ROW - qq / 2) + 1;
+  const r0 = Math.floor((top - oyN) / ROW - qq / 2) - 1, r1 = Math.ceil((bot + DH + DB - oyN) / ROW - qq / 2) + 1;
   for (let rr = r0; rr <= r1; rr++) {
-    const yn = oyN + ROW * (rr + qq / 2); if (yn < top - 0.01) continue;
+    const yn = oyN + ROW * (rr + qq / 2); if (yn < top - 0.01 || yn > bot + DH + DB + 0.01) continue;
     const yo = OR.uy(xo, yn), [oq, orr] = hexAt(xo, yo, D.oy); let s = idx.get(oq * 65536 + orr);
-    if (s === undefined) {                                  // above the old map: the column's top hex if within a row, else new open sea
-      const t = colTop.get(oq); if (t === undefined) continue; const ty = yOf(oq, D.r[t]); if (yo > ty) continue;
-      if (ty - yo < ROW * (D.reg[t] >= 0 ? jag(oq) : 1)) s = t; else { s = SEAREF; made++; }   // land that the old map edge cut off straight gets a ragged shore instead
+    if (s === undefined) {                                  // off the old map: just above = the column's top hex; below the old bottom = new open sea
+      const t = colTop.get(oq), u = colBot.get(oq); if (t === undefined) continue; const ty = yOf(oq, D.r[t]), uy = yOf(oq, D.r[u]);
+      if (yo < ty) { if (ty - yo < ROW) s = t; else continue; } else if (yo > uy) { s = quiet(u) ? u : SEAREF; made++; }   /* the same sea as the old bottom edge of that column */ else continue;
     }
     q.push(qq); r.push(rr); src.push(s);
   }
 }
 const M = q.length, nidx = new Map(); for (let i = 0; i < M; i++) nidx.set(q[i] * 65536 + r[i], i);
+// "meatier" lands: every coast grows outward by MEAT rings. A sea hex turns into land (a copy of the land hex next to it)
+// only if the water around it stays in one piece, so no strait, channel or lake mouth is ever closed and no two lands join.
+const MEAT = 2; let meat = 0;
+{ const D6 = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]], land = i => D.reg[src[i]] >= 0;
+  for (let pass = 0; pass < MEAT; pass++) { const add = [];
+    for (let i = 0; i < M; i++) { if (land(i)) continue; const nb6 = D6.map(([a, b]) => { const j = nidx.get((q[i] + a) * 65536 + r[i] + b); return j === undefined ? -1 : j; });
+      if (nb6.includes(-1)) continue; const L = nb6.map(j => land(j)), nl = L.filter(Boolean).length; if (nl < 2 || nl > 4) continue;
+      let runs = 0; for (let d = 0; d < 6; d++) if (L[d] && !L[(d + 5) % 6]) runs++; if (runs !== 1) continue;   // land on one side only: the water ring stays whole
+      const regs = new Set(nb6.filter((j, d) => L[d]).map(j => D.regions[D.reg[src[j]]][1])); if (regs.size > 1) continue;   // never across a border between two countries
+      add.push([i, src[nb6[L.findIndex(Boolean)]]]); }
+    const taken = new Set(); for (const [i, s] of add) { let ok = true; for (const [a, b] of D6) { const j = nidx.get((q[i] + a) * 65536 + r[i] + b); if (taken.has(j)) ok = false; } if (!ok) continue; taken.add(i); src[i] = s; meat++; } } }
 const copies = new Int32Array(N); for (const s of src) copies[s]++;
 const DIRS = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]];
 // an old hex the resampling skipped takes over the nearest new hex whose source has a spare copy
@@ -92,7 +119,7 @@ const landOld = D.reg.filter(v => v >= 0).length, landNew = src.filter(s => D.re
 const popOld = G.pop.slice(0, N).reduce((a, b) => a + b, 0), popNew = pop.reduce((a, b) => a + b, 0);
 console.log("land hexes", landOld, "->", landNew, "| people", popOld, "->", popNew);
 if (popOld !== popNew && !lost) throw new Error("people changed");
-Object.assign(D, { q, r, reg: pick(D.reg), sea: pick(D.sea), own: src.map(s => D.own[s] || ""), st, dm, oy: oyN, cutb: (D.cutb || 0) - DH });
+Object.assign(D, { q, r, reg: pick(D.reg), sea: pick(D.sea), own: src.map(s => D.own[s] || ""), st, dm, oy: oyN, cutb: (D.cutb || 0) - DH - DB });
 Object.assign(G, { own: pick(G.own), pop, hrel: pick(G.hrel), hcul: pick(G.hcul) });
 Object.assign(ERA, { tier: src.map(s => ERA.tier[s]).join(""), own: Buffer.from(en.buffer).toString("base64"), hn });
 const put = (p, v) => { lines[p.li] = p.pre + JSON.stringify(v) + p.suf + p.cr; };
@@ -108,7 +135,7 @@ rep("try { const m = location.hash.match(/^#ov=(.+)$/);", '(() => { const P = "o
 rep('if (location.protocol === "file:" && /Windows/.test(navigator.userAgent)) {', "if (false) {   /* Orange: never jump to the main game's server */");
 rep('const LOCALSRV = location.port === "8766" ? "" : "http://127.0.0.1:8766";', 'const LOCALSRV = "about:invalid";   /* Orange: editor changes stay in this browser, never baked into the main game */');
 // the warp, for everything that still thinks in the main game's world px: true lon/lat (LLT) and the reference pictures
-rep("const CUT = D.cut || 0, CUTL = D.cutl || 0, W = 2000 - CUTL,", WARP.replace(/\nif \(typeof module[^\n]*\n?/, "\n") + `const ORW = OR(${top});
+rep("const CUT = D.cut || 0, CUTL = D.cutl || 0, W = 2000 - CUTL,", WARP.replace(/\nif \(typeof module[^\n]*\n?/, "\n") + `const ORW = OR(${top}, ${JSON.stringify(SEAM)});
 let orOX = null, orOY = null;
 const orOld = () => { if (orOX) return; orOX = new Float32Array(N); orOY = new Float32Array(N); for (let k = 0; k < N; k++) { const p = ORW.inv(cx[k], cy[k]); orOX[k] = p[0]; orOY[k] = p[1]; } };
 const orCache = new Map();
