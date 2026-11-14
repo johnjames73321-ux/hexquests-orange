@@ -70,7 +70,7 @@ for (let qq = qmin; qq <= qEnd; qq++) {
 const M = q.length, nidx = new Map(); for (let i = 0; i < M; i++) nidx.set(q[i] * 65536 + r[i], i);
 // "meatier" lands: every coast grows outward by MEAT rings. A sea hex turns into land (a copy of the land hex next to it)
 // only if the water around it stays in one piece, so no strait, channel or lake mouth is ever closed and no two lands join.
-const MEAT = 2; let meat = 0;
+const MEAT = 0;   /* reverted: the user did not want the fatter coasts */ let meat = 0;
 { const D6 = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]], land = i => D.reg[src[i]] >= 0;
   for (let pass = 0; pass < MEAT; pass++) { const add = [];
     for (let i = 0; i < M; i++) { if (land(i)) continue; const nb6 = D6.map(([a, b]) => { const j = nidx.get((q[i] + a) * 65536 + r[i] + b); return j === undefined ? -1 : j; });
