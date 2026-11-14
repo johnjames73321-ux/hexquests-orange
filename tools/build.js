@@ -34,7 +34,7 @@ const SEAM = (() => {
   console.log("Atlantic seam: narrowest", tight.toFixed(0), "px");
   return { y0, dy, a: A2.map(v => +v.toFixed(1)), b: B2.map(v => +v.toFixed(1)) };
 })();
-const WARP = fs.readFileSync(path.join(__dirname, "warp.js"), "utf8"), OR = require("./warp.js")(top, SEAM), DH = OR.DH, DB = OR.DB;
+const WARP = fs.readFileSync(path.join(__dirname, "warp.js"), "utf8"), OR = require("./warp.js")(top, SEAM, bot), DH = OR.DH, DB = OR.DB;
 const oyN = D.oy + DH;
 // open sea for the new water under the Old World (South America now reaches further south than the old bottom edge)
 const quiet = i => D.reg[i] < 0 && !(G.pop[i] > 0) && !(G.own[i] >= 0) && !D.own[i] && ERA.hn[i] === undefined;
@@ -135,7 +135,7 @@ rep("try { const m = location.hash.match(/^#ov=(.+)$/);", '(() => { const P = "o
 rep('if (location.protocol === "file:" && /Windows/.test(navigator.userAgent)) {', "if (false) {   /* Orange: never jump to the main game's server */");
 rep('const LOCALSRV = location.port === "8766" ? "" : "http://127.0.0.1:8766";', 'const LOCALSRV = "about:invalid";   /* Orange: editor changes stay in this browser, never baked into the main game */');
 // the warp, for everything that still thinks in the main game's world px: true lon/lat (LLT) and the reference pictures
-rep("const CUT = D.cut || 0, CUTL = D.cutl || 0, W = 2000 - CUTL,", WARP.replace(/\nif \(typeof module[^\n]*\n?/, "\n") + `const ORW = OR(${top}, ${JSON.stringify(SEAM)});
+rep("const CUT = D.cut || 0, CUTL = D.cutl || 0, W = 2000 - CUTL,", WARP.replace(/\nif \(typeof module[^\n]*\n?/, "\n") + `const ORW = OR(${top}, ${JSON.stringify(SEAM)}, ${bot});
 let orOX = null, orOY = null;
 const orOld = () => { if (orOX) return; orOX = new Float32Array(N); orOY = new Float32Array(N); for (let k = 0; k < N; k++) { const p = ORW.inv(cx[k], cy[k]); orOX[k] = p[0]; orOY[k] = p[1]; } };
 const orCache = new Map();
