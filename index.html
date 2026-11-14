@@ -945,7 +945,7 @@ const STRIPE_NB = (() => { let i0 = -1; for (let i = 0; i < N && i0 < 0; i++) { 
   return STRIPE_SEG.map(g => [dirOf(g[0], g[1]), dirOf(g[2], g[3])]); })();
 function drawStripes(c, list) {
   if (!ERA_STRIPE || !gameOn || gameView !== "era" || c === bctx) return;   // the bitmap has none; the master map draws them from lineLayer or per frame, so they never vanish on zoom-out
-  const W = [0, S * 0.17, S * 0.40], P = [null, new Path2D(), new Path2D()], H = [null, new Path2D(), new Path2D()];   /* Frontier stripes 1.8x wider (owner 11-13: tier 2 too faint) */
+  const W = [0, S * 0.21, S * 0.55], P = [null, new Path2D(), new Path2D()], H = [null, new Path2D(), new Path2D()];   /* Frontier stripes 1.8x wider (owner 11-13: tier 2 too faint) */
   for (const i of list) {
     if (D.reg[i] < 0) continue; const t = +(ERA.tier && ERA.tier[i]) || 0; if (!t) continue; const p = P[t], x = cx[i], y = cy[i];   // tier lines: thin = under 501 people in the province, thick = under 10 (owner 11-06)
     const h = H[t]; h.moveTo(x + VX[0], y + VY[0]); for (let v = 1; v < 6; v++) h.lineTo(x + VX[v], y + VY[v]); h.closePath();

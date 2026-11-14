@@ -55,4 +55,6 @@ module.exports = [
     "<span><kbd>Esc</kbd> back to map</span><span><kbd>L</kbd> journal · quests</span><span><kbd>U</kbd> Stormvoice shout</span><span><kbd>Ctrl</kbd> + strike = sneak attack</span><span><kbd>I</kbd> firebolt · <kbd>P</kbd> frost</span><span><kbd>O</kbd> hold = heal</span></div>",
   ],
   ["if (at(na, nc, iy) && !edge) continue;", "if (at(na, nc, iy) && !edge) continue; if (!orS) { tcol(t, cx, cz, iy, 0, cS); orS = 1; }"],
+  // 320 BC land lines: Frontier and Wilds stripes both a little thicker and further apart in width (owner 11-14)
+  ["const W = [0, S * 0.17, S * 0.40], P = [null", "const W = [0, S * 0.21, S * 0.55], P = [null"],
 ];
