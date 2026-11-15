@@ -53,8 +53,9 @@ window.OT = (() => {
     if (m.pn) { const P = PANTHEON, W = m.pn.W, s = W.sh.find(x => x.kind === "god"); if (s) { P.st.run.def = 99; tp(s.x - 3, s.z); P.interact(m); step(40); for (let k = 0; k < 8 && W.trial; k++) { for (const x of W.trial.ms.slice()) if (!x.dead) m.hurtMob(x, 999999, m.pos, false); step(150); } step(220); out.afterTrial = m.pn.ui && m.pn.ui.type; if (m.pn.ui) { m.pn.ui.t0 -= 2000; key("Digit1", "1"); step(10); } ok.boon = P.st.run.boons.length > 0; if (m.pn.ui) P.closeUI(m); } }
     out.mid = errs.length;
     // on to the next land through a gate
+    if (O.at && O.at.chance) { O.at.kind = O.at.last = "rain"; O.at.f = 1; O.at.t = 500; step(3); }   // it rains when you go through: the rain must come along
     if (O.gates.length) { const g = O.gates[0]; tp(g[0] * .985, g[1] * .985); m.yaw = Math.atan2(-g[0], -g[1]) + Math.PI; m.keys.KeyW = 1; for (let k = 0; k < 40 && me() === m; k++) { step(30); await sleep(60); } m.keys.KeyW = 0; for (let i = 0; i < 40 && !(me() !== m && ready(me())); i++) await sleep(500);
-      ok.gate = me() !== m && ready(me()); if (ok.gate) { m = settle(); out.land2 = m.orange.land.name; step(120); } }
+      ok.gate = me() !== m && ready(me()); if (ok.gate) { const A2 = me().orange.at; if (A2 && A2.chance) ok.rainFollows = !!A2.kind && A2.f > .5; m = settle(); out.land2 = m.orange.land.name; step(120); if (m.orange.at) { m.orange.at.kind = null; m.orange.at.f = 0; } } }
     // death and coming back
     if (m.pn) { PANTHEON.st.run.def = 0; m.pn.invT = 0; m.hp -= 5000; m.hp = 100; step(8); ok.death = !!(m.pn.ui && m.pn.ui.type === "death"); if (m.pn.ui) PANTHEON.closeUI(m); step(60); ok.alive = me() === m && m.hp > 0; }   // the base game puts you back on your feet at once (hp 100); the gods layer then shows its death screen
   } catch (e) { out.ex = e.stack.split("\n").slice(0, 4).join(" | "); }
