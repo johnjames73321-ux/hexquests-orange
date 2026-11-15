@@ -148,13 +148,15 @@ const eo = new Int16Array(Uint8Array.from(Buffer.from(ERA.own, "base64")).buffer
   ERA.tier = t.join(""); console.log("320 BC tiers: hexes changed", ch, "| states without a tier (run tools/era/dump.js + classify.js):", miss.size, [...miss].slice(0, 5).join(", ")); }
 const en = Int16Array.from(src, s => ADDED.has(s) ? -2 : eo[s]);
 const hn = {}; for (let i = 0; i < M; i++) { const v = ERA.hn[src[i]]; if (v !== undefined) hn[i] = v; }
+// 320 BC audit (owner 11-15): only real hex names, no colonial names in the New World, no big blocks of stateless peoples, new colours
+const AUD = process.env.OR_NOAUDIT ? { tags: ERA.tags } : require("./era/audit.js")({ D, ERA, q, r, src, en, hn, M, N, xN: i => xOf(q[i]), yN: i => oyN + ROW * (r[i] + q[i] / 2), xO: s => xOf(D.q[s]), yO: s => yOf(D.q[s], D.r[s]), OR });
 const landOld = D.reg.filter(v => v >= 0).length, landNew = src.filter(s => D.reg[s] >= 0).length;
 const popOld = G.pop.slice(0, N).reduce((a, b) => a + b, 0), popNew = pop.reduce((a, b) => a + b, 0);
 console.log("land hexes", landOld, "->", landNew, "| people", popOld, "->", popNew);
 if (popOld !== popNew && !lost) throw new Error("people changed");
 Object.assign(D, { q, r, reg: pick(D.reg), sea: pick(D.sea), own: src.map(s => D.own[s] || ""), st, dm, oy: oyN, cutb: (D.cutb || 0) - DH - DB });
 Object.assign(G, { own: pick(G.own), pop, hrel: pick(G.hrel), hcul: pick(G.hcul) });
-Object.assign(ERA, { tier: src.map(s => ERA.tier[s]).join(""), own: Buffer.from(en.buffer).toString("base64"), hn });
+Object.assign(ERA, { tier: src.map(s => ERA.tier[s]).join(""), own: Buffer.from(en.buffer).toString("base64"), hn, tags: AUD.tags });
 const put = (p, v) => { lines[p.li] = p.pre + JSON.stringify(v) + p.suf + p.cr; };
 put(pD, D); put(pG, G); put(pE, ERA); put(pV, src.map(s => ELEV[s]).join(""));
 // ---- code patches (each must match exactly once) ----

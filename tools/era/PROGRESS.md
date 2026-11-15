@@ -40,3 +40,21 @@ Only Orange changes. The main game (~/hex-atlas-play) is not touched.
   * OWNER RULE: no tier 1 (Settled) anywhere in the New World. Maya, Oaxaca, Andes = Frontier. TOWNLANDS removed. Never promote them again.
   * Looks: Wilds must still show their colour (he hated near-white). Now Frontier tint 0.10 + stripes 0.17 of a hex, Wilds tint 0.32 + stripes 0.36.
   * Totals: Settled 281 states / 2007 hexes (all Old World), Frontier 3145 / 13373, Wilds 1711 / 11189.
+
+## 2026-11-15 audit (owner: real places only, no colonial names in the Americas, no big blocks, fewer yellows)
+- tools/era/prep.js (run once, needs the local research folder + ~/pleiades): judges every hex name of the main game ->
+  fake-names.json (c created by the research itself, f generated family, v generated variant, d map-maker label, k colonial
+  in the New World), places320.json (ancient places alive in 320 BC), truell.b64 (true lat/lon per hex), misplaced.tsv.
+- tools/era/audit.js (run by tools/build.js on the warped map; OR_NOAUDIT=1 skips it):
+  1. not-real hex name -> ancient place inside the hex, else the real name it was derived from, else the owning people.
+     Never invents. A stretched copy of a hex gets its own ancient place where one lies in it, else keeps the name.
+  2. New World states with colonial names -> state-names.js (native name), else their own / nearest native place.
+  3. tribes, cultures, nomads, clans, chiefdoms, confederations over 8 hexes (cultures over 3) are cut into groups of 3-4
+     hexes; real states (empire, kingdom, satrapy, republic, city-state, league) keep their land. New World: nobody is a state.
+  4. colours: real Old World states keep theirs (pulled out of the near-black / glaring ends), everyone else gets a new one,
+     far from its neighbours, whole wheel, yellow 40-72 deg rare and muted, purple / pink rare.
+- Result on 11-15: 8,013 hex names replaced, 120 New World states renamed, 1,345 blocks -> 6,050 small groups (11,187 states),
+  placement check: 184 of 191 famous cities on the right hex (the other 7 share a hex with a bigger neighbour), land untouched.
+- Open: about 5,300 hexes now carry their people's name because no real place name is known for them (mostly North America,
+  Siberia, Sahara): research real native place names there and they can be put back one by one (they are never to be made up).
+  Colonial list is tools/era/colonial.js (read by eye): add words there when one is spotted. tools/era/render.js = picture of the view.
