@@ -28,6 +28,14 @@ module.exports = c => {
   // map-maker labels in state names (Southwest Sauromatae, Velja River People): the people's own name alone
   const LABEL = /^(north|south|east|west|northern|southern|eastern|western|northeast|northwest|southeast|southwest|upper|lower|inner|outer|central|coastal|river|lands|land|people|peoples|coast|basin|valley)$/i, stN = new Set(tags.filter(isState).map(t => t[0])); let relab = 0;
   tags.forEach((t, k) => { if (!hexOf[k].length || isState(t)) return; const w = t[0].split(" "); if (w.length < 2) return; const rest = w.filter(x => !LABEL.test(x)).join(" "); if (rest.length < 2 || rest === t[0] || stN.has(rest)) return; t[0] = rest; relab++; });
+  // Old World "cultures" carry the name of a modern town, river or district (Tver, Pskov, Ilmen): nobody was called that in 320 BC.
+  // They take the name of their people instead, unless the name itself is an attested ancient place.
+  const ANC = new Set(PL.map(p => p[0])); let modern = 0;
+  tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || String(t[3] || "").toLowerCase() !== "culture" || ANC.has(t[0])) return;
+    const raw = String(t[4] || ""), par = (raw.match(/\(([^)]*)\)/) || [])[1] || "";
+    let p = raw.split("(")[0].replace(/\s*contact( zone)?/i, "").replace(/\?/g, "").trim(); if (/^(uncertain|unknown|)$/i.test(p)) p = par.replace(/^(late|early) /i, "").replace(/\?/g, "").trim();
+    if (!p || p === t[0]) return; t[6] = (t[6] || "") + " (Archaeologists' name: " + t[0] + ".)"; t[0] = p; modern++; });
+  rep.modern = "Old World cultures named after modern places -> their people's name: " + modern;
   // ---- 2. New World states with colonial names ----
   const tagNames = new Set(tags.map(t => t[0])); let fixed = 0, fellBack = 0; const left = [];
   tags.forEach((t, k) => { if (!newTag[k]) return; const old = t[0]; let nu = FIX[ERA.tags[k][0]] || FIX[old];
@@ -71,7 +79,7 @@ module.exports = c => {
         for (const p of ord) { let got = false; while (fr[p].length && !got) { const i = fr[p][0]; let nx = -1; for (const j of nb(i)) if (inC.has(j) && !piece.has(j)) { nx = j; break; } if (nx < 0) { fr[p].shift(); continue; } piece.set(nx, p); parts[p].push(nx); fr[p].push(nx); got = true; } if (got) { open = true; break; } } }
       const ctr = mid(cc)[0], keep = home ? -1 : piece.get(ctr); home = true;
       parts.forEach((ph, p) => { if (p !== keep) mk(ph, t, k); }); } }
-  function mk(ph, t, k) { const seat = mid(ph)[0], n = hn[seat], nw = NEWW(seat), own = !bad(n, nw) && !usedTag.has(n) ? n : t[0]; usedTag.add(own);
+  function mk(ph, t, k) { const seat = mid(ph)[0], n = hn[seat], nw = NEWW(seat), own = !bad(n, nw) && !usedTag.has(n) && (nw || ANC.has(n)) ? n : t[0]; usedTag.add(own);
     const note = String(t[6] || ""), first = note.split(/(?<=\.)\s/)[0].slice(0, 220);
     tags.push([own, t[1], t[2], t[3], t[4], hn[seat] || t[5] || "", (own === t[0] ? "One of the many small groups of the " + t[0] + "; they were never one state. " : "A group of the " + t[0] + " around " + own + ". ") + first]);
     for (const i of ph) en[i] = tags.length - 1; made++; }

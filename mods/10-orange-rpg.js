@@ -296,7 +296,7 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
     for (const f of OX.onInit) { try { f(me); } catch (e) { warn(e); } }
     // a drake haunts about one land in seven once you can stand up to it
     try { const lvl = (me.prog && me.prog.lvl) || 1; if (!O.drake && lvl >= 4 && hash(land.key + "|drake") % 7 === 0 && !(st.slain && st.slain[land.key])) setTimeout(() => { if (cur() === me && !O.drake) spawnDrake(me); }, 6000); } catch (e) { warn(e); }
-    if ((st.seen = (st.seen || 0) + 1) <= 4) setTimeout(() => { if (cur() === me) me.say("L journal · P Stormvoice · 7 firebolt · 9 frost · hold 8 heal · crouch + strike = sneak attack · talk to villagers (E)", 8000); }, 5200);
+    if ((st.seen = (st.seen || 0) + 1) <= 4) setTimeout(() => { if (cur() === me) me.say("H = keys", 4000); }, 5200);
     save();
   };
 

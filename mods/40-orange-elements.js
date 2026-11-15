@@ -103,7 +103,7 @@
   const keep = () => { try { localStorage.setItem("orange-hands", JSON.stringify({ L: hands.L && hands.L.n, R: hands.R && hands.R.n })); } catch (e) {} hud(); };
   let ui = null, chip = null;
   const one = (e, s) => e ? `<i style="background:${e.css};box-shadow:0 0 12px ${e.css}"></i>${KIND[e.k]} ${e.n}` : `<i style="background:#555"></i>${s}`;
-  const hud = () => { if (!chip) { chip = document.createElement("div"); chip.id = "orElChip"; document.body.appendChild(chip); } chip.innerHTML = hands.L || hands.R ? `🖱️◐ ${one(hands.L, "—")} &nbsp;·&nbsp; ${one(hands.R, "—")} ◑🖱️` : `✦ <kbd>Y</kbd>`; };
+  const hud = () => { if (!chip) { chip = document.createElement("div"); chip.id = "orElChip"; document.body.appendChild(chip); } chip.innerHTML = hands.L || hands.R ? `<kbd>🖱️ L</kbd> ${one(hands.L, "—")} &nbsp;·&nbsp; <kbd>🖱️ R</kbd> ${one(hands.R, "—")} &nbsp;·&nbsp; <kbd>Y</kbd> magic` : `<kbd>Y</kbd> magic &nbsp;·&nbsp; <kbd>H</kbd> help`; };
   const orbs = me => { const h = me.hero; if (!h) return; for (const k of ["L", "R"]) { const arm = h[k === "L" ? "armL" : "armR"], key = "orOrb" + k, e = hands[k]; let o = me[key];
       if (o && (!e || o.userData.c !== e.c || o.parent !== arm)) { o.parent && o.parent.remove(o); o.material.dispose(); o = me[key] = null; }
       if (e && arm && !o) { o = me[key] = spr(me, e.c, .95); o.userData.c = e.c; o.scale.setScalar(.42); o.position.set(0, -.55, .12); arm.add(o); } if (o) o.scale.setScalar(.38 + Math.sin(performance.now() / 180 + (k === "L" ? 0 : 2)) * .06); }
@@ -119,9 +119,11 @@
   const toggle = () => {
     if (!ui) { ui = document.createElement("div"); ui.id = "orEl"; ui.hidden = true;
       const letters = [...new Set(EL.map(e => e.n[0].toUpperCase()))];
-      ui.innerHTML = `<div class="hd"><b>✦ ${EL.length}</b><span class="az">${letters.map(l => `<a data-l="${l}">${l}</a>`).join("")}</span><span class="kd">🖱️◐ · ◑🖱️</span><a class="cl" title="Empty both hands">✋✕</a><a class="x">✕</a></div><div class="gr">` +
+      ui.innerHTML = `<div class="hd"><b>✦ ${EL.length}</b><span class="az">${letters.map(l => `<a data-l="${l}">${l}</a>`).join("")}</span><input class="q" placeholder="🔍 search"><span class="kd">Left click → left hand · Right click → right hand</span><a class="cl">✋ Empty hands</a><a class="x">✕</a></div><div class="gr">` +
         EL.map((e, i) => `<button data-i="${i}" title="${DEL[e.d]} · ${IMP[e.m]} · ${AFT[e.a]}" id="${i && EL[i - 1].n[0].toUpperCase() === e.n[0].toUpperCase() ? "" : "orL" + e.n[0].toUpperCase()}" style="--c:${e.css}">${KIND[e.k]} ${e.n}</button>`).join("") + `</div>`;
       document.body.appendChild(ui);
+      const q = ui.querySelector(".q"); q.addEventListener("keydown", ev => { ev.stopPropagation(); if (ev.key === "Escape") toggle(); });
+      q.addEventListener("input", () => { const v = q.value.trim().toLowerCase(); for (const b of ui.querySelectorAll(".gr button")) b.hidden = !!v && !b.textContent.toLowerCase().includes(v); });
       const pick = (ev, k) => { const t = ev.target; if (!t.dataset || !t.dataset.i) return false; hands[k] = EL[+t.dataset.i]; keep(); toggle(); return true; };
       ui.addEventListener("contextmenu", ev => { ev.preventDefault(); ev.stopPropagation(); pick(ev, "R"); });
       ui.addEventListener("click", ev => { const t = ev.target; if (t.dataset.l) { const el = document.getElementById("orL" + t.dataset.l); if (el) el.scrollIntoView({ block: "start" }); return; }
