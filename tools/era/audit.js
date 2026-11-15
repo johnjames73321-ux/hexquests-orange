@@ -31,11 +31,14 @@ module.exports = c => {
   // Old World "cultures" carry the name of a modern town, river or district (Tver, Pskov, Ilmen): nobody was called that in 320 BC.
   // They take the name of their people instead, unless the name itself is an attested ancient place.
   const ANC = new Set(PL.map(p => p[0])); let modern = 0;
-  tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || String(t[3] || "").toLowerCase() !== "culture" || ANC.has(t[0])) return;
+  // tribes that carry a modern town, river, island or district name (picked by hand from the list of tag names that are also modern places;
+  // names of peoples themselves and names attested in antiquity, like Mona, Maka, Cangwu, Shule, stay)
+  const MOD = new Set("Finnmark Saikai Tsushima Kamikawa Bayanaul Kulunda Daegu Sangju Wuyi Jiulong Huangshan Beijiang Madang Choiseul Isabel Guadalcanal Malaita Nugaal Tanga Mtwara Talas Awka Afikpo Ho Borkou Filippovka Prokhorovka Pelym Tavda Tura Kosa Pechora Konda Kazym Synya Salym Pim Chulym Sym Nadym Moma Nera Tompo Suntar Gonam Zeya Uda Yama Tokma Ilimpeya Ugra Kasanje Matamba".split(" "));
+  tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || (String(t[3] || "").toLowerCase() !== "culture" && !MOD.has(t[0])) || ANC.has(t[0])) return;
     const raw = String(t[4] || ""), par = (raw.match(/\(([^)]*)\)/) || [])[1] || "";
-    let p = raw.split("(")[0].replace(/\s*contact( zone)?/i, "").replace(/\?/g, "").trim(); if (/^(uncertain|unknown|)$/i.test(p)) p = par.replace(/^(late|early) /i, "").replace(/\?/g, "").trim();
+    let p = raw.split("(")[0].replace(/\s*contact( zone)?/i, "").replace(/\?/g, "").trim(); p = p.replace(/^LSA /, "Stone Age ").replace(/ (substrate|ancestors|with strong .*)$/, ""); if (/^(uncertain|unknown|)$/i.test(p) || p === t[0]) p = par.replace(/^(late|early) /i, "").replace(/\?/g, "").trim();
     if (!p || p === t[0]) return; t[6] = (t[6] || "") + " (Archaeologists' name: " + t[0] + ".)"; t[0] = p; modern++; });
-  rep.modern = "Old World cultures named after modern places -> their people's name: " + modern;
+  rep.modern = "Old World cultures and tribes named after modern places -> their people's name: " + modern;
   // ---- 2. New World states with colonial names ----
   const tagNames = new Set(tags.map(t => t[0])); let fixed = 0, fellBack = 0; const left = [];
   tags.forEach((t, k) => { if (!newTag[k]) return; const old = t[0]; let nu = FIX[ERA.tags[k][0]] || FIX[old];
