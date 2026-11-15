@@ -44,7 +44,7 @@
     W.cdF -= dt; W.cdP -= dt; W.rest -= dt;
     if (W.rest <= 0) W.mp = Math.min(mpMax(), W.mp + dt * (me.mobs.some(m => !m.dead && m.angry > 0) ? 4 : 9) * (stone() === "ember" ? 1.5 : 1));
     // healing hands: hold O
-    if (me.keys && me.keys.KeyO && me.hp > 0 && me.hp < 100 && W.mp > 0) { const use = Math.min(W.mp, 15 * dt); W.mp -= use; W.rest = 1; me.hp = Math.min(100, me.hp + use * .7 * (1 + .03 * (dLvl("restoration") - 1))); try { me.hpDraw(); } catch (e) {}
+    if (me.keys && me.keys.Digit8 && me.hp > 0 && me.hp < 100 && W.mp > 0) { const use = Math.min(W.mp, 15 * dt); W.mp -= use; W.rest = 1; me.hp = Math.min(100, me.hp + use * .7 * (1 + .03 * (dLvl("restoration") - 1))); try { me.hpDraw(); } catch (e) {}
       if ((W.healT -= dt) <= 0) { W.healT = .06; const a = Math.random() * 6.283; part(me, me.pos.x + Math.cos(a) * .5, me.pos.y + .2, me.pos.z + Math.sin(a) * .5, 0, 2.4, 0, 0xfff0a0, .7, .25, .7); } if ((W.healX += use) > 12) { W.healX = 0; dGain(me, "restoration", 4); } }
     if (stone() === "tide" && me.hp > 0 && me.hp < 100) { me.hp = Math.min(100, me.hp + .8 * dt); if ((W.tideT -= dt) <= 0) { W.tideT = .5; try { me.hpDraw(); } catch (e) {} } }
     // bolts
@@ -122,9 +122,9 @@
     if (up0) me.up = k => up0(k) * (k === "spd" && stone() === "shadow" ? 1.08 : 1);
   });
   OX.onTick.push((me, dt, t, rdt) => { magicTick(me, dt, t, rdt); placeTick(me, dt, t, rdt); });
-  OX.onKey.push((me, code) => code === "KeyI" ? firebolt(me) : code === "KeyP" ? frost(me) : code === "KeyE" ? useE(me) : false);   // O (healing) is read as a held key, so it is not taken here
+  OX.onKey.push((me, code) => code === "Digit7" ? firebolt(me) : code === "Digit9" ? frost(me) : code === "KeyE" ? useE(me) : false);   // 8 (healing) is read as a held key, so it is not taken here. 7 8 9 = magic; U I O belong to the gods layer (Cast, Call, Codex)
   OX.jExtra.push(() => { const k = stone(), me = cur(), W = me && me.orange && me.orange.w;
-    return `<h4>Magic · magicka ${W ? Math.round(W.mp) : mpMax()} of ${mpMax()}</h4><p><kbd>I</kbd> Firebolt: flies where you aim and sets beasts burning · <kbd>O</kbd> hold: Healing hands · <kbd>P</kbd> Frost burst: staggers and slows everything around you</p>
+    return `<h4>Magic · magicka ${W ? Math.round(W.mp) : mpMax()} of ${mpMax()}</h4><p><kbd>7</kbd> Firebolt: flies where you aim and sets beasts burning · <kbd>8</kbd> hold: Healing hands · <kbd>9</kbd> Frost burst: staggers and slows everything around you</p>
 <h4>Blessing</h4><p>${k ? `<b style="color:#ffd23a">${STONES[k][0]}</b>: ${STONES[k][1]}` : "None yet. Find the standing stones of a land and press <kbd>E</kbd> at the altar."} · one blessing at a time</p>
 <h4>Places in this land</h4><p>${me && me.orange.pois.length ? me.orange.pois.map(p => `${p.icon} ${p.found ? esc(p.name) : "???"}`).join(" · ") : "nothing marked"} · rest at a campfire (<kbd>E</kbd>) to sleep until morning</p>`; });
   OX.magic = { firebolt, frost, useE, rest, mpMax, STONES };

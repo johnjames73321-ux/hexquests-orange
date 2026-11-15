@@ -58,7 +58,7 @@
 #orJ button{background:#1c2140;color:inherit;border:1px solid #46508a;border-radius:8px;padding:7px 10px;cursor:pointer;font:600 12px system-ui}#orJ button:hover{border-color:#ffd23a}#orJ button.on{border-color:#f08a24;color:#ffd23a}
 #orJ p{margin:4px 0;opacity:.85}#orJ kbd{font:600 11px system-ui;padding:1px 6px;border-radius:5px;background:rgba(255,255,255,.12)}`; document.head.appendChild(c); }
     const mk = (tag, id, html) => { const e = document.createElement(tag); e.id = id; if (html) e.innerHTML = html; sv.appendChild(e); return e; };
-    const top = mk("div", "orTop", `<div id="orCmp"></div><div id="orRow"><div id="orShout">Stormvoice <b><u></u></b></div><div id="orClock"></div></div><div id="orTgt" hidden><span></span><b><u></u></b></div>`);
+    const top = mk("div", "orTop", `<div id="orCmp"></div><div id="orRow"><div id="orShout">Z · Stormvoice <b><u></u></b></div><div id="orClock"></div></div><div id="orTgt" hidden><span></span><b><u></u></b></div>`);
     const cmp = $("orCmp"), fixed = [];
     for (let a = 0; a < 360; a += 15) { const e = document.createElement("i"), card = { 0: "N", 45: "NE", 90: "E", 135: "SE", 180: "S", 225: "SW", 270: "W", 315: "NW" }[a]; e.className = card && card.length === 1 ? "c" : "t"; e.textContent = card || "·"; cmp.appendChild(e); fixed.push([a * Math.PI / 180, e]); }
     ui = { root: top, cmp, fixed, pool: [], ban: mk("div", "orBan", "<small></small><b></b>"), q: mk("div", "orQ"), sneak: mk("div", "orSneak"), fps: mk("div", "orFps"), j: mk("div", "orJ"), dlg: mk("div", "orDlg") };
@@ -149,7 +149,7 @@
     else if (Dk.cd <= 0 && m.angry > 0 && dist < 13.5 && dist > 3 && !(m.stun > 0)) { Dk.cd = 7 + Math.random() * 3; Dk.wind = .9; try { me.tele && me.tele(m, .9, "🔥"); me.tone(220, .25); } catch (e) {} }
   };
 
-  // ---------- Stormvoice (U): a shockwave that staggers and throws back everything in front of you ----------
+  // ---------- Stormvoice (Z; U belongs to the gods layer of the main game: Cast): a shockwave that staggers and throws back everything in front of you ----------
   const voiceLvl = () => Math.min(5, 1 + (st.souls || 0)), voiceCd = () => Math.max(8, 22 - 3 * (voiceLvl() - 1));
   const shout = me => {
     const O = me.orange, T = me.T; if (me.hp <= 0) return true;
@@ -195,7 +195,7 @@
     u.j.innerHTML = `<h3>Journal</h3><p>Level ${lvl} · ${st.done} quest${st.done === 1 ? "" : "s"} done · ${found} land${found === 1 ? "" : "s"} discovered · ${st.souls || 0} drake soul${st.souls === 1 ? "" : "s"}</p>
 <h4>Quest</h4>${q ? `<div class="d"><b><span>${esc(q.title)}</span><span>+${q.r.c} coins · +${q.r.xp} XP</span></b><span>${esc(questText(q))} · ${esc(q.landName)}${q.giver ? " · from " + esc(q.giver) : ""}</span></div><p><button data-a="drop">Drop this quest</button></p>` : `<p>No quest. Talk to a villager (<kbd>E</kbd>) to get one.</p>`}
 <h4>Skills (they grow as you use them)</h4><div class="g">${Object.entries(DEEDS).map(([k, [n, h]]) => { const d = deed(k); return `<div class="d"><b><span>${n}</span><span>${d.l}</span></b><span>${h}</span><u style="width:${Math.round(100 * d.x / dNeed(d.l))}%"></u></div>`; }).join("")}</div>
-<h4>Stormvoice · level ${voiceLvl()} of 5</h4><p><kbd>U</kbd> a shockwave that staggers and throws back what is in front of you · ready every ${voiceCd()} s · each drake soul makes it stronger</p>
+<h4>Stormvoice · level ${voiceLvl()} of 5</h4><p><kbd>Z</kbd> a shockwave that staggers and throws back what is in front of you · ready every ${voiceCd()} s · each drake soul makes it stronger</p>
 ${OX.jExtra.map(f => { try { return f(); } catch (e) { return ""; } }).join("")}
 <h4>How it works</h4><p><kbd>Ctrl</kbd> crouch, then strike a beast that has not noticed you: sneak attack, triple damage or more · the bar at the top is your compass: red = hostile, blue = the way to the next land, gold = your quest</p>
 ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("")}` : ""}
@@ -207,7 +207,7 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
     if (b.dataset.a === "drop") { st.quest = null; save(); if (me && me.orange) { me.orange.qPos = null; if (me.orange.beacon) { me.scene.remove(me.orange.beacon); me.orange.beacon = null; } } }
     jDraw();
   }
-  const jToggle = () => { const u = ensureUI(); if (!u) return; u.j.hidden = !u.j.hidden; if (!u.j.hidden) { try { document.exitPointerLock(); } catch (e) {} jDraw(); } };
+  const jToggle = () => { const u = ensureUI(); if (!u) return; u.j.hidden = !u.j.hidden; if (!u.j.hidden) { try { document.exitPointerLock(); } catch (e) {} jDraw(); } else if (window.orLock) window.orLock(); };
 
   // ---------- resolution saver ----------
   const setPx = (me, px) => { const O = me.orange; if (!me.R || !me.pix || O.px === px) return; O.px = px; try { me.R.setPixelRatio(1 / px); me.R.setSize(innerWidth, innerHeight); me.pix.size(); } catch (e) { warn(e); } };
@@ -294,7 +294,7 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
   window.hxRestore = me => { try { restore0 && restore0(me); } finally { try { init(me); } catch (e) { warn(e); } } };
   const key0 = window.hxKey;
   window.hxKey = (code, me) => {
-    try { if (me && me.orange) { if (dlgKey(me, code)) return true; if (code === "KeyL") { jToggle(); return true; } if (code === "KeyU") return shout(me); for (const f of OX.onKey) if (f(me, code)) return true; } } catch (e) { warn(e); }
+    try { if (me && me.orange && !(me.pn && me.pn.ui)) { if (dlgKey(me, code)) return true; if (code === "KeyL") { jToggle(); return true; } if (code === "KeyZ") return shout(me); for (const f of OX.onKey) if (f(me, code)) return true; } } catch (e) { warn(e); }
     return key0 ? key0(code, me) : false;
   };
   Object.assign(OX, { st, banner, shout, spawnDrake, questOffer, jToggle, jDraw, nightOf, save, dGain, dLvl, DEEDS, opt, cur, warn, clamp, dry, hash, rngOf, esc, landOf, ensureUI, voiceLvl });   // shared with the other Orange mods, and for tests

@@ -52,7 +52,7 @@ module.exports = [
   // start menu: the Orange keys
   [
     "<span><kbd>Esc</kbd> back to map</span></div>",
-    "<span><kbd>Esc</kbd> back to map</span><span><kbd>L</kbd> journal · quests</span><span><kbd>U</kbd> Stormvoice shout</span><span><kbd>Ctrl</kbd> + strike = sneak attack</span><span><kbd>I</kbd> firebolt · <kbd>P</kbd> frost</span><span><kbd>O</kbd> hold = heal</span></div>",
+    "<span><kbd>Esc</kbd> back to map</span><span><kbd>L</kbd> journal · quests</span><span><kbd>Z</kbd> Stormvoice shout</span><span><kbd>Ctrl</kbd> + strike = sneak attack</span><span><kbd>7</kbd> firebolt · <kbd>9</kbd> frost</span><span><kbd>8</kbd> hold = heal</span></div>",
   ],
   ["if (at(na, nc, iy) && !edge) continue;", "if (at(na, nc, iy) && !edge) continue; if (!orS) { tcol(t, cx, cz, iy, 0, cS); orS = 1; }"],
   // 320 BC land lines: Frontier and Wilds stripes both a little thicker and further apart in width (owner 11-14)
@@ -69,4 +69,15 @@ module.exports = [
   ['<span>Frontier · thin lines</span><span class="n">50-500</span>', '<span>Frontier · thin lines</span><span class="n">tribes</span>'],
   ['<span>Wilds · thick lines</span><span class="n">&lt; 50</span>', '<span>Wilds · thick lines</span><span class="n">hunters</span>'],
   ['<span class="n">0</span><span></span><span class="n">people per province</span>', '<span class="n">nobody</span><span></span><span class="n">who lived there</span>'],
+  // only Esc goes back to the map (owner 11-15). The inventory (Tab), the skill tree (" or K) and the journal let go of the mouse
+  // themselves, and the game took every release for an Esc. Now a release the game asked for never closes the walk, and closing
+  // one of those windows takes the mouse back at once (no extra click).
+  ['document.addEventListener("pointerlockchange", () => { if (S3 && document.pointerLockElement !== ov && document.hasFocus() && !ov.hidden && !S3.unlocking) close(); });',
+   '{ const orX = document.exitPointerLock; document.exitPointerLock = function () { window.orUnlockT = performance.now(); return orX.apply(document, arguments); }; }\n' +
+   'window.orLock = () => { try { if (S3 && !ov.hidden && document.pointerLockElement !== ov) { const r = ov.requestPointerLock(); r && r.catch && r.catch(() => {}); } } catch (e) {} };\n' +
+   'document.addEventListener("pointerlockchange", () => { if (S3 && document.pointerLockElement !== ov && document.hasFocus() && !ov.hidden && !S3.unlocking && performance.now() - (window.orUnlockT || -1e9) > 800) close(); });'],
+  ['me.toggleTree = () => { tree.hidden = !tree.hidden; if (!tree.hidden) { try { document.exitPointerLock(); } catch (e) {} drawTree(); } };',
+   'me.toggleTree = () => { tree.hidden = !tree.hidden; if (!tree.hidden) { try { document.exitPointerLock(); } catch (e) {} drawTree(); } else window.orLock(); };'],
+  ['const toggleInv = me => { invUI(me); const el = me.invEl; el.hidden = !el.hidden; if (!el.hidden) { document.exitPointerLock && document.exitPointerLock(); drawInv(me); } };',
+   'const toggleInv = me => { invUI(me); const el = me.invEl; el.hidden = !el.hidden; if (!el.hidden) { document.exitPointerLock && document.exitPointerLock(); drawInv(me); } else window.orLock(); };'],
 ];
