@@ -44,7 +44,6 @@
   EL.forEach((e, i) => { let h = (i * 137.508) % 360, s = .55 + (i % 4) * .12, l = .45 + (i % 5) * .06, c = h2i(h, s, l); while (usedC.has(c)) { h = (h + 1.7) % 360; c = h2i(h, s, l); } usedC.add(c);
     const j = (i * 541) % 1248; e.c = c; e.css = "#" + c.toString(16).padStart(6, "0"); e.p = .85 + ((i * 7919) % 31) / 100; e.d = j % 8; e.m = Math.floor(j / 8) % 12; e.a = Math.floor(j / 96); e.r = 3 + (i * 13) % 7 * .7; e.dur = 3 + (i * 29) % 9; });
   OX.elements = EL; OX.elementParts = { DEL, IMP, AFT };
-  let sel = null; try { const s = localStorage.getItem("orange-el"); sel = EL.find(e => e.n === s) || null; } catch (e) {}
   // ---------- casting ----------
   const foes = me => me.mobs.filter(m => !m.dead && !m.tame), dist = (me, m) => Math.hypot(m.root.position.x - me.pos.x, m.root.position.z - me.pos.z);
   const slow = (m, sec, f) => { if (!(m.orSlow > 0)) { m.orSp = m.a[5]; m.a[5] *= f; } m.orSlow = Math.max(m.orSlow || 0, sec); };
@@ -72,11 +71,11 @@
     else if (a === "dread") { if (Z.n % 4 === 0) for (const m of ins) stun(m, 1); } else if (a === "swell") { Z.r *= 1.15; for (const m of ins) spellHit(me, m, D * .08, me.pos, "destruction"); } else if (a === "collapse") Z.r *= .85; else if (a === "smoulder") for (const m of ins) spellHit(me, m, D * .06, me.pos, "destruction"); };
   const zoneEnd = (me, Z) => { const a = AFT[Z.e.a]; if (a !== "echo" && a !== "collapse") return; burst(me, { x: Z.x, y: Z.y + .8, z: Z.z }, Z.e.c, 10); for (const m of inR(me, Z.x, Z.z, a === "echo" ? Z.e.r : 3)) spellHit(me, m, Z.D * (a === "echo" ? .6 : .8), me.pos, "destruction"); };
   const shot = (me, e, D, sx, sy, sz, tx, ty, tz, sp, g, splash) => { const T = me.T, o = spr(me, e.c, 1); o.scale.setScalar(splash ? 1.3 : .9); o.position.set(sx, sy, sz); me.scene.add(o); const v = new T.Vector3(tx - sx, ty - sy, tz - sz); const L = v.length() || 1; v.multiplyScalar(sp / L); if (g) v.y += g * (L / sp) / 2; me.orange.w.eb.push({ o, v, t: 0, g, life: Math.max(1.3, L / sp + .2), dmg: D, e, splash, gy: ty }); };
-  const cast = me => {
-    const e = sel, W = me.orange.w; if (!e || me.hp <= 0 || W.cdE > 0) return true; if (W.mp < 14) return noMp(me);
+  const cast = (me, e) => {
+    const W = me.orange.w; if (!e || me.hp <= 0 || W.cdE > 0) return true; if (W.mp < 14) return noMp(me);
     W.mp -= 14; W.cdE = .4; W.rest = 2; const D = (14 + 1.2 * lvlOf(me)) * e.p, d = DEL[e.d], col = e.c;
     try {
-      const fx = Math.sin(me.face), fz = Math.cos(me.face), sx = me.pos.x + fx * .6, sy = me.pos.y + 1.35, sz = me.pos.z + fz * .6, m = aim(me, d === "beam" ? .93 : .97, 50);
+      const fx = Math.sin(me.face), fz = Math.cos(me.face), sx = me.pos.x + fx * .6, sy = me.pos.y + 1.35, sz = me.pos.z + fz * .6, m = aim(me, d === "beam" ? .88 : .92, 50);   /* generous aim help: the window is small */
       let tx = sx + fx * 26, ty = sy + .2, tz = sz + fz * 26; if (m) { const q = m.root.position; tx = q.x; ty = q.y + m.a[2] * .5 + .3; tz = q.z; }
       if (d === "bolt") shot(me, e, D, sx, sy, sz, tx, ty, tz, 40, 0, 0);
       else if (d === "twin") { shot(me, e, D * .6, sx + fz * .5, sy, sz - fx * .5, tx, ty, tz, 44, 0, 0); shot(me, e, D * .6, sx - fz * .5, sy, sz + fx * .5, tx, ty, tz, 36, 0, 0); }
@@ -98,19 +97,40 @@
       let hit = null; for (const m of foes(me)) { const q = m.root.position; if (Math.hypot(q.x - p.x, q.z - p.z) < m.a[1] * .5 + .7 && p.y > q.y - .5 && p.y < q.y + m.a[2] + 1) { hit = m; break; } }
       if (hit || b.t > b.life || (b.t > .15 && (b.g || b.splash) && p.y <= b.gy)) { W.eb.splice(i, 1); try { land(me, b, hit); } catch (x) { warn(x); } } }
     for (let i = W.ez.length - 1; i >= 0; i--) { const Z = W.ez[i]; Z.t += dt; try { if (Z.t >= Z.n * .5) zoneTick(me, Z); if (Z.t > Z.d) { W.ez.splice(i, 1); zoneEnd(me, Z); } } catch (x) { warn(x); W.ez.splice(i, 1); } } });
-  // ---------- the list (Y) and the small mark of the chosen element ----------
+  // ---------- hands: in the list (Y) left click = left hand, right click = right hand. In the walk the left / right mouse button
+  // casts that hand (hold = keeps casting). Whatever the hands held goes on the back until the hands are emptied (✋✕). ----------
+  const hands = { L: null, R: null }; try { const s = JSON.parse(localStorage.getItem("orange-hands") || "{}"); for (const k of ["L", "R"]) hands[k] = EL.find(e => e.n === s[k]) || null; } catch (e) {}
+  const keep = () => { try { localStorage.setItem("orange-hands", JSON.stringify({ L: hands.L && hands.L.n, R: hands.R && hands.R.n })); } catch (e) {} hud(); };
   let ui = null, chip = null;
-  const hud = () => { if (!chip) { chip = document.createElement("div"); chip.id = "orElChip"; document.body.appendChild(chip); } chip.innerHTML = sel ? `<i style="background:${sel.css};box-shadow:0 0 12px ${sel.css}"></i>${KIND[sel.k]} ${sel.n} <kbd>7</kbd>` : `✦ <kbd>Y</kbd>`; };
+  const one = (e, s) => e ? `<i style="background:${e.css};box-shadow:0 0 12px ${e.css}"></i>${KIND[e.k]} ${e.n}` : `<i style="background:#555"></i>${s}`;
+  const hud = () => { if (!chip) { chip = document.createElement("div"); chip.id = "orElChip"; document.body.appendChild(chip); } chip.innerHTML = hands.L || hands.R ? `🖱️◐ ${one(hands.L, "—")} &nbsp;·&nbsp; ${one(hands.R, "—")} ◑🖱️` : `✦ <kbd>Y</kbd>`; };
+  const orbs = me => { const h = me.hero; if (!h) return; for (const k of ["L", "R"]) { const arm = h[k === "L" ? "armL" : "armR"], key = "orOrb" + k, e = hands[k]; let o = me[key];
+      if (o && (!e || o.userData.c !== e.c || o.parent !== arm)) { o.parent && o.parent.remove(o); o.material.dispose(); o = me[key] = null; }
+      if (e && arm && !o) { o = me[key] = spr(me, e.c, .95); o.userData.c = e.c; o.scale.setScalar(.42); o.position.set(0, -.55, .12); arm.add(o); } if (o) o.scale.setScalar(.38 + Math.sin(performance.now() / 180 + (k === "L" ? 0 : 2)) * .06); }
+    // what the hands held rides on the back while a hand holds an element, and comes back when both are empty
+    const any = hands.L || hands.R; for (const o of me.heldO || []) { const inHand = o.parent === h.armL || o.parent === h.armR;
+      if (any && inHand) { o.userData.orHome = [o.parent, o.position.clone(), o.rotation.clone()]; h.root.add(o); o.position.set(o.userData.orHome[0] === h.armL ? -.14 : .14, .95, -.24); o.rotation.set(-2.5, 0, o.userData.orHome[0] === h.armL ? .5 : -.5); }
+      else if (!any && o.userData.orHome) { const [p, ps, rt] = o.userData.orHome; o.userData.orHome = null; p.add(o); o.position.copy(ps); o.rotation.copy(rt); } }
+    if (h.shield) { if (any) { if (h.shield.visible) { h.shield.userData.orHid = 1; h.shield.visible = false; } } else if (h.shield.userData.orHid) { h.shield.userData.orHid = 0; h.shield.visible = true; } } };
+  OX.onInit.push(me => { const d0 = me.lmbDown, u0 = me.lmbUp;
+    me.lmbDown = function () { if (hands.L && !(ui && !ui.hidden)) { me.orLH = 1; return cast(me, hands.L); } return d0 && d0.apply(this, arguments); };
+    me.lmbUp = function () { me.orLH = 0; return u0 && u0.apply(this, arguments); }; });
+  OX.onTick.push(me => { const W = me.orange && me.orange.w; if (!W || !W.eb) return; try { orbs(me); if (ui && !ui.hidden) return; if (W.cdE <= 0) { if (hands.R && me.block) cast(me, hands.R); else if (hands.L && me.orLH) cast(me, hands.L); } } catch (x) { warn(x); } });
   const toggle = () => {
     if (!ui) { ui = document.createElement("div"); ui.id = "orEl"; ui.hidden = true;
       const letters = [...new Set(EL.map(e => e.n[0].toUpperCase()))];
-      ui.innerHTML = `<div class="hd"><b>✦ ${EL.length}</b><span class="az">${letters.map(l => `<a data-l="${l}">${l}</a>`).join("")}</span><span class="kd">${Object.values(KIND).join(" ")}</span><a class="x">✕</a></div><div class="gr">` +
+      ui.innerHTML = `<div class="hd"><b>✦ ${EL.length}</b><span class="az">${letters.map(l => `<a data-l="${l}">${l}</a>`).join("")}</span><span class="kd">🖱️◐ · ◑🖱️</span><a class="cl" title="Empty both hands">✋✕</a><a class="x">✕</a></div><div class="gr">` +
         EL.map((e, i) => `<button data-i="${i}" title="${DEL[e.d]} · ${IMP[e.m]} · ${AFT[e.a]}" id="${i && EL[i - 1].n[0].toUpperCase() === e.n[0].toUpperCase() ? "" : "orL" + e.n[0].toUpperCase()}" style="--c:${e.css}">${KIND[e.k]} ${e.n}</button>`).join("") + `</div>`;
       document.body.appendChild(ui);
+      const pick = (ev, k) => { const t = ev.target; if (!t.dataset || !t.dataset.i) return false; hands[k] = EL[+t.dataset.i]; keep(); toggle(); return true; };
+      ui.addEventListener("contextmenu", ev => { ev.preventDefault(); ev.stopPropagation(); pick(ev, "R"); });
       ui.addEventListener("click", ev => { const t = ev.target; if (t.dataset.l) { const el = document.getElementById("orL" + t.dataset.l); if (el) el.scrollIntoView({ block: "start" }); return; }
-        if (t.dataset.i) { sel = EL[+t.dataset.i]; try { localStorage.setItem("orange-el", sel.n); } catch (x) {} hud(); toggle(); return; } if (t.classList.contains("x") || t === ui) toggle(); }); }
+        if (pick(ev, "L")) return; if (t.classList.contains("cl")) { hands.L = hands.R = null; keep(); toggle(); return; } if (t.classList.contains("x") || t === ui) toggle(); }); }
     ui.hidden = !ui.hidden; if (!ui.hidden) { try { document.exitPointerLock(); } catch (x) {} } else if (window.svLock) window.svLock(); return true;
   };
-  OX.onKey.unshift((me, code) => code === "KeyY" ? toggle() : code === "Digit7" && sel ? cast(me) : false);
-  OX.elementsCast = cast; OX.elementsPick = n => { sel = EL.find(e => e.n === n) || sel; hud(); return sel; }; OX.elementsToggle = toggle;
+  // look speed for a small window: - slower, = faster (kept)
+  try { const s = +localStorage.getItem("orange-sens"); if (s > 0) window.OR_SENS = s; } catch (e) {}
+  const sens = (me, f) => { window.OR_SENS = Math.max(.0008, Math.min(.01, (window.OR_SENS || .0032) * f)); try { localStorage.setItem("orange-sens", window.OR_SENS); } catch (e) {} try { me.say("🖱️ " + Math.round(window.OR_SENS / .0032 * 100) + "%", 800); } catch (e) {} return true; };
+  OX.onKey.unshift((me, code) => code === "KeyY" ? toggle() : code === "Digit7" && (hands.R || hands.L) ? cast(me, hands.R || hands.L) : code === "Minus" ? sens(me, .8) : code === "Equal" ? sens(me, 1.25) : false);
+  OX.elementsCast = cast; OX.elementsHand = (k, n) => { hands[k] = EL.find(e => e.n === n) || null; keep(); return hands[k]; }; OX.elementsToggle = toggle; OX.elementsHands = hands;
 })();

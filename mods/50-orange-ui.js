@@ -20,8 +20,8 @@ kbd { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.25)
 #orEl .hd { display: flex; align-items: center; gap: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.14); }
 #orEl .hd b { font-size: 26px; font-weight: 800; color: #f0a030; text-shadow: 0 0 18px #f0a03080; }
 #orEl .az { display: flex; flex-wrap: wrap; gap: 2px; flex: 1; }
-#orEl .az a, #orEl .x { cursor: pointer; padding: 3px 7px; font-weight: 800; border-radius: 3px; }
-#orEl .az a:hover, #orEl .x:hover { background: rgba(240,160,48,.35); }
+#orEl .az a, #orEl .x, #orEl .cl { cursor: pointer; padding: 3px 7px; font-weight: 800; border-radius: 3px; }
+#orEl .az a:hover, #orEl .x:hover, #orEl .cl:hover { background: rgba(240,160,48,.35); }
 #orEl .kd { opacity: .8; font-size: 15px; }
 #orEl .x { font-size: 20px; }
 #orEl .gr { flex: 1; min-height: 0; grid-auto-rows: 36px; align-content: start; overflow: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; padding: 14px 4px; scrollbar-width: thin; }

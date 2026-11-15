@@ -70,4 +70,6 @@ module.exports = [
   ['<span>Wilds · thick lines</span><span class="n">&lt; 50</span>', '<span>Wilds · thick lines</span><span class="n">hunters</span>'],
   ['<span class="n">0</span><span></span><span class="n">people per province</span>', '<span class="n">nobody</span><span></span><span class="n">who lived there</span>'],
   // (only Esc leaves the walk: that fix now lives in the main game itself, 7058bb1: window.svLock, window.svUnlockT)
+  // look speed can be changed in Orange (- and = keys, mods/40-orange-elements.js): the walk is hard to steer in a small window
+  ["movementX * .0032; S3.pitchC = clamp(S3.pitchC + e.movementY * .0032,", "movementX * (window.OR_SENS || .0032); S3.pitchC = clamp(S3.pitchC + e.movementY * (window.OR_SENS || .0032),"],
 ];
