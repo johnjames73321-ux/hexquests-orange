@@ -8,7 +8,7 @@
 (() => {
   "use strict";
   const OX = window.ORANGE = { jExtra: [], onInit: [], onTick: [], onKey: [], rumours: [] };
-  const SKEY = "orange-rpg", DEF = { daynight: 1, autores: 1, fps: 0, compass: 1 };
+  const SKEY = "orange-rpg", DEF = { daynight: 1, autores: 1, fps: 0, compass: 1, weather: 1 };
   const st = (() => { let s = {}; try { s = JSON.parse(localStorage.getItem(SKEY) || "{}") || {}; } catch (e) {} return Object.assign({ deeds: {}, quest: null, done: 0, log: [], found: {}, souls: 0, clock: 9, seen: 0, opt: {} }, s); })();
   let saveT = 0; const save = () => { clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem(SKEY, JSON.stringify(st)); } catch (e) {} }, 400); };
   const opt = k => st.opt[k] !== undefined ? st.opt[k] : DEF[k];
@@ -174,31 +174,37 @@
     const sp = []; const r = rngOf(7); for (let k = 0; k < 700; k++) { const a = r() * 6.283, e = Math.asin(r()); sp.push(Math.cos(e) * Math.sin(a) * 3800, Math.sin(e) * 3800, Math.cos(e) * Math.cos(a) * 3800); }
     const sg = new T.BufferGeometry(); sg.setAttribute("position", new T.Float32BufferAttribute(sp, 3)); const stars = new T.Points(sg, new T.PointsMaterial({ size: 2, sizeAttenuation: false, fog: false, color: 0xffffff, transparent: true, opacity: 0, depthWrite: false })); stars.visible = false; me.sky.add(stars);
     const sd = me.sunDir.clone(), az = Math.atan2(sd.x, sd.z);
-    O.dn = { hemi, dir, hi: hemi.intensity, di: dir.intensity, dc: dir.color.clone(), hc: hemi.color.clone(), hg: hemi.groundColor.clone(), fog: sc.fog.color.clone(), sky: Float32Array.from(col.array), hw, col, stars, sd, moon: new T.Vector3(Math.sin(az + 2.2) * .7, .66, Math.cos(az + 2.2) * .7).normalize(), so: me.sun.material.opacity, sc: me.sun.material.color.clone(), ss: me.sun.scale.x, tmp: new T.Color(), last: -1 };
+    O.dn = { hemi, dir, hi: hemi.intensity, di: dir.intensity, dc: dir.color.clone(), hc: hemi.color.clone(), hg: hemi.groundColor.clone(), fog: sc.fog.color.clone(), sky: Float32Array.from(col.array), hw, col, stars, sd, moon: new T.Vector3(Math.sin(az + 2.2) * .7, .66, Math.cos(az + 2.2) * .7).normalize(), so: me.sun.material.opacity, sc: me.sun.material.color.clone(), ss: me.sun.scale.x, tmp: new T.Color(), last: -1, lastX: 0, fn: sc.fog.near, ff: sc.fog.far };
   };
   const dnApply = (me, force) => {
-    const O = me.orange, d = O.dn; if (!d) return; const on = opt("daynight"), n = on ? nightOf(st.clock) : 0; if (!force && Math.abs(n - d.last) < .004) return; d.last = n;
-    const w = 4 * n * (1 - n), T = me.T, a = d.sky, c = d.col.array, k = 1 - .9 * n;
-    for (let i = 0, v = 0; i < a.length; i += 3, v++) { const g = w * .3 * d.hw[v]; c[i] = a[i] * k + .015 * n + g; c[i + 1] = a[i + 1] * k + .025 * n + g * .5; c[i + 2] = a[i + 2] * k + .06 * n + g * .12; }
+    const O = me.orange, d = O.dn; if (!d) return; const on = opt("daynight"), n = on ? nightOf(st.clock) : 0, x = O.wxF || 0; if (!force && Math.abs(n - d.last) < .004 && Math.abs(x - d.lastX) < .01) return; d.last = n; d.lastX = x;
+    // x = weather (mods/30-orange-atmos.js): the sky, the fog and the light go grey with it, and the fog closes in
+    const w = 4 * n * (1 - n) * (1 - x), T = me.T, a = d.sky, c = d.col.array, k = 1 - .9 * n, gr = .3 - .26 * n, xs = x * .85;
+    for (let i = 0, v = 0; i < a.length; i += 3, v++) { const g = w * .3 * d.hw[v], r = a[i] * k + .015 * n + g, gg = a[i + 1] * k + .025 * n + g * .5, b = a[i + 2] * k + .06 * n + g * .12; c[i] = r + (gr * .94 - r) * xs; c[i + 1] = gg + (gr - gg) * xs; c[i + 2] = b + (gr * 1.07 - b) * xs; }
     d.col.needsUpdate = true;
-    d.hemi.intensity = d.hi * (1 - .42 * n); d.hemi.color.copy(d.hc).lerp(d.tmp.setHex(0x4a62b0), n * .85); d.hemi.groundColor.copy(d.hg).lerp(d.tmp.setHex(0x2a3a66), n * .6);   /* a blue night you can still fight in */
-    d.dir.intensity = d.di * (1 - .62 * n); d.dir.color.copy(d.dc).lerp(d.tmp.setHex(0x8fa8ff), n).lerp(d.tmp.setHex(0xff9a5a), w * .55);
-    me.scene.fog.color.copy(d.fog).multiplyScalar(1 - .78 * n).lerp(d.tmp.setHex(0x0c1430), n * .5).lerp(d.tmp.setHex(0xff9a5a), w * .22);
+    d.hemi.intensity = d.hi * (1 - .42 * n) * (1 - .2 * x); d.hemi.color.copy(d.hc).lerp(d.tmp.setHex(0x4a62b0), n * .85); d.hemi.groundColor.copy(d.hg).lerp(d.tmp.setHex(0x2a3a66), n * .6);   /* a blue night you can still fight in */
+    d.dir.intensity = d.di * (1 - .62 * n) * (1 - .6 * x); d.dir.color.copy(d.dc).lerp(d.tmp.setHex(0x8fa8ff), n).lerp(d.tmp.setHex(0xff9a5a), w * .55);
+    me.scene.fog.color.copy(d.fog).multiplyScalar(1 - .78 * n).lerp(d.tmp.setHex(0x0c1430), n * .5).lerp(d.tmp.setHex(0xff9a5a), w * .22).lerp(d.tmp.setRGB(gr * .94, gr, gr * 1.07), x * .8);
+    me.scene.fog.near = d.fn * (1 - .6 * x); me.scene.fog.far = d.ff * (1 - .55 * x);
     me.sunDir.copy(d.sd).lerp(d.moon, n).normalize(); d.dir.position.copy(me.sunDir);
-    me.sun.material.opacity = d.so + (.85 - d.so) * n; me.sun.material.color.copy(d.sc).lerp(d.tmp.setHex(0xdfe8ff), n); me.sun.scale.setScalar(d.ss + (150 - d.ss) * n);
-    d.stars.visible = n > .25; d.stars.material.opacity = clamp(n * 1.3 - .3, 0, 1);
+    me.sun.material.opacity = (d.so + (.85 - d.so) * n) * (1 - .9 * x); me.sun.material.color.copy(d.sc).lerp(d.tmp.setHex(0xdfe8ff), n); me.sun.scale.setScalar(d.ss + (150 - d.ss) * n);
+    d.stars.visible = n > .25 && x < .9; d.stars.material.opacity = clamp(n * 1.3 - .3, 0, 1) * (1 - x);
   };
 
   // ---------- journal (L) ----------
   const jDraw = () => {
     const u = ensureUI(), me = cur(); if (!u || u.j.hidden) return; const q = st.quest, lvl = (me && me.prog && me.prog.lvl) || 1, found = Object.keys(st.found).length;
-    const O = [["daynight", "Day and night"], ["autores", "Auto resolution (keeps the frame rate up)"], ["fps", "FPS meter"], ["compass", "Compass bar"]];
+    const O = [["daynight", "Day and night"], ["autores", "Auto resolution (keeps the frame rate up)"], ["fps", "FPS meter"], ["compass", "Compass bar"], ["weather", "Weather (rain, snow, storms)"]];
     u.j.innerHTML = `<h3>Journal</h3><p>Level ${lvl} · ${st.done} quest${st.done === 1 ? "" : "s"} done · ${found} land${found === 1 ? "" : "s"} discovered · ${st.souls || 0} drake soul${st.souls === 1 ? "" : "s"}</p>
 <h4>Quest</h4>${q ? `<div class="d"><b><span>${esc(q.title)}</span><span>+${q.r.c} coins · +${q.r.xp} XP</span></b><span>${esc(questText(q))} · ${esc(q.landName)}${q.giver ? " · from " + esc(q.giver) : ""}</span></div><p><button data-a="drop">Drop this quest</button></p>` : `<p>No quest. Talk to a villager (<kbd>E</kbd>) to get one.</p>`}
 <h4>Skills (they grow as you use them)</h4><div class="g">${Object.entries(DEEDS).map(([k, [n, h]]) => { const d = deed(k); return `<div class="d"><b><span>${n}</span><span>${d.l}</span></b><span>${h}</span><u style="width:${Math.round(100 * d.x / dNeed(d.l))}%"></u></div>`; }).join("")}</div>
 <h4>Stormvoice · level ${voiceLvl()} of 5</h4><p><kbd>P</kbd> a shockwave that staggers and throws back what is in front of you · ready every ${voiceCd()} s · each drake soul makes it stronger</p>
 ${OX.jExtra.map(f => { try { return f(); } catch (e) { return ""; } }).join("")}
-<h4>How it works</h4><p><kbd>Ctrl</kbd> crouch, then strike a beast that has not noticed you: sneak attack, triple damage or more · the bar at the top is your compass: red = hostile, blue = the way to the next land, gold = your quest</p>
+<h4>How it works</h4><p><kbd>Ctrl</kbd> crouch, then strike a beast that has not noticed you: sneak attack, triple damage or more · the bar at the top is your compass: red = hostile, blue = the way to the next land, gold = your quest · a gold <b>!</b> floats over villagers who have work · weather comes and goes, and a torch lights itself when it gets dark</p>
+<h4>Keys</h4><p><kbd>WASD</kbd> move · <kbd>Shift</kbd> run (tap twice: dash) · <kbd>Space</kbd> jump (tap twice: dodge roll) · <kbd>Ctrl</kbd> crouch · <kbd>C</kbd> turn round</p>
+<p><kbd>LMB</kbd> strike (hold: charged) · <kbd>RMB</kbd> or <kbd>Q</kbd> block, a late tap parries · <kbd>1</kbd> sword <kbd>2</kbd> bow <kbd>3</kbd> axe <kbd>4</kbd> hammer <kbd>5</kbd> spear · <kbd>R</kbd> arm art · <kbd>T</kbd> spin · <kbd>F</kbd> dash strike · <kbd>Z</kbd> rage, when its bar is full</p>
+<p><kbd>U</kbd> cast · <kbd>I</kbd> call your god · <kbd>P</kbd> Stormvoice · <kbd>7</kbd> firebolt · <kbd>8</kbd> hold: heal · <kbd>9</kbd> frost</p>
+<p><kbd>E</kbd> use, talk, pick up · <kbd>Tab</kbd> bag · <kbd>"</kbd> or <kbd>K</kbd> skill tree · <kbd>L</kbd> journal · <kbd>O</kbd> gods, boons and arms · <kbd>B</kbd> mine <kbd>N</kbd> place <kbd>M</kbd> switch block <kbd>G</kbd> chop · <kbd>H</kbd> help line · <kbd>Esc</kbd> back to the map (the only key that leaves)</p>
 ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("")}` : ""}
 <h4>Options</h4><p style="display:flex;gap:6px;flex-wrap:wrap">${O.map(([k, n]) => `<button data-o="${k}" class="${opt(k) ? "on" : ""}">${n}: ${opt(k) ? "on" : "off"}</button>`).join("")}</p><p style="opacity:.6"><kbd>L</kbd> close</p>`;
   };
@@ -255,7 +261,7 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
       if (qp) put(marker(u, i++, "q", "▼"), rel(qp[0], qp[1]));
       for (; i < u.pool.length; i++) u.pool[i].style.display = "none";
       const sh = u.root.querySelector("#orShout u"); if (sh) sh.style.width = (100 * (1 - clamp(O.shCd / voiceCd(), 0, 1))).toFixed(0) + "%";
-      const h = st.clock, ck = $("orClock"); if (ck) ck.textContent = O.dn && opt("daynight") ? `${nightOf(h) > .5 ? "☾" : "☀"} ${String(Math.floor(h)).padStart(2, "0")}:${String(Math.floor(h % 1 * 6) * 10).padStart(2, "0")}` : "";
+      const h = st.clock, ck = $("orClock"); if (ck) ck.textContent = O.dn && opt("daynight") ? `${O.wxF > .3 ? (O.at && O.at.last === "snow" ? "❄" : "☂") : nightOf(h) > .5 ? "☾" : "☀"} ${String(Math.floor(h)).padStart(2, "0")}:${String(Math.floor(h % 1 * 6) * 10).padStart(2, "0")}` : "";
       const tg = $("orTgt"), m = O.tgt; if ((O.tgtT -= sdt) > 0 && m && !m.dead) { tg.hidden = false; tg.firstChild.textContent = m.a[9]; tg.lastChild.firstChild.style.width = clamp(100 * m.hp / m.mx, 0, 100).toFixed(0) + "%"; } else tg.hidden = true;
     } else for (const e of u.pool) e.style.display = "none";
     u.q.hidden = !q; if (q) { const here = q.land === O.land.key || q.type === "courier"; u.q.innerHTML = `<b>${esc(q.title)}</b>${esc(here ? questText(q) : "Return to " + q.landName)}`; }
@@ -301,5 +307,6 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
     try { if (me && me.orange && !(me.pn && me.pn.ui)) { if (dlgKey(me, code)) return true; if (code === "KeyL") { jToggle(); return true; } if (code === "KeyP") return shout(me); for (const f of OX.onKey) if (f(me, code)) return true; } } catch (e) { warn(e); }
     return key0 ? key0(code, me) : false;
   };
+  OX.dUp = (me, k) => dGain(me, k, dNeed(deed(k).l) - deed(k).x);   // one full level of a skill (a tome)
   Object.assign(OX, { st, banner, shout, spawnDrake, questOffer, jToggle, jDraw, nightOf, save, dGain, dLvl, DEEDS, opt, cur, warn, clamp, dry, hash, rngOf, esc, landOf, ensureUI, voiceLvl });   // shared with the other Orange mods, and for tests
 })();

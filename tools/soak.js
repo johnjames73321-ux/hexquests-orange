@@ -43,6 +43,12 @@ window.OT = (() => {
     // Orange places
     if (O.w.stones) { tp(O.w.stones.x + 2, O.w.stones.z); OX.st.stone = null; key("KeyE", "e"); step(5); ok.stones = !!OX.st.stone; }
     if (O.w.fire) { for (const x of m.mobs) x.angry = 0; tp(O.w.fire.x + 2, O.w.fire.z); OX.st.clock = 23; step(40); out.night = O.dn ? +O.dn.last.toFixed(2) : null; key("KeyE", "e"); await sleep(1600); step(30); ok.rest = OX.st.clock > 7 && OX.st.clock < 9; }
+    // hidden cache: found by walking close, E opens it once
+    if (O.w.caches && O.w.caches.length) { const c = O.w.caches[0]; tp(c.x + 1.5, c.z); O.w.poiT = 0; step(30); ok.cacheFound = c.poi.found; key("KeyE", "e"); step(5); ok.cacheOpen = !!c.open && !O.pois.includes(c.poi); }
+    // weather and the torch: rain greys the light and closes the fog, night lights the torch, a known place gets its name
+    if (O.at && O.dn) { const A = O.at, far = m.scene.fog.far; OX.st.clock = 13; A.kind = A.last = "rain"; A.f = 1; A.t = 999; step(20); await sleep(120); step(20); ok.rain = !!(A.rain && A.rain.visible) && m.scene.fog.far < far * .6; A.kind = A.last = "snow"; step(5); ok.snow = !!(A.snow && A.snow.visible) && !A.rain.visible; A.kind = null; A.f = 0; step(5); await sleep(120); step(20); ok.clear = !A.snow.visible && Math.abs(m.scene.fog.far - far) < 1;
+      OX.st.clock = 23.5; step(20); await sleep(120); step(20); ok.torch = A.L.intensity > 5; OX.st.clock = 13; step(20); await sleep(120); step(20); ok.torchOff = A.L.intensity === 0;
+      if (O.w.stones) { tp(O.w.stones.x + 20, O.w.stones.z); O.w.poiT = 0; step(5); m.yaw = Math.atan2(30, 0); m.face = m.yaw + Math.PI; m.pitchC = .15; step(30); ok.label = [...document.querySelectorAll(".orLab")].some(e => e.style.display !== "none" && /Standing Stones/.test(e.textContent)); } }
     // a god's shrine: trial, boon
     if (m.pn) { const P = PANTHEON, W = m.pn.W, s = W.sh.find(x => x.kind === "god"); if (s) { P.st.run.def = 99; tp(s.x - 3, s.z); P.interact(m); step(40); for (let k = 0; k < 8 && W.trial; k++) { for (const x of W.trial.ms.slice()) if (!x.dead) m.hurtMob(x, 999999, m.pos, false); step(150); } step(220); out.afterTrial = m.pn.ui && m.pn.ui.type; if (m.pn.ui) { m.pn.ui.t0 -= 2000; key("Digit1", "1"); step(10); } ok.boon = P.st.run.boons.length > 0; if (m.pn.ui) P.closeUI(m); } }
     out.mid = errs.length;

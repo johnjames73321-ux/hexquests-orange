@@ -89,7 +89,20 @@
       g.position.set(p[0], p[1], p[2]); sc.add(g);
       let m = null; try { m = me.spawn(kinds[0].k, true); } catch (e) {} if (m) { m.root.position.set(p[0], p[1], p[2] - 1); m.root.scale.multiplyScalar(1.3); m.a[1] *= 1.3; m.a[2] *= 1.3; m.a[7] *= 1.3; m.hp = m.mx = m.mx * 2.2; m.champ = 1; m.noRe = 1; m.orDen = 1; m.named = 0; m.a[9] = "Den-lord " + String(m.a[9]).replace(/^(?:[A-Z][a-z-]+ )+(?=[A-Z])/, ""); W.den = { x: p[0], y: p[1], z: p[2], m };
         O.pois.push(W.denPoi = { x: p[0], z: p[2], icon: "☗", key: "den", name: "A Beast Den", rumour: "something big has made its den", found: !!st.found[L.key + "|den"] }); } } }
+    // hidden caches: two chests a land, far from everything else. You find one by walking close, or a villager's rumour marks it. E opens it, once.
+    W.caches = []; const gold = new T.MeshLambertMaterial({ color: 0xd8a83a, flatShading: true }), lidM = new T.MeshLambertMaterial({ color: 0x74502e, flatShading: true });
+    for (let k = 0; k < 2; k++) { const p = spot(me, r, 170, 520, far), key = "cache" + k; if (!p || st.found[L.key + "|" + key + "|open"]) continue; const g = new T.Group();
+      const body = new T.Mesh(new T.BoxGeometry(.95, .5, .62), wood); body.position.y = .25; g.add(body); const band = new T.Mesh(new T.BoxGeometry(.2, .54, .66), gold); band.position.y = .26; g.add(band);
+      const lid = new T.Group(); lid.position.set(0, .5, -.31); const lm = new T.Mesh(new T.BoxGeometry(.99, .2, .66), lidM); lm.position.set(0, .1, .31); lid.add(lm); g.add(lid);
+      const glow = spr(me, 0xffd060, .4); glow.scale.setScalar(2.4); glow.position.y = .9; g.add(glow);
+      g.position.set(p[0], p[1], p[2]); g.rotation.y = r() * 6.283; sc.add(g); solid(me, p[0], p[2], .6);
+      const poi = { x: p[0], z: p[2], icon: "▣", key, name: "A Hidden Cache", rumour: "someone buried a cache", found: !!st.found[L.key + "|" + key] }; O.pois.push(poi); W.caches.push({ x: p[0], y: p[1], z: p[2], key, lid, glow, poi }); }
   };
+  const openCache = (me, c) => { const O = me.orange, l = lvlOf(me), coins = 40 + 10 * l + Math.floor(Math.random() * 30); c.open = 1; st.found[O.land.key + "|" + c.key + "|open"] = 1; save();
+    c.lid.rotation.x = -1.15; c.glow.visible = false; O.pois = O.pois.filter(p => p !== c.poi);
+    let tome = ""; if (Math.random() < .34) { const ks = Object.keys(DEEDS), k = ks[Math.floor(Math.random() * ks.length)]; OX.dUp(me, k); tome = ` · a tome of ${DEEDS[k][0]}`; }
+    banner("Cache opened", `+${coins} coins${tome}`, 3200); ring(me, c.x, c.y + .4, c.z, 0xffd060, .7, 6, 1);
+    try { me.dropCoins(new me.T.Vector3(c.x, c.y + .6, c.z), coins); me.gainXP(30 + 8 * l); me.orange.w.mp = mpMax(); me.tone(660, .08); setTimeout(() => me.tone && me.tone(880, .1), 110); setTimeout(() => me.tone && me.tone(1320, .16), 230); } catch (e) { warn(e); } return true; };
   const found = (me, poi) => { if (poi.found) return; poi.found = true; st.found[me.orange.land.key + "|" + poi.key] = 1; save(); banner("Discovered", poi.name, 3200); try { me.tone(440, .1); setTimeout(() => me.tone && me.tone(660, .16), 140); me.gainXP(10 + 2 * lvlOf(me)); } catch (e) {} };
   const rest = me => {
     const W = me.orange.w; if (W.resting) return true; if (me.mobs.some(m => !m.dead && !m.tame && m.angry > 0 && Math.hypot(m.root.position.x - me.pos.x, m.root.position.z - me.pos.z) < 40)) { me.say("You cannot rest while something hunts you", 1400); return true; }
@@ -100,6 +113,7 @@
     const W = me.orange.w; if (!W) return false; const near = (o, d) => o && Math.hypot(o.x - me.pos.x, o.z - me.pos.z) < d;
     if (near(W.stones, 3.6)) { const k = W.stones.kind, S = STONES[k]; if (stone() === k) me.say(`${S[0]}: you already carry its blessing`, 1600); else { st.stone = k; save(); banner("Blessing taken", S[0], 3400); me.say(S[1], 4200); ring(me, W.stones.x, W.stones.y + .4, W.stones.z, S[2], .9, 9, 1); try { me.tone(330, .2); me.tone(495, .3); } catch (e) {} } return true; }
     if (near(W.fire, 3.4)) return rest(me);
+    for (const c of W.caches || []) if (!c.open && near(c, 2.8)) return openCache(me, c);
     return false;
   };
   const placeTick = (me, dt, t, rdt) => {
@@ -107,7 +121,7 @@
     if (W.stones) { W.stones.gem.rotation.y = t * 1.2; W.stones.gem.position.y = 1.9 + Math.sin(t * 1.7) * .12; }
     if (W.fire) { const k = 1 + Math.sin(t * 13) * .12 + Math.sin(t * 7.3) * .1; W.fire.fl[0].scale.set(k, 1 + Math.sin(t * 9) * .18, k); W.fire.fl[1].scale.set(1 / k, 1 + Math.sin(t * 11 + 1) * .25, 1 / k); W.fire.glow.material.opacity = .35 + .25 * OX.nightOf(st.clock) + Math.sin(t * 10) * .05; }
     if ((W.poiT -= rdt) > 0) return; W.poiT = .3;
-    for (const [o, poi, d, tip] of [[W.stones, W.stonesPoi, 26, "E take the blessing of the stones"], [W.fire, W.firePoi, 18, "E rest by the fire until morning"], [W.den, W.denPoi, 30, ""]]) { if (!o) continue; const dist = Math.hypot(o.x - me.pos.x, o.z - me.pos.z); if (dist < d) found(me, poi); if (tip && dist < 3.5 && !(W.tipT > Date.now())) { W.tipT = Date.now() + 9000; me.say(tip, 2400); } }
+    for (const [o, poi, d, tip] of [[W.stones, W.stonesPoi, 26, "E take the blessing of the stones"], [W.fire, W.firePoi, 18, "E rest by the fire until morning"], [W.den, W.denPoi, 30, ""], ...(W.caches || []).filter(c => !c.open).map(c => [c, c.poi, 16, "E open the cache"])]) { if (!o) continue; const dist = Math.hypot(o.x - me.pos.x, o.z - me.pos.z); if (dist < d) found(me, poi); if (tip && dist < 3.5 && !(W.tipT > Date.now())) { W.tipT = Date.now() + 9000; me.say(tip, 2400); } }
     if (W.den && W.den.m.dead && !W.den.done) { W.den.done = 1; (st.dens = st.dens || {})[O.land.key] = 1; save(); banner("Den cleared", "Its hoard is yours", 3000); try { me.dropCoins(W.den.m.root.position, 60 + 12 * lvlOf(me)); me.gainXP(40 + 10 * lvlOf(me)); } catch (e) {} }
     // night hunters
     const n = OX.nightOf(st.clock); if (OX.opt("daynight") && O.dn) { if (n > .85 && !W.night) { W.night = 1; const pk = me.mobs.filter(m => !m.dead && !m.boss && !m.drake && !m.tame).sort((a, b) => b.a[7] - a.a[7])[0]; if (pk && me.mobs.filter(m => !m.dead).length < 16) { let c = 0; for (let k = 0; k < 2; k++) { try { const m = me.spawn(pk.k, true); if (m) { m.angry = 40; m.noRe = 1; m.orNight = 1; m.named = 0; m.a[5] *= 1.1; m.a[9] = "Night-stalking " + String(m.a[9]).replace(/^(?:[A-Z][a-z-]+ )+(?=[A-Z])/, ""); c++; } } catch (e) {} } if (c) { banner("Night falls", "The hunters wake", 3000); try { me.tone(110, .5); } catch (e) {} } } } else if (n < .1) W.night = 0; }
