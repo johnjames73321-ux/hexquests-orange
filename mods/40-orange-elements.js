@@ -1,5 +1,5 @@
 /* HexQuests Orange, part 4: the elements. Y opens the list (A-Z, every element its own colour), click one, 7 casts it.
-   Each element belongs to one of 13 kinds of spell (see KIND). Uses the helpers of mods/20-orange-world.js (OX.magic). */
+   Every element has its own colour and its own spell (flight x impact x what it leaves on the ground, see DEL / IMP / AFT); gods only as "Fire (Atar)". Uses the helpers of mods/20-orange-world.js (OX.magic). */
 (() => {
   "use strict";
   const OX = window.ORANGE; if (!OX || !OX.magic) return;
@@ -19,51 +19,85 @@
     time: "Time Hour Minute Second Moment Instant Age Era Epoch Aeon Century Year Season Month Week Day Yesterday Tomorrow Past Present Future History Clock Hourglass Pendulum Calendar Sundial Delay Pause Stop Stasis Slow Haste Rewind Loop Cycle Tempo Patience Stillness Erosion Weathering Autumn Dusk Sunset Equinox Solstice Chronos Kronos Saturn Janus Aion Zurvan Kala Heh Norns Moirai Skuld Urd Verdandi Ancestry Legacy Tradition Ritual Myth Legend Lullaby Nostalgia Aging Boredom Waiting Sleepiness Honeyed Molasses Resin Glue Wax Cobweb Dustfall Fossilize",
     arcane: "Magic Mana Arcane Rune Glyph Sigil Spell Enchant Alchemy Transmutation Quicksilver Word Name Number Geometry Triangle Circle Square Spiral Pentagram Star Key Lock Door Mask Crown Throne Coin Gold Wealth Trade Silk Wool Leather Cotton Paper Book Scroll Map Compass Wheel Sail Ship Road Bridge Mirrorwork Clockwork Puppet Doll Toy Game Dice Card Chess Riddlework Paradoxical Wonder Miracle Mystery Marvel Spectacle Carnival Festival Feast Hermes Mercury Enki Ea Anansi Coyote Ogma Nabu Seshat Ptah Daedalus Circe Merlin Trismegistus Solomon Zoroaster Pythagoras Abracadabra",
   };
-  // kind -> [icon, how it works]
+  // kind -> sign
   const KIND = { burn: "🔥", frost: "❄️", shock: "⚡", force: "💨", earth: "🪨", poison: "☠️", heal: "💚", drain: "🩸", mind: "🌀", light: "✨", pull: "🕳️", time: "⏳", arcane: "🔮" };
+  // owner 11-15: a god is never an element by itself; it is the element in that people's telling: "Fire (Atar)"
+  const GODS = "Fire:Atar Agni Vesta Hestia Prometheus Muspel Surtr Logi Sekhmet Pele Kagutsuchi Xiuhtecuhtli Huehueteotl Brigid Gibil Nusku Girra;Sun:Ra Belenus Mithra Helios Sol Amaterasu Inti Tonatiuh Shamash;Forge:Hephaestus Vulcan Svarog;" +
+    "Frost:Niflheim Ymir Jotun Fimbul;Winter:Skadi Boreas Khione Morana;Sea:Poseidon Neptune Tiamat Varuna Yemoja Njord Aegir Ran Oceanus Triton Nereid Sedna;Rain:Tlaloc Chaac;River:Sobek;" +
+    "Thunder:Zeus Jupiter Thor Indra Perun Raijin Shango Taranis Ukko Perkunas Tarhunt Adad Baal Illapa Leigong;Storm:Set Typhon;Wind:Aeolus Vayu Shu Fujin Stribog Ehecatl Enlil Pazuzu;War:Ares Mars Tyr;" +
+    "Earth:Gaia Terra Geb Cybele Demeter Pachamama Jord Tlaltecuhtli Ki Prithvi Coatlicue;Mountain:Atlas;Serpent:Apep Nidhogg Jormungandr Echidna Medusa;Plague:Lamashtu Namtar Nergal Resheph;" +
+    "Medicine:Asclepius Hygieia Isis Eir Airmed Ixchel Gula Dhanvantari Apollo;Harvest:Freyr Ceres;Love:Freya Aphrodite Venus Ishtar Inanna Hathor Xochiquetzal;Lust:Eros Cupid Rati Kama;Youth:Idun;Rebirth:Osiris;Spring:Persephone;Bloom:Flora;Tree:Yggdrasil;" +
+    "Death:Hades Pluto Anubis Hel Ereshkigal Mictlantecuhtli Yama Thanatos Morrigan Kali Charon Cerberus;Darkness:Erebus;Night:Nyx;Underworld:Styx Lethe Tartarus Sheol Duat Xibalba Helheim;" +
+    "Wine:Dionysus Bacchus;Panic:Pan;Dream:Morpheus;Sleep:Hypnos;Fear:Phobos;Terror:Deimos;Lie:Loki;Chaos:Eris;Wisdom:Athena Thoth Odin Saraswati;Memory:Mnemosyne;" +
+    "Light:Ahuramazda Horus Aten Mitra Lugh Baldur Sunna;Dawn:Eos;Moon:Selene Luna Artemis Diana Khonsu Chandra Tsukuyomi Mani Coyolxauhqui Hecate;Rainbow:Iris;Void:Khaos Apsu Nun Ginnungagap Tehom;Fate:Ananke Norns Moirai Skuld Urd Verdandi;Sky:Uranus Nut Tengri Anu;" +
+    "Time:Chronos Kronos Saturn Janus Aion Zurvan Kala Heh;Magic:Hermes Enki Ea Anansi Coyote Ogma Nabu Seshat Ptah Circe Merlin Trismegistus Solomon Zoroaster";
+  const GOD = {}; for (const g of GODS.split(";")) { const [b, l] = g.split(":"); for (const w of l.split(" ")) GOD[w] = b; }
   const seen = new Set(), EL = [];
-  for (const k in G) for (const w of G[k].split(" ")) { const key = w.toLowerCase(); if (!w || seen.has(key)) continue; seen.add(key); EL.push({ n: w, k }); }
+  for (const k in G) for (const w of G[k].split(" ")) { const key = w.toLowerCase(); if (!w || seen.has(key)) continue; seen.add(key); EL.push({ n: GOD[w] ? GOD[w] + " (" + w + ")" : w, k }); }
   EL.sort((a, b) => a.n.localeCompare(b.n));
   const h2i = (h, s, l) => { const a = s * Math.min(l, 1 - l), f = n => { const q = (n + h / 30) % 12; return Math.round(255 * (l - a * Math.max(-1, Math.min(q - 3, 9 - q, 1)))); }; return (f(0) << 16) | (f(8) << 8) | f(4); };
-  EL.forEach((e, i) => { const h = (i * 137.508) % 360, s = .55 + (i % 4) * .12, l = .45 + (i % 5) * .06; e.c = h2i(h, s, l); e.css = "#" + e.c.toString(16).padStart(6, "0"); e.p = .85 + ((i * 7919) % 31) / 100; });
-  OX.elements = EL;
+  // every element its own exact colour (checked: no two alike) and its own spell: how it flies x what it does on impact x what it
+  // leaves behind on the ground. The three are never the same for two elements (541 walks all 8 x 12 x 13 = 1,248 mixes once),
+  // and reach, size and lasting time differ again on top.
+  const DEL = ["bolt", "lob", "beam", "nova", "cone", "rain", "mine", "twin"], IMP = ["scorch", "chill", "daze", "knock", "hook", "siphon", "fork", "crack", "shatter", "well", "quake", "root"],
+    AFT = ["embers", "rime", "storm", "vortex", "repel", "sanctuary", "mire", "dread", "swell", "collapse", "wellspring", "smoulder", "echo"], usedC = new Set();
+  EL.forEach((e, i) => { let h = (i * 137.508) % 360, s = .55 + (i % 4) * .12, l = .45 + (i % 5) * .06, c = h2i(h, s, l); while (usedC.has(c)) { h = (h + 1.7) % 360; c = h2i(h, s, l); } usedC.add(c);
+    const j = (i * 541) % 1248; e.c = c; e.css = "#" + c.toString(16).padStart(6, "0"); e.p = .85 + ((i * 7919) % 31) / 100; e.d = j % 8; e.m = Math.floor(j / 8) % 12; e.a = Math.floor(j / 96); e.r = 3 + (i * 13) % 7 * .7; e.dur = 3 + (i * 29) % 9; });
+  OX.elements = EL; OX.elementParts = { DEL, IMP, AFT };
   let sel = null; try { const s = localStorage.getItem("orange-el"); sel = EL.find(e => e.n === s) || null; } catch (e) {}
   // ---------- casting ----------
   const foes = me => me.mobs.filter(m => !m.dead && !m.tame), dist = (me, m) => Math.hypot(m.root.position.x - me.pos.x, m.root.position.z - me.pos.z);
   const slow = (m, sec, f) => { if (!(m.orSlow > 0)) { m.orSp = m.a[5]; m.a[5] *= f; } m.orSlow = Math.max(m.orSlow || 0, sec); };
+  const stun = (m, s) => { m.stun = Math.max(m.stun || 0, s); }, hp = (me, v) => { me.hp = Math.min(100, me.hp + v); try { me.hpDraw(); } catch (x) {} };
+  const shove = (m, cx, cz, d) => { const q = m.root.position, dx = q.x - cx, dz = q.z - cz, L = Math.hypot(dx, dz) || 1; if (d < 0 && L < 1.5) return; q.x += dx / L * d; q.z += dz / L * d; };   // d > 0 away, d < 0 toward
   const aim = (me, cosMin, far) => { const fx = Math.sin(me.face), fz = Math.cos(me.face); let best = null, bd = cosMin; for (const m of foes(me)) { const q = m.root.position, dx = q.x - me.pos.x, dz = q.z - me.pos.z, d = Math.hypot(dx, dz); if (d < 1 || d > far) continue; const c = (dx * fx + dz * fz) / d; if (c > bd) { bd = c; best = m; } } return best; };
   const burst = (me, p, col, n = 8) => { ring(me, p.x, p.y, p.z, col, .35, 5, 0); for (let k = 0; k < n; k++) part(me, p.x, p.y, p.z, (Math.random() - .5) * 7, Math.random() * 5, (Math.random() - .5) * 7, col, .45, .5, 1.6); };
-  const around = (me, R, col, fn) => { ring(me, me.pos.x, me.pos.y + .3, me.pos.z, col, .6, R * 1.25, 1); for (let k = 0; k < 18; k++) { const a = k / 18 * 6.283; part(me, me.pos.x, me.pos.y + .8, me.pos.z, Math.cos(a) * R, .6, Math.sin(a) * R, col, .7, .5, 1.5); } for (const m of foes(me)) if (dist(me, m) <= R + m.a[1] * .4) fn(m); };
+  const inR = (me, x, z, R) => foes(me).filter(m => Math.hypot(m.root.position.x - x, m.root.position.z - z) <= R + m.a[1] * .4);
+  // what one hit of an element does to one beast: the kind's own mark, then the element's impact
+  const strike = (me, m, e, D) => { const W = me.orange.w, k = e.k, im = IMP[e.m], held = m.orSlow > 0 || m.stun > 0;
+    spellHit(me, m, D * (k === "light" ? 1.15 : 1) * (im === "crack" ? 1.4 : 1) * (im === "shatter" && held ? 1.8 : 1), me.pos, "destruction");
+    if (k === "burn") { m.orBurn = 3; m.orBurnT = .5; } else if (k === "frost") slow(m, 5, .5); else if (k === "shock") stun(m, .4); else if (k === "force") shove(m, me.pos.x, me.pos.z, 2); else if (k === "earth") stun(m, .6);
+    else if (k === "poison") { m.orBurn = 6; m.orBurnT = .5; } else if (k === "heal") hp(me, 4); else if (k === "drain") hp(me, D * .2); else if (k === "mind") stun(m, 1.5); else if (k === "pull") shove(m, me.pos.x, me.pos.z, -2); else if (k === "time") slow(m, 6, .3); else if (k === "arcane") W.mp += 5;
+    if (im === "scorch") { m.orBurn = (m.orBurn || 0) + 2; m.orBurnT = .5; } else if (im === "chill") slow(m, 3, .6); else if (im === "daze") stun(m, .8); else if (im === "knock") shove(m, me.pos.x, me.pos.z, 4); else if (im === "hook") shove(m, me.pos.x, me.pos.z, -4);
+    else if (im === "siphon") hp(me, 3); else if (im === "well") W.mp += 6; else if (im === "root") stun(m, 1.6);
+    else if (im === "quake") { me.shake = Math.max(me.shake || 0, .3); const q = m.root.position; for (const o of inR(me, q.x, q.z, 4)) if (o !== m) spellHit(me, o, D * .4, me.pos, "destruction"); }
+    else if (im === "fork") { let n = 0; const q = m.root.position; for (const o of inR(me, q.x, q.z, 9)) { if (o === m || n >= 2) continue; n++; burst(me, { x: o.root.position.x, y: o.root.position.y + 1, z: o.root.position.z }, e.c, 3); spellHit(me, o, D * .5, me.pos, "destruction"); } } };
+  // what it leaves on the ground
+  const zone = (me, e, x, y, z, D, k = 1) => { const W = me.orange.w; if (W.ez.length > 5) W.ez.shift(); W.ez.push({ e, x, y, z, D, r: e.r * (AFT[e.a] === "collapse" ? 1.6 : 1), t: 0, n: 0, d: e.dur * k * (AFT[e.a] === "smoulder" ? 2.5 : 1) }); };
+  const zoneTick = (me, Z) => { const e = Z.e, a = AFT[e.a], col = e.c, D = Z.D, ins = inR(me, Z.x, Z.z, Z.r), meIn = Math.hypot(me.pos.x - Z.x, me.pos.z - Z.z) < Z.r, W = me.orange.w; Z.n++;
+    ring(me, Z.x, Z.y + .15, Z.z, col, .5, Z.r * 1.25, 1); for (let i = 0; i < 3; i++) { const an = Math.random() * 6.283, rr = Math.random() * Z.r; part(me, Z.x + Math.cos(an) * rr, Z.y + .2, Z.z + Math.sin(an) * rr, 0, 1.2 + Math.random(), 0, col, .8, .3, .9, .7); }
+    if (a === "embers") for (const m of ins) spellHit(me, m, D * .12, me.pos, "destruction"); else if (a === "rime") for (const m of ins) slow(m, 1.2, .5); else if (a === "mire") for (const m of ins) slow(m, 1.2, .2);
+    else if (a === "storm") { const m = ins[Math.floor(Math.random() * ins.length)]; if (m) { burst(me, { x: m.root.position.x, y: m.root.position.y + 1, z: m.root.position.z }, col, 4); spellHit(me, m, D * .3, me.pos, "destruction"); } }
+    else if (a === "vortex") for (const m of ins) shove(m, Z.x, Z.z, -1.2); else if (a === "repel") for (const m of ins) shove(m, Z.x, Z.z, 1.5); else if (a === "sanctuary") { if (meIn) hp(me, 2); } else if (a === "wellspring") { if (meIn) W.mp += 3; }
+    else if (a === "dread") { if (Z.n % 4 === 0) for (const m of ins) stun(m, 1); } else if (a === "swell") { Z.r *= 1.15; for (const m of ins) spellHit(me, m, D * .08, me.pos, "destruction"); } else if (a === "collapse") Z.r *= .85; else if (a === "smoulder") for (const m of ins) spellHit(me, m, D * .06, me.pos, "destruction"); };
+  const zoneEnd = (me, Z) => { const a = AFT[Z.e.a]; if (a !== "echo" && a !== "collapse") return; burst(me, { x: Z.x, y: Z.y + .8, z: Z.z }, Z.e.c, 10); for (const m of inR(me, Z.x, Z.z, a === "echo" ? Z.e.r : 3)) spellHit(me, m, Z.D * (a === "echo" ? .6 : .8), me.pos, "destruction"); };
+  const shot = (me, e, D, sx, sy, sz, tx, ty, tz, sp, g, splash) => { const T = me.T, o = spr(me, e.c, 1); o.scale.setScalar(splash ? 1.3 : .9); o.position.set(sx, sy, sz); me.scene.add(o); const v = new T.Vector3(tx - sx, ty - sy, tz - sz); const L = v.length() || 1; v.multiplyScalar(sp / L); if (g) v.y += g * (L / sp) / 2; me.orange.w.eb.push({ o, v, t: 0, g, life: Math.max(1.3, L / sp + .2), dmg: D, e, splash, gy: ty }); };
   const cast = me => {
     const e = sel, W = me.orange.w; if (!e || me.hp <= 0 || W.cdE > 0) return true; if (W.mp < 14) return noMp(me);
-    W.mp -= 14; W.cdE = .4; W.rest = 2; const D = (14 + 1.2 * lvlOf(me)) * e.p, k = e.k, col = e.c;
+    W.mp -= 14; W.cdE = .4; W.rest = 2; const D = (14 + 1.2 * lvlOf(me)) * e.p, d = DEL[e.d], col = e.c;
     try {
-      if (k === "heal") { me.hp = Math.min(100, me.hp + 18 * e.p); try { me.hpDraw(); } catch (x) {} for (let i = 0; i < 12; i++) { const a = Math.random() * 6.283; part(me, me.pos.x + Math.cos(a) * .6, me.pos.y + .2, me.pos.z + Math.sin(a) * .6, 0, 2.6, 0, col, .8, .3, .8); } }
-      else if (k === "frost") around(me, 9, col, m => { m.stun = Math.max(m.stun || 0, 1.2); slow(m, 5, .5); spellHit(me, m, D * .6, me.pos, "destruction"); });
-      else if (k === "time") around(me, 12, col, m => { slow(m, 9, .25); spellHit(me, m, D * .15, me.pos, "destruction"); });
-      else if (k === "mind") around(me, 8, col, m => { m.stun = Math.max(m.stun || 0, 2.8); spellHit(me, m, D * .3, me.pos, "destruction"); });
-      else if (k === "earth") { around(me, 5.5, col, m => { m.stun = Math.max(m.stun || 0, .6); spellHit(me, m, D * 1.5, me.pos, "destruction"); }); me.shake = Math.max(me.shake || 0, .4); }
-      else if (k === "pull") around(me, 13, col, m => { const q = m.root.position, d = dist(me, m); if (d > 2.5) { q.x = me.pos.x + (q.x - me.pos.x) / d * 2.5; q.z = me.pos.z + (q.z - me.pos.z) / d * 2.5; } m.stun = Math.max(m.stun || 0, .7); spellHit(me, m, D * .5, me.pos, "destruction"); });
-      else if (k === "force") { const fx = Math.sin(me.face), fz = Math.cos(me.face); ring(me, me.pos.x + fx * 2, me.pos.y + 1.2, me.pos.z + fz * 2, col, .4, 6, 0); for (const m of foes(me)) { const q = m.root.position, dx = q.x - me.pos.x, dz = q.z - me.pos.z, d = Math.hypot(dx, dz); if (d > 11 || (dx * fx + dz * fz) / (d || 1) < .5) continue; q.x += dx / (d || 1) * 5; q.z += dz / (d || 1) * 5; m.stun = Math.max(m.stun || 0, .9); spellHit(me, m, D * .7, me.pos, "destruction"); } me.shake = Math.max(me.shake || 0, .2); }
-      else if (k === "light") { const m = aim(me, .93, 55), sy = me.pos.y + 1.35; if (m) { const q = m.root.position; for (let i = 1; i <= 10; i++) part(me, me.pos.x + (q.x - me.pos.x) * i / 10, sy + (q.y + 1 - sy) * i / 10, me.pos.z + (q.z - me.pos.z) * i / 10, 0, .4, 0, col, .35, .5, .9, 1); burst(me, { x: q.x, y: q.y + 1, z: q.z }, col, 5); spellHit(me, m, D * 1.2, me.pos, "destruction"); } else { const fx = Math.sin(me.face), fz = Math.cos(me.face); for (let i = 1; i <= 10; i++) part(me, me.pos.x + fx * i * 3, sy, me.pos.z + fz * i * 3, 0, .4, 0, col, .35, .5, .9, 1); } }
-      else { const T = me.T, fx = Math.sin(me.face), fz = Math.cos(me.face), sx = me.pos.x + fx * .6, sy = me.pos.y + 1.35, sz = me.pos.z + fz * .6, m = aim(me, .97, 45);   // a bolt: burn, poison, drain, shock, arcane
-        let tx = sx + fx * 30, ty = sy + .2, tz = sz + fz * 30; if (m) { const q = m.root.position; tx = q.x; ty = q.y + m.a[2] * .5 + .3; tz = q.z; }
-        const o = spr(me, col, 1); o.scale.setScalar(k === "arcane" ? 1.2 : .9); o.position.set(sx, sy, sz); me.scene.add(o);
-        W.eb.push({ o, v: new T.Vector3(tx - sx, ty - sy, tz - sz).normalize().multiplyScalar(k === "shock" ? 60 : 40), t: 0, dmg: D * (k === "arcane" ? 1.25 : 1), k, col }); }
+      const fx = Math.sin(me.face), fz = Math.cos(me.face), sx = me.pos.x + fx * .6, sy = me.pos.y + 1.35, sz = me.pos.z + fz * .6, m = aim(me, d === "beam" ? .93 : .97, 50);
+      let tx = sx + fx * 26, ty = sy + .2, tz = sz + fz * 26; if (m) { const q = m.root.position; tx = q.x; ty = q.y + m.a[2] * .5 + .3; tz = q.z; }
+      if (d === "bolt") shot(me, e, D, sx, sy, sz, tx, ty, tz, 40, 0, 0);
+      else if (d === "twin") { shot(me, e, D * .6, sx + fz * .5, sy, sz - fx * .5, tx, ty, tz, 44, 0, 0); shot(me, e, D * .6, sx - fz * .5, sy, sz + fx * .5, tx, ty, tz, 36, 0, 0); }
+      else if (d === "lob") { if (!m) { tx = sx + fx * 14; tz = sz + fz * 14; ty = me.pos.y + .3; } shot(me, e, D * 1.1, sx, sy, sz, tx, ty, tz, 20, 18, 4); }
+      else if (d === "rain") { if (!m) { tx = sx + fx * 12; tz = sz + fz * 12; ty = me.pos.y + .3; } for (let i = 0; i < 3; i++) { const ox = (Math.random() - .5) * 3, oz = (Math.random() - .5) * 3; shot(me, e, D * .5, tx + ox, ty + 14 + i * 5, tz + oz, tx + ox, ty, tz + oz, 26, 0, 2.5); } }
+      else if (d === "beam") { const ex = m ? tx : sx + fx * 30, ey = m ? ty : sy, ez = m ? tz : sz + fz * 30; for (let i = 1; i <= 10; i++) part(me, sx + (ex - sx) * i / 10, sy + (ey - sy) * i / 10, sz + (ez - sz) * i / 10, 0, .4, 0, col, .35, .5, .9, 1); if (m) { burst(me, { x: tx, y: ty, z: tz }, col, 5); strike(me, m, e, D * 1.1); zone(me, e, tx, m.root.position.y, tz, D); } }
+      else if (d === "nova") { ring(me, me.pos.x, me.pos.y + .3, me.pos.z, col, .6, 10, 1); for (const o of inR(me, me.pos.x, me.pos.z, 8)) strike(me, o, e, D * .7); zone(me, e, me.pos.x, me.pos.y, me.pos.z, D); }
+      else if (d === "cone") { ring(me, sx + fx * 2, sy, sz + fz * 2, col, .4, 6, 0); for (const o of foes(me)) { const q = o.root.position, dx = q.x - me.pos.x, dz = q.z - me.pos.z, L = Math.hypot(dx, dz); if (L > 11 || (dx * fx + dz * fz) / (L || 1) < .5) continue; strike(me, o, e, D * .8); } zone(me, e, me.pos.x + fx * 5, me.pos.y, me.pos.z + fz * 5, D); }
+      else if (d === "mine") { burst(me, { x: me.pos.x, y: me.pos.y + .5, z: me.pos.z }, col, 6); for (const o of inR(me, me.pos.x, me.pos.z, e.r)) strike(me, o, e, D * .6); zone(me, e, me.pos.x, me.pos.y, me.pos.z, D * 1.3, 1.6); }
       try { me.tone(300 + (e.c % 900), .06); me.tone(160 + (e.c % 300), .12); } catch (x) {}
     } catch (x) { warn(x); }
     return true;
   };
-  const land = (me, b, hit) => { const p = b.o.position; burst(me, p, b.col); me.scene.remove(b.o); b.o.material.dispose(); if (!hit) return;
-    spellHit(me, hit, b.dmg, me.pos, "destruction");
-    if (b.k === "burn") { hit.orBurn = 3; hit.orBurnT = .5; } else if (b.k === "poison") { hit.orBurn = 7; hit.orBurnT = .5; slow(hit, 4, .7); }
-    else if (b.k === "drain") { me.hp = Math.min(100, me.hp + b.dmg * .35); try { me.hpDraw(); } catch (x) {} }
-    else if (b.k === "shock") { let n = 0; for (const m of foes(me)) { if (m === hit || n >= 3) continue; const q = m.root.position; if (Math.hypot(q.x - p.x, q.z - p.z) > 9) continue; n++; burst(me, { x: q.x, y: q.y + 1, z: q.z }, b.col, 4); m.stun = Math.max(m.stun || 0, .5); spellHit(me, m, b.dmg * .6, me.pos, "destruction"); } } };
-  OX.onInit.push(me => { me.orange.w.eb = []; me.orange.w.cdE = 0; hud(); });
+  const land = (me, b, hit) => { const p = b.o.position; burst(me, p, b.e.c); me.scene.remove(b.o); b.o.material.dispose(); const hs = new Set(hit ? [hit] : []); if (b.splash) for (const m of inR(me, p.x, p.z, b.splash)) hs.add(m);
+    for (const m of hs) strike(me, m, b.e, b.dmg); zone(me, b.e, p.x, hit ? hit.root.position.y : Math.min(p.y, b.gy) - .2, p.z, b.dmg); };
+  OX.onInit.push(me => { const W = me.orange.w; W.eb = []; W.ez = []; W.cdE = 0; hud(); });
   OX.onTick.push((me, dt) => { const W = me.orange && me.orange.w; if (!W || !W.eb) return; W.cdE -= dt;
-    for (let i = W.eb.length - 1; i >= 0; i--) { const b = W.eb[i], p = b.o.position; b.t += dt; p.addScaledVector(b.v, dt); if (Math.random() < .6) part(me, p.x, p.y, p.z, 0, .5, 0, b.col, .3, .4, .1, .7);
+    for (let i = W.eb.length - 1; i >= 0; i--) { const b = W.eb[i], p = b.o.position; b.t += dt; if (b.g) b.v.y -= b.g * dt; p.addScaledVector(b.v, dt); if (Math.random() < .6) part(me, p.x, p.y, p.z, 0, .5, 0, b.e.c, .3, .4, .1, .7);
       let hit = null; for (const m of foes(me)) { const q = m.root.position; if (Math.hypot(q.x - p.x, q.z - p.z) < m.a[1] * .5 + .7 && p.y > q.y - .5 && p.y < q.y + m.a[2] + 1) { hit = m; break; } }
-      if (hit || b.t > 1.3) { W.eb.splice(i, 1); try { land(me, b, hit); } catch (x) { warn(x); } } } });
+      if (hit || b.t > b.life || (b.t > .15 && (b.g || b.splash) && p.y <= b.gy)) { W.eb.splice(i, 1); try { land(me, b, hit); } catch (x) { warn(x); } } }
+    for (let i = W.ez.length - 1; i >= 0; i--) { const Z = W.ez[i]; Z.t += dt; try { if (Z.t >= Z.n * .5) zoneTick(me, Z); if (Z.t > Z.d) { W.ez.splice(i, 1); zoneEnd(me, Z); } } catch (x) { warn(x); W.ez.splice(i, 1); } } });
   // ---------- the list (Y) and the small mark of the chosen element ----------
   let ui = null, chip = null;
   const hud = () => { if (!chip) { chip = document.createElement("div"); chip.id = "orElChip"; document.body.appendChild(chip); } chip.innerHTML = sel ? `<i style="background:${sel.css};box-shadow:0 0 12px ${sel.css}"></i>${KIND[sel.k]} ${sel.n} <kbd>7</kbd>` : `✦ <kbd>Y</kbd>`; };
@@ -71,7 +105,7 @@
     if (!ui) { ui = document.createElement("div"); ui.id = "orEl"; ui.hidden = true;
       const letters = [...new Set(EL.map(e => e.n[0].toUpperCase()))];
       ui.innerHTML = `<div class="hd"><b>✦ ${EL.length}</b><span class="az">${letters.map(l => `<a data-l="${l}">${l}</a>`).join("")}</span><span class="kd">${Object.values(KIND).join(" ")}</span><a class="x">✕</a></div><div class="gr">` +
-        EL.map((e, i) => `<button data-i="${i}" id="${i && EL[i - 1].n[0].toUpperCase() === e.n[0].toUpperCase() ? "" : "orL" + e.n[0].toUpperCase()}" style="--c:${e.css}">${KIND[e.k]} ${e.n}</button>`).join("") + `</div>`;
+        EL.map((e, i) => `<button data-i="${i}" title="${DEL[e.d]} · ${IMP[e.m]} · ${AFT[e.a]}" id="${i && EL[i - 1].n[0].toUpperCase() === e.n[0].toUpperCase() ? "" : "orL" + e.n[0].toUpperCase()}" style="--c:${e.css}">${KIND[e.k]} ${e.n}</button>`).join("") + `</div>`;
       document.body.appendChild(ui);
       ui.addEventListener("click", ev => { const t = ev.target; if (t.dataset.l) { const el = document.getElementById("orL" + t.dataset.l); if (el) el.scrollIntoView({ block: "start" }); return; }
         if (t.dataset.i) { sel = EL[+t.dataset.i]; try { localStorage.setItem("orange-el", sel.n); } catch (x) {} hud(); toggle(); return; } if (t.classList.contains("x") || t === ui) toggle(); }); }
