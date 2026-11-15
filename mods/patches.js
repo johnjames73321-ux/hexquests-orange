@@ -69,15 +69,5 @@ module.exports = [
   ['<span>Frontier · thin lines</span><span class="n">50-500</span>', '<span>Frontier · thin lines</span><span class="n">tribes</span>'],
   ['<span>Wilds · thick lines</span><span class="n">&lt; 50</span>', '<span>Wilds · thick lines</span><span class="n">hunters</span>'],
   ['<span class="n">0</span><span></span><span class="n">people per province</span>', '<span class="n">nobody</span><span></span><span class="n">who lived there</span>'],
-  // only Esc goes back to the map (owner 11-15). The inventory (Tab), the skill tree (" or K) and the journal let go of the mouse
-  // themselves, and the game took every release for an Esc. Now a release the game asked for never closes the walk, and closing
-  // one of those windows takes the mouse back at once (no extra click).
-  ['document.addEventListener("pointerlockchange", () => { if (S3 && document.pointerLockElement !== ov && document.hasFocus() && !ov.hidden && !S3.unlocking) close(); });',
-   '{ const orX = document.exitPointerLock; document.exitPointerLock = function () { window.orUnlockT = performance.now(); return orX.apply(document, arguments); }; }\n' +
-   'window.orLock = () => { try { if (S3 && !ov.hidden && document.pointerLockElement !== ov) { const r = ov.requestPointerLock(); r && r.catch && r.catch(() => {}); } } catch (e) {} };\n' +
-   'document.addEventListener("pointerlockchange", () => { if (S3 && document.pointerLockElement !== ov && document.hasFocus() && !ov.hidden && !S3.unlocking && performance.now() - (window.orUnlockT || -1e9) > 800) close(); });'],
-  ['me.toggleTree = () => { tree.hidden = !tree.hidden; if (!tree.hidden) { try { document.exitPointerLock(); } catch (e) {} drawTree(); } };',
-   'me.toggleTree = () => { tree.hidden = !tree.hidden; if (!tree.hidden) { try { document.exitPointerLock(); } catch (e) {} drawTree(); } else window.orLock(); };'],
-  ['const toggleInv = me => { invUI(me); const el = me.invEl; el.hidden = !el.hidden; if (!el.hidden) { document.exitPointerLock && document.exitPointerLock(); drawInv(me); } };',
-   'const toggleInv = me => { invUI(me); const el = me.invEl; el.hidden = !el.hidden; if (!el.hidden) { document.exitPointerLock && document.exitPointerLock(); drawInv(me); } else window.orLock(); };'],
+  // (only Esc leaves the walk: that fix now lives in the main game itself, 7058bb1: window.svLock, window.svUnlockT)
 ];

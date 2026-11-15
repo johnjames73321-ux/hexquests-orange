@@ -5761,7 +5761,7 @@ function wildlife(me, scene, cam, H, r, lat, lon, hex) {
     if (e.target.closest("button[data-x]")) { if (!confirm("Reset everything? Level, skills, coins and training all go back to the start.")) return;   // trash: a fresh start
       for (const k of Object.keys(prog)) delete prog[k]; Object.assign(prog, { xp: 0, lvl: 1, pts: 0, sk: {} }); saveProg();
       try { localStorage.removeItem("hexatlas-w"); localStorage.removeItem("hexatlas-melee"); } catch (err) {} me.setMelee("sword"); drawTree(); hpDraw(); tone(300, .1); return; } const u = e.target.closest("button[data-u]"); if (u) { const k = u.dataset.u, c = upCost(k); if ((prog.coins || 0) < c) return; prog.coins -= c; prog.up = prog.up || {}; prog.up[k] = upL(k) + 1; saveProg(); drawTree(); tone(1500, .05); return; } const b = e.target.closest("button[data-k]"); if (!b) return; const k = b.dataset.k, q = SK[k], l = sk(k); if (l >= q.max || prog.pts < q.cost(l) || prog.lvl < q.req(l)) return; prog.pts -= q.cost(l); prog.sk[k] = l + 1; saveProg(); drawTree(); tone(1200, .05); };
-  me.toggleTree = () => { tree.hidden = !tree.hidden; if (!tree.hidden) { try { document.exitPointerLock(); } catch (e) {} drawTree(); } else window.orLock(); };
+  me.toggleTree = () => { tree.hidden = !tree.hidden; if (!tree.hidden) { try { document.exitPointerLock(); } catch (e) {} drawTree(); } else window.svLock(); };
   const gainXP = v => { prog.xp += v; let up = 0; while (prog.xp >= xpNeed(prog.lvl)) { prog.xp -= xpNeed(prog.lvl); prog.lvl++; prog.pts += prog.lvl % 5 ? 1 : 2; up = 1; } if (up) { say(`Level ${prog.lvl}! K = skill tree (${prog.pts} point${prog.pts === 1 ? "" : "s"})`, 3200); tone(880, .07); } saveProg(); drawTree(); };
   // coins: burst out of a kill, bounce, spin, and fly into you when you come close
   const coinGeo = new T.CylinderGeometry(.16, .16, .045, 14).rotateX(Math.PI / 2), coinMat = new T.MeshLambertMaterial({ color: 0xffc83a, emissive: 0x6a4000 }), coins = [], cv3 = new T.Vector3();
@@ -6270,9 +6270,9 @@ ov.addEventListener("pointerdown", e => { if (!S3 || e.target.closest("button, .
   if (document.pointerLockElement !== ov && e.pointerType === "mouse") try { const r = ov.requestPointerLock(); r && r.catch && r.catch(() => {}); } catch (err) {}   // mouse look
   if (e.button === 0) S3.lmbDown && S3.lmbDown(); else if (e.button === 1) S3.mmb && S3.mmb(); else if (e.button === 2) { S3.block = true; S3.blockT = S3.tnow; } });
 ov.addEventListener("pointerup", e => { if (!S3) return; if (e.button === 0) S3.lmbUp && S3.lmbUp(); else if (e.button === 2) S3.block = false; });
-{ const orX = document.exitPointerLock; document.exitPointerLock = function () { window.orUnlockT = performance.now(); return orX.apply(document, arguments); }; }
-window.orLock = () => { try { if (S3 && !ov.hidden && document.pointerLockElement !== ov) { const r = ov.requestPointerLock(); r && r.catch && r.catch(() => {}); } } catch (e) {} };
-document.addEventListener("pointerlockchange", () => { if (S3 && document.pointerLockElement !== ov && document.hasFocus() && !ov.hidden && !S3.unlocking && performance.now() - (window.orUnlockT || -1e9) > 800) close(); });   // Esc while the mouse is captured: straight back to the map
+{ const xpl = document.exitPointerLock; document.exitPointerLock = function () { window.svUnlockT = performance.now(); return xpl.apply(document, arguments); }; }   /* owner 11-15: only Esc leaves the walk. The bag (Tab), the skill tree (" or K) and other windows let go of the mouse themselves; that is not an Esc */
+window.svLock = () => { try { if (S3 && !ov.hidden && document.pointerLockElement !== ov) { const r = ov.requestPointerLock(); r && r.catch && r.catch(() => {}); } } catch (e) {} };   /* closing such a window takes the mouse back at once */
+document.addEventListener("pointerlockchange", () => { if (S3 && document.pointerLockElement !== ov && document.hasFocus() && !ov.hidden && !S3.unlocking && performance.now() - (window.svUnlockT || -1e9) > 800) close(); });   // Esc while the mouse is captured: straight back to the map
 ov.addEventListener("pointermove", e => { if (!S3) return; S3.mouse = [e.clientX, e.clientY];
   if (!e.target.closest("button, .hud")) { S3.yaw -= e.movementX * .0032; S3.pitchC = clamp(S3.pitchC + e.movementY * .0032, -1.1, 1.35);   /* owner 11-06: aim far up and straight down */ } });   // look: mouse turns the view, the hero turns with it
 ov.addEventListener("wheel", e => { if (!S3) return; e.preventDefault(); /* no wheel zoom: the camera stays close (user, 11-01) */ }, { passive: false });
@@ -7284,7 +7284,7 @@ window.SV = { BI, SP, AN, FA, beast, faunaOf, biomeOf, hexBiome, hexLL, open, cl
       setK(I, k, A); setK(I, a, B); applyInv(me); });
     el.addEventListener("contextmenu", e => { e.preventDefault(); e.stopPropagation(); const c = e.target.closest(".c"); if (c) { me.invSel = null; useItem(me, c.dataset.k); } });
   };
-  const toggleInv = me => { invUI(me); const el = me.invEl; el.hidden = !el.hidden; if (!el.hidden) { document.exitPointerLock && document.exitPointerLock(); drawInv(me); } else window.orLock(); };
+  const toggleInv = me => { invUI(me); const el = me.invEl; el.hidden = !el.hidden; if (!el.hidden) { document.exitPointerLock && document.exitPointerLock(); drawInv(me); } else window.svLock(); };
   // drag (E): grab a loose thing - a felled log, a broken cell, a body - with both hands; what you held goes to the bag or falls
   const dragTry = me => {
     const P = me.pw; if (!P) return false; const T = me.T, d = new T.Vector3(); me.cam.getWorldDirection(d); const o = me.cam.position; let best = null, bs = 1e9;
@@ -11193,7 +11193,7 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
     if (b.dataset.a === "drop") { st.quest = null; save(); if (me && me.orange) { me.orange.qPos = null; if (me.orange.beacon) { me.scene.remove(me.orange.beacon); me.orange.beacon = null; } } }
     jDraw();
   }
-  const jToggle = () => { const u = ensureUI(); if (!u) return; u.j.hidden = !u.j.hidden; if (!u.j.hidden) { try { document.exitPointerLock(); } catch (e) {} jDraw(); } else if (window.orLock) window.orLock(); };
+  const jToggle = () => { const u = ensureUI(); if (!u) return; u.j.hidden = !u.j.hidden; if (!u.j.hidden) { try { document.exitPointerLock(); } catch (e) {} jDraw(); } else if (window.svLock) window.svLock(); };
 
   // ---------- resolution saver ----------
   const setPx = (me, px) => { const O = me.orange; if (!me.R || !me.pix || O.px === px) return; O.px = px; try { me.R.setPixelRatio(1 / px); me.R.setSize(innerWidth, innerHeight); me.pix.size(); } catch (e) { warn(e); } };

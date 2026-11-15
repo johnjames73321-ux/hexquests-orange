@@ -214,7 +214,7 @@ ${st.log.length ? `<h4>Done</h4>${st.log.map(l => `<p>✓ ${esc(l)}</p>`).join("
     if (b.dataset.a === "drop") { st.quest = null; save(); if (me && me.orange) { me.orange.qPos = null; if (me.orange.beacon) { me.scene.remove(me.orange.beacon); me.orange.beacon = null; } } }
     jDraw();
   }
-  const jToggle = () => { const u = ensureUI(); if (!u) return; u.j.hidden = !u.j.hidden; if (!u.j.hidden) { try { document.exitPointerLock(); } catch (e) {} jDraw(); } else if (window.orLock) window.orLock(); };
+  const jToggle = () => { const u = ensureUI(); if (!u) return; u.j.hidden = !u.j.hidden; if (!u.j.hidden) { try { document.exitPointerLock(); } catch (e) {} jDraw(); } else if (window.svLock) window.svLock(); };
 
   // ---------- resolution saver ----------
   const setPx = (me, px) => { const O = me.orange; if (!me.R || !me.pix || O.px === px) return; O.px = px; try { me.R.setPixelRatio(1 / px); me.R.setSize(innerWidth, innerHeight); me.pix.size(); } catch (e) { warn(e); } };
