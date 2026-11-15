@@ -141,5 +141,5 @@
     return `<h4>Magic · magicka ${W ? Math.round(W.mp) : mpMax()} of ${mpMax()}</h4><p><kbd>7</kbd> Firebolt: flies where you aim and sets beasts burning · <kbd>8</kbd> hold: Healing hands · <kbd>9</kbd> Frost burst: staggers and slows everything around you</p>
 <h4>Blessing</h4><p>${k ? `<b style="color:#ffd23a">${STONES[k][0]}</b>: ${STONES[k][1]}` : "None yet. Find the standing stones of a land and press <kbd>E</kbd> at the altar."} · one blessing at a time</p>
 <h4>Places in this land</h4><p>${me && me.orange.pois.length ? me.orange.pois.map(p => `${p.icon} ${p.found ? esc(p.name) : "???"}`).join(" · ") : "nothing marked"} · rest at a campfire (<kbd>E</kbd>) to sleep until morning</p>`; });
-  OX.magic = { firebolt, frost, useE, rest, mpMax, STONES };
+  OX.magic = { firebolt, frost, useE, rest, mpMax, STONES, spr, part, ring, spellHit, noMp, lvlOf };
 })();

@@ -15,3 +15,5 @@ It is generated, never hand-edited:
 
 Test the walk (all layers together, also in a hidden tab): serve the folder (`python -m http.server 8777 --bind 127.0.0.1`), open it,
 load `/tools/soak.js` in the page and run `await OT.soak()`: `fail` and `errs` must be empty. Add a check there for every new feature.
+- `mods/40-orange-elements.js`: 1,241 elements (Y = list, click one, 7 casts it); 13 kinds of spell. `mods/50-orange-ui.js`: the look (signs for words, see-through panels, Cinzel).
+- Map: islands up to 400 hexes keep the main game's exact shape (ISLE), coasts are sampled 7 points a hex (smoother), lands that never touched get a strait line.

@@ -70,13 +70,16 @@ for (let qq = qmin; qq <= qEnd; qq++) {
       const t = colTop.get(oq), u = colBot.get(oq); if (t === undefined) continue; const ty = yOf(oq, D.r[t]), uy = yOf(oq, D.r[u]);
       if (yo < ty) { if (ty - yo < ROW) s = t; else continue; } else if (yo > uy) { s = quiet(u) ? u : SEAREF; made++; }   /* the same sea as the old bottom edge of that column */ else continue;
     }
+    if (!process.env.OR_NOSMOOTH && s !== undefined && colTop.has(oq)) { const isL = D.reg[s] >= 0; let v = isL ? 1 : 0, alt = -1;
+      for (let a = 0; a < 6; a++) { const xs = xn + S * 0.55 * Math.cos(a * Math.PI / 3), ys = yn + S * 0.55 * Math.sin(a * Math.PI / 3), xo2 = OR.ux(xs), [q2, r2] = hexAt(xo2, OR.uy(xo2, ys), D.oy), t = idx.get(q2 * 65536 + r2); if (t === undefined) continue; const tl = D.reg[t] >= 0; if (tl) v++; if (tl !== isL && alt < 0) alt = t; }
+      if (alt >= 0 && (isL ? v <= 2 : v >= 5)) s = alt; }
     q.push(qq); r.push(rr); src.push(s);
   }
 }
 const M = q.length, nidx = new Map(); for (let i = 0; i < M; i++) nidx.set(q[i] * 65536 + r[i], i);
 // small islands (up to ISLE hexes) are not resampled: a 1-hex island must stay 1 hex, not grow to 2 or vanish. Each is lifted
 // out and put back hex for hex (with its ring of sea, so its straits and sea names come along) where the warp sends its middle.
-const ISLE = 8, D6 = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]], oComp = new Int32Array(N).fill(-1), oIsl = [];
+const ISLE = +process.env.OR_ISLE || 400,   /* owner 11-15: islands must not grow: every island up to this size keeps the main game's exact shape */ D6 = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]], oComp = new Int32Array(N).fill(-1), oIsl = [];
 for (let s = 0; s < N; s++) { if (D.reg[s] < 0 || oComp[s] >= 0) continue; const c = oIsl.length, st = [s], hs = []; oComp[s] = c;
   while (st.length) { const i = st.pop(); hs.push(i); for (const [a, b] of D6) { const j = idx.get((D.q[i] + a) * 65536 + D.r[i] + b); if (j !== undefined && D.reg[j] >= 0 && oComp[j] < 0) { oComp[j] = c; st.push(j); } } } oIsl.push(hs); }
 const isleName = hs => { const R = D.regions[D.reg[hs[0]]]; return R[1] + " / " + (R[2] || R[0]); };
@@ -136,7 +139,9 @@ console.log("land/water pieces before", comps(N, i => D.reg[i] >= 0, nbO), "afte
     let cx = 0, cy = 0; for (const i of hs) { cx += xOf(D.q[i]); cy += yOf(D.q[i], D.r[i]); } rows.push([isleName(hs), hs.length, cnt[o], Math.round(cx / hs.length), Math.round(cy / hs.length), st || "ok"].join("\t")); });
   fs.writeFileSync(path.join(__dirname, "islands.tsv"), "land piece (main game)\thexes main\thexes orange\told x\told y\tcheck\n" + rows.join("\n") + "\n");
   console.log("island check:", oIsl.length, "land pieces,", wrong, "wrong (list: tools/islands.tsv)"); }
-const st = remapEdges(D.st), dm = remapEdges(D.dm); console.log("straits", D.st.length, "->", st.length, "| dams", D.dm.length, "->", dm.length);
+const st = remapEdges(D.st), dm = remapEdges(D.dm);
+// lands the stretch pushed together that never touched in the main game get a strait line between them (owner 11-15: no joined islands)
+{ let add = 0; const has = new Set(st.map(([i, d]) => i * 3 + d)); for (let i = 0; i < M; i++) { if (D.reg[src[i]] < 0) continue; for (let d = 0; d < 3; d++) { const j = nbN(i, d); if (j < 0 || D.reg[src[j]] < 0 || src[i] === src[j] || edgeKey(src[i], src[j]) >= 0 || has.has(i * 3 + d)) continue; st.push([i, d]); add++; } } console.log("false land contacts given a strait line:", add); } console.log("straits", D.st.length, "->", st.length, "| dams", D.dm.length, "->", dm.length);
 const pick = a => src.map(s => a[s]);
 // people are shared out between the copies of a hex, so no country gains people from the warp
 const seenC = new Int32Array(N), pop = src.map(s => { const c = copies[s], p = G.pop[s] || 0, k = seenC[s]++; return Math.floor(p / c) + (k < p % c ? 1 : 0); });
