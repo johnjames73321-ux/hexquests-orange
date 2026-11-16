@@ -80,13 +80,16 @@ const M = q.length, nidx = new Map(); for (let i = 0; i < M; i++) nidx.set(q[i] 
 // small islands (up to ISLE hexes) are not resampled: a 1-hex island must stay 1 hex, not grow to 2 or vanish. Each is lifted
 // out and put back hex for hex (with its ring of sea, so its straits and sea names come along) where the warp sends its middle.
 const ISLE = +process.env.OR_ISLE || 400,   /* owner 11-15: islands must not grow: every island up to this size keeps the main game's exact shape */ D6 = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]], oComp = new Int32Array(N).fill(-1), oIsl = [];
+// owner 11-16: land cut off only by a strait line (the Cyclades, Euboea, Sicily) is an island too: it keeps its own shape and gets real sea around it
+const PEN = i => /Peloponnese|West Greece/.test(String((D.regions[D.reg[i]] || [])[2]));   // a peninsula, not an island: it stays on the mainland
+const stCut = process.env.OR_RAWISLES ? new Set() : new Set((D.st || []).map(([i, d]) => i * 3 + d));
 for (let s = 0; s < N; s++) { if (D.reg[s] < 0 || oComp[s] >= 0) continue; const c = oIsl.length, st = [s], hs = []; oComp[s] = c;
-  while (st.length) { const i = st.pop(); hs.push(i); for (const [a, b] of D6) { const j = idx.get((D.q[i] + a) * 65536 + D.r[i] + b); if (j !== undefined && D.reg[j] >= 0 && oComp[j] < 0) { oComp[j] = c; st.push(j); } } } oIsl.push(hs); }
+  while (st.length) { const i = st.pop(); hs.push(i); for (let d = 0; d < 6; d++) { const j = idx.get((D.q[i] + D6[d][0]) * 65536 + D.r[i] + D6[d][1]); if (j !== undefined && D.reg[j] >= 0 && oComp[j] < 0 && !(stCut.has(d < 3 ? i * 3 + d : j * 3 + d - 3) && !PEN(i) && !PEN(j))) { oComp[j] = c; st.push(j); } } } oIsl.push(hs); }
 const isleName = hs => { const R = D.regions[D.reg[hs[0]]]; return R[1] + " / " + (R[2] || R[0]); };
 { const isSmall = i => D.reg[i] >= 0 && oIsl[oComp[i]].length <= ISLE, landN = j => D.reg[src[j]] >= 0, at = (a, b) => nidx.get(a * 65536 + b);
   const seaBy = i => { const seen = new Set([i]), qu = [i]; for (let h = 0; h < qu.length; h++) for (const [a, b] of D6) { const j = idx.get((D.q[qu[h]] + a) * 65536 + D.r[qu[h]] + b); if (j === undefined || seen.has(j)) continue; if (D.reg[j] < 0) return j; seen.add(j); qu.push(j); } throw new Error("island with no sea"); };
   for (let i = 0; i < M; i++) if (isSmall(src[i])) src[i] = seaBy(src[i]);
-  const SHIFT = [[0, 0], ...D6, ...D6.map(([a, b], k) => [a * 2, b * 2]), ...D6.map(([a, b], k) => [a + D6[(k + 1) % 6][0], b + D6[(k + 1) % 6][1]])]; let moved = 0, bad = 0;
+  const SHIFT = []; for (let a = -3; a <= 3; a++) for (let b = -3; b <= 3; b++) if (Math.abs(a + b) <= 3) SHIFT.push([a, b]); SHIFT.sort((u, v) => (Math.abs(u[0]) + Math.abs(u[1]) + Math.abs(u[0] + u[1])) - (Math.abs(v[0]) + Math.abs(v[1]) + Math.abs(v[0] + v[1]))); let moved = 0, bad = 0;
   for (const hs of oIsl) { if (hs.length > ISLE) continue;
     let cx = 0, cy = 0; for (const i of hs) { cx += xOf(D.q[i]); cy += yOf(D.q[i], D.r[i]); } cx /= hs.length; cy /= hs.length;
     let a = hs[0], best = 1e9; for (const i of hs) { const d = (xOf(D.q[i]) - cx) ** 2 + (yOf(D.q[i], D.r[i]) - cy) ** 2; if (d < best) { best = d; a = i; } }

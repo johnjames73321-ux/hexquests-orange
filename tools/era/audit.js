@@ -36,7 +36,7 @@ module.exports = c => {
   const MOD = new Set("Finnmark Saikai Tsushima Kamikawa Bayanaul Kulunda Daegu Sangju Wuyi Jiulong Huangshan Beijiang Madang Choiseul Isabel Guadalcanal Malaita Nugaal Tanga Mtwara Talas Awka Afikpo Ho Borkou Filippovka Prokhorovka Pelym Tavda Tura Kosa Pechora Konda Kazym Synya Salym Pim Chulym Sym Nadym Moma Nera Tompo Suntar Gonam Zeya Uda Yama Tokma Ilimpeya Ugra Kasanje Matamba".split(" "));
   tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || (String(t[3] || "").toLowerCase() !== "culture" && !MOD.has(t[0])) || ANC.has(t[0])) return;
     const raw = String(t[4] || ""), par = (raw.match(/\(([^)]*)\)/) || [])[1] || "";
-    let p = raw.split("(")[0].replace(/\s*contact( zone)?/i, "").replace(/\?/g, "").trim(); p = p.replace(/^LSA /, "Stone Age ").replace(/ (substrate|ancestors|with strong .*)$/, ""); if (/^(uncertain|unknown|)$/i.test(p) || p === t[0]) p = par.replace(/^(late|early) /i, "").replace(/\?/g, "").trim();
+    let p = raw.split("(")[0].replace(/\s*contact( zone)?/i, "").replace(/\?/g, "").trim(); p = p.replace(/^LSA /, "Stone Age ").replace(/ (substrate|ancestors|with strong .*)$/, "").replace(/-derived|\/local|\/unknown/gi, ""); if (/^(uncertain|unknown|)$/i.test(p) || p === t[0]) p = par.replace(/^(late|early) /i, "").replace(/\?/g, "").trim();
     if (!p || p === t[0]) return; t[6] = (t[6] || "") + " (Archaeologists' name: " + t[0] + ".)"; t[0] = p; modern++; });
   rep.modern = "Old World cultures and tribes named after modern places -> their people's name: " + modern;
   // ---- 2. New World states with colonial names ----
@@ -68,7 +68,8 @@ module.exports = c => {
   // ---- 3. split big blocks of peoples that were not one state ----
   const CAP = 8, CAPC = 3, usedTag = new Set(tags.map(t => t[0])); let cut = 0, made = 0;
   const T0 = tags.length;
-  for (let k = 0; k < T0; k++) { const t = tags[k], kind = String(t[3] || "").toLowerCase(), hs = hexOf[k]; if (!hs.length || (STATE.test(kind) && !newTag[k])) continue;
+  // owner 11-16: OFF. The same-size groups looked made up; every people keeps the land the main game gives it (1 hex to 100+). OR_SPLIT=1 turns it back on.
+  for (let k = 0; k < T0; k++) { const t = tags[k], kind = String(t[3] || "").toLowerCase(), hs = hexOf[k]; if (!process.env.OR_SPLIT) break; if (!hs.length || (STATE.test(kind) && !newTag[k])) continue;
     const cap = kind === "culture" ? CAPC : CAP; if (hs.length <= cap) continue;
     const mine = new Set(hs), seen = new Set(), comps = [];
     for (const s0 of hs) { if (seen.has(s0)) continue; const st = [s0], cc = []; seen.add(s0); while (st.length) { const i = st.pop(); cc.push(i); for (const j of nb(i)) if (mine.has(j) && !seen.has(j)) { seen.add(j); st.push(j); } } comps.push(cc); }

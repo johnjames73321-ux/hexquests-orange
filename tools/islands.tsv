@@ -1,145 +1,299 @@
 land piece (main game)	hexes main	hexes orange	old x	old y	check
-Canada / Alberta	6659	10776	331	318	ok
+Canada / Alberta	6618	10721	330	319	MERGED with other land
 Kiribati / Line Islands	1	1	39	404	ok
 Samoa / Samoa	1	1	39	526	ok
-United States of America / Texas	10	10	53	306	ok
+United States of America / Texas	1	1	44	296	ok
+United States of America / Texas	1	1	44	301	ok
+United States of America / Texas	2	2	51	300	ok
+Mexico / Coahuila	1	1	49	304	ok
+Mexico / Coahuila	5	5	57	311	ok
 French Polynesia / Society Islands	1	1	54	545	ok
 France / Society Islands	1	1	58	559	ok
 France / Society Islands	1	1	68	548	ok
 France / Society Islands	1	1	73	556	ok
 French Polynesia / Tuamotu	1	1	78	537	ok
+Canada / Alberta	4	4	87	48	ok
 France / Marquesas	1	1	92	468	ok
+United States of America / Montana	3	3	98	91	ok
 France / Marquesas	1	1	97	487	ok
+United States of America / Montana	2	2	104	95	MERGED with other land
 Chile / Easter Island	1	1	188	612	ok
 Ecuador / Galápagos	1	1	226	456	ok
 Ecuador / Galápagos	1	1	236	462	ok
 Ecuador / Galápagos	1	1	246	456	ok
-Belize / Corozal District	35	35	393	312	ok
+Canada / Ontario	1	1	313	35	MERGED with other land
+Guatemala / Petén	1	1	332	351	ok
+Mexico / Petén	1	1	332	357	ok
+Belize / Corozal District	34	34	394	312	ok
+Cuba / Isla de la Juventud	1	1	361	312	ok
 Greenland / Kujalleq	1	1	375	10	ok
-Bahamas / North Abaco	3	3	404	273	ok
-United States of America / Alabama	3	3	402	290	ok
+United States of America / Alabama	1	1	375	293	ok
+United States of America / Alabama	1	1	390	290	ok
+Bahamas / North Abaco	1	1	399	274	ok
+United States of America / Alabama	1	1	399	290	ok
 Jamaica / Manchester	4	4	404	340	ok
-Bahamas / Cat Island	6	6	419	292	ok
+Bahamas / North Abaco	1	1	404	271	ok
+Bahamas / New Providence	1	1	404	287	ok
+Bahamas / Andros	1	1	404	293	ok
+Bahamas / North Abaco	1	1	409	274	ok
+Bahamas / Cat Island	1	1	414	282	ok
+Bahamas / Cat Island	1	1	414	287	ok
+Bahamas / Cat Island	1	1	418	290	ok
+Bahamas / Cat Island	1	1	418	296	ok
 Falkland Is. / Wóos	1	1	418	795	ok
+Bahamas / Cat Island	1	1	423	299	ok
+Bahamas / Cat Island	1	1	428	296	ok
 Haiti / Sud-Est	21	21	449	336	ok
 Falkland Is. / Kipa	1	1	428	795	ok
-Cuba / Villa Clara	3	3	434	307	ok
+Cuba / Villa Clara	1	1	433	304	ok
+Cuba / Camagüey	1	1	433	310	ok
+Cuba / Camagüey	1	1	438	307	ok
 Cuba / Camagüey	1	1	438	318	ok
 Venezuela / Bolívar	1	1	438	390	ok
 Falkland Is. / Stanley	1	1	442	792	ok
 Cuba / Camagüey	1	1	447	312	ok
 Trinidad and Tobago / Chaguanas	1	1	447	396	ok
 Trinidad and Tobago / Port of Spain	1	1	471	404	ok
-St. Vin. and Gren. / Saint George	9	9	485	373	ok
+St. Vin. and Gren. / Saint George	1	1	476	390	ok
 Puerto Rico / Ponce	5	5	486	340	ok
 St. Kitts and Nevis / Saint George Basseterre	1	1	481	354	ok
+Saint Lucia / Castries	1	1	481	382	ok
+St. Vin. and Gren. / Saint George	1	1	481	387	ok
+France / Guadeloupe	1	1	486	362	ok
+France / Saint Andrew Parish	1	1	486	368	ok
+Dominica / Saint George Parish	1	1	486	373	ok
+France / Martinique	1	1	486	379	ok
 Barbados / Saint Philip	1	1	486	396	ok
+Antigua and Barb. / Barbuda	1	1	490	354	ok
+Antigua and Barb. / Saint John Parish	1	1	490	359	ok
 United States of America / Ohio	2	2	498	178	ok
-Puerto Rico / Fajardo	2	2	500	340	ok
+Puerto Rico / Fajardo	1	1	500	337	ok
+Puerto Rico / Fajardo	1	1	500	343	ok
+Canada / Newfoundland and Labrador	27	27	530	58	ok
 United Kingdom / South Georgia	1	1	519	803	ok
-Portugal / Azores	2	2	534	271	ok
-Portugal / Azores	5	5	550	285	ok
+Portugal / Azores	1	1	534	268	ok
+Portugal / Azores	1	1	534	274	ok
+Portugal / Azores	1	1	543	285	ok
 Greenland / Sermersooq	131	131	582	26	ok
+Portugal / Azores	2	2	550	289	ok
+Portugal / Azores	1	1	553	279	ok
+Portugal / Azores	1	1	553	285	ok
 Portugal / Azores	1	1	562	285	ok
 Portugal / Azores	2	2	574	294	ok
 Portugal / Azores	1	1	577	304	ok
-Mauritania / Trarza	3	3	582	440	ok
-Senegal / Dakar	2	2	584	461	ok
+Mauritania / Trarza	1	1	577	437	ok
+Mauritania / Trarza	1	1	582	440	ok
+Senegal / Dakar	1	1	582	462	ok
+Mauritania / Trarza	1	1	586	443	ok
+Senegal / Dakar	1	1	586	459	ok
 Spain / Canary Islands	1	1	596	359	ok
-Spain / Canary Islands	5	5	604	366	ok
-Senegal / Dakar	2	2	598	458	ok
-Portugal / Madeira	3	3	604	335	ok
-Mauritania / Trarza	2	2	601	443	ok
-Senegal / Dakar	18905	26219	1168	288	ok
-Spain / Canary Islands	3	3	622	363	ok
+Spain / Canary Islands	1	1	596	371	ok
+Senegal / Dakar	1	1	596	459	ok
+Portugal / Madeira	1	1	601	335	ok
+Spain / Canary Islands	1	1	601	368	ok
+Mauritania / Trarza	1	1	601	440	ok
+Mauritania / Trarza	1	1	601	445	ok
+Senegal / Dakar	1	1	601	456	ok
+Portugal / Madeira	1	1	606	332	ok
+Portugal / Madeira	1	1	606	337	ok
+Spain / Canary Islands	2	2	606	362	ok
+Spain / Canary Islands	1	1	610	368	ok
+Senegal / Dakar	18604	25779	1171	288	MERGED with other land
+Spain / Canary Islands	2	2	620	365	ok
 Iceland / East	32	32	646	61	ok
+Spain / Canary Islands	1	1	625	359	ok
+Ireland / Munster	34	34	671	159	ok
 Norway / Jan Mayen	2	2	675	3	ok
+United Kingdom / Scotland	1	1	673	121	ok
+United Kingdom / Scotland	1	1	673	127	ok
+United Kingdom / Scotland	2	2	680	117	ok
+United Kingdom / Scotland	96	96	708	153	ok
 United Kingdom / Ascension	1	1	687	578	ok
 United Kingdom / Scotland	2	2	697	82	ok
+United Kingdom / England	1	1	697	152	ok
+United Kingdom / Scotland	1	1	702	110	ok
 United Kingdom / Tristan da Cunha	1	1	702	792	ok
+United Kingdom / Scotland	1	1	706	107	ok
+France / Normandy	1	1	711	193	ok
 United Kingdom / Scotland	2	2	721	96	ok
-Spain / Valencia	2	2	738	292	ok
+Spain / Valencia	1	1	735	290	ok
 United Kingdom / Saint Helena	1	1	735	639	ok
-Spain / Catalonia	5	5	752	283	ok
+Spain / Valencia	1	1	740	293	ok
+Spain / Catalonia	3	3	748	285	ok
+Spain / Catalonia	1	1	754	279	ok
+Spain / Catalonia	1	1	759	282	ok
 Gabon / Ogooué-Maritime	1	1	774	578	ok
-Italy / Umbria	12	12	790	272	ok
+Italy / Umbria	5	5	791	263	ok
+France / Corsica	7	7	790	279	ok
 Cameroon / South-West	1	1	788	559	ok
+Denmark / Central Jutland	1	1	802	135	MERGED with other land
+Denmark / Zealand	1	1	802	141	MERGED with other land
+Sweden / Halland	1	1	807	127	MERGED with other land
+Denmark / Capital Region	4	4	812	138	MERGED with other land
+Denmark / Zealand	1	1	807	143	MERGED with other land
+Tunisia / Sfax Governorate	1	1	807	326	ok
+Libya / Az Zawiyah	1	1	807	332	ok
 Italy / Sicily	1	1	812	307	ok
+Italy / Veneto	1	1	817	232	ok
+Italy / Sicily	7	7	827	301	ok
 Italy / Sicily	1	1	831	318	ok
 Poland / West Pomerania	1	1	836	143	ok
-Sweden / Södermanland	3	3	862	119	ok
+Serbia / Central Serbia	1	1	841	251	ok
+Sweden / Gotland	2	2	846	129	ok
+Croatia / Dubrovnik-Neretva	1	1	846	254	ok
+Sweden / Södermanland	2	2	860	121	ok
+Sweden / Stockholm	1	1	865	116	ok
+Finland / Southwest Finland	1	1	870	96	ok
+Finland / Southwest Finland	1	1	874	99	ok
+Estonia / Pärnumaa	1	1	884	110	ok
+Estonia / Pärnumaa	2	2	886	114	ok
+Latvia / Aizkraukle Municipality	1	1	894	121	ok
 Greece / Crete	3	3	903	321	ok
+Finland / Lapland	1	1	903	55	ok
+Greece / North Aegean	1	1	903	282	ok
+Greece / Mount Athos	1	1	903	293	ok
+Greece / South Aegean	1	1	903	304	ok
+Greece / South Aegean	1	1	903	310	MERGED with other land
+Turkey / Canakkale	1	1	908	279	MERGED with other land
+Greece / South Aegean	1	1	908	301	MERGED with other land
+Greece / South Aegean	1	1	908	307	ok
+Greece / South Aegean	1	1	908	312	MERGED with other land
+Turkey / Canakkale	1	1	913	282	MERGED with other land
+Turkey / Balıkesir	1	1	913	287	MERGED with other land
+Turkey / İzmir Province	1	1	913	293	MERGED with other land
+Greece / North Aegean	1	1	913	304	ok
+Greece / South Aegean	1	1	913	310	ok
+Greece / South Aegean	1	1	918	307	MERGED with other land
+Greece / South Aegean	1	1	922	310	ok
 Turkey / Antalya	1	1	922	321	ok
+Turkey / Antalya	1	1	927	312	ok
+N. Cyprus / Keryneia	5	5	963	323	ok
+Tanzania / Tanga	1	1	1009	614	ok
+Tanzania / Tanga	2	2	1009	623	ok
 Comoros / Comoros	1	1	1028	653	ok
 Comoros / Comoros	1	1	1038	659	ok
 Madagascar / Atsimo-Andrefana	102	102	1059	707	ok
 France / Comoros	1	1	1052	656	ok
 Russia / Nenets	3	3	1076	18	ok
-Yemen / Socotra	4	4	1107	495	ok
+Bahrain / Muharraq	1	1	1086	393	ok
+Yemen / Socotra	1	1	1100	495	ok
+United Arab Emirates / Abu Dhabi	1	1	1105	409	ok
+Yemen / Socotra	1	1	1105	498	ok
 Russia / Arkhangelskaya	6	6	1122	3	ok
+Yemen / Socotra	2	2	1112	494	ok
 Seychelles / Seychelles	1	1	1114	620	ok
+Iran / Hormozgan	2	2	1126	391	ok
 Madagascar / Analanjirofo	1	1	1124	720	ok
+Oman / Al Wusta Governorate	1	1	1129	456	ok
+Oman / Southeastern Governorate	1	1	1148	434	ok
 France / Mascarene Islands	1	1	1148	723	ok
 Mauritius / Mascarene Islands	1	1	1162	714	ok
 France / Kerguelen	2	2	1162	745	ok
 Mauritius / Mascarene Islands	1	1	1201	709	ok
-Maldives / Lhaviyani	12	12	1247	573	ok
+Maldives / Lhaviyani	1	1	1244	562	ok
+Maldives / Alif Alif	1	1	1244	567	ok
+Maldives / Meemu Atholhu	1	1	1244	578	ok
+Maldives / Meemu Atholhu	1	1	1244	584	ok
+Maldives / Lhaviyani	1	1	1249	553	ok
+Maldives / Lhaviyani	1	1	1249	559	ok
+Maldives / Alif Alif	1	1	1249	565	ok
+Maldives / Alif Alif	1	1	1249	570	ok
+Maldives / Alif Alif	1	1	1249	576	ok
+Maldives / Meemu Atholhu	1	1	1249	581	ok
+Maldives / Meemu Atholhu	1	1	1249	587	ok
+Maldives / Gaafu Dhaalu	1	1	1249	592	ok
 British Indian Ocean Ter. / Chagos	1	1	1249	637	ok
 France / Amsterdam Island	1	1	1282	756	ok
-India / Andaman and Nicobar Islands	3	3	1388	484	ok
+Sri Lanka / North Central Province	16	16	1303	528	ok
+India / Andaman and Nicobar Islands	1	1	1388	479	ok
+India / Andaman and Nicobar Islands	1	1	1388	484	ok
+India / Andaman and Nicobar Islands	1	1	1388	490	ok
 India / Andaman and Nicobar Islands	1	1	1388	501	ok
-Australia / Western Australia	1118	1382	1621	718	ok
+Indonesia / Aceh	79	79	1452	583	ok
+Australia / Western Australia	1112	1376	1620	718	ok
 Indonesia / Central Java	28	28	1518	626	ok
-Indonesia / West Kalimantan	152	152	1548	567	ok
+China / Hainan	9	9	1510	447	ok
+Indonesia / West Kalimantan	143	143	1546	571	ok
 Indonesia / West Nusa Tenggara	3	3	1564	623	ok
+Malaysia / Sabah	8	8	1582	499	ok
+Malaysia / Sabah	1	1	1570	517	ok
 Indonesia / South Sulawesi	2	2	1578	619	ok
-China / Fujian	11	11	1589	413	ok
-Indonesia / North Kalimantan	3	3	1588	544	ok
+China / Fujian	1	1	1580	412	ok
+China / Fujian	10	10	1590	413	ok
+Indonesia / North Kalimantan	1	1	1585	548	ok
 Indonesia / South Sulawesi	24	24	1597	584	ok
+Philippines / Autonomous Region in Muslim Mindanao	1	1	1590	540	ok
+Philippines / Autonomous Region in Muslim Mindanao	1	1	1590	545	ok
 Indonesia / South Sulawesi	2	2	1592	616	ok
-Philippines / Central Luzon	24	24	1601	464	ok
-Philippines / Autonomous Region in Muslim Mindanao	52	52	1621	516	ok
+Philippines / Central Luzon	1	1	1594	437	ok
+Philippines / Central Luzon	1	1	1594	443	ok
+Philippines / Central Luzon	17	17	1599	463	ok
+Philippines / Autonomous Region in Muslim Mindanao	51	51	1622	515	ok
+Philippines / Autonomous Region in Muslim Mindanao	1	1	1599	540	ok
+Philippines / National Capital Region	1	1	1604	470	ok
 Australia / Northern Territory	3	3	1609	615	ok
+Philippines / Eastern Visayas	4	4	1614	477	ok
 Japan / Ryukyu Islands	1	1	1614	409	ok
 South Korea / Jeju	1	1	1623	337	ok
-Japan / Ryukyu Islands	2	2	1635	391	ok
+Japan / Ryukyu Islands	1	1	1633	393	ok
+Japan / Ryukyu Islands	1	1	1638	390	ok
 Palau / Southwest Papua	8	8	1642	575	ok
 Japan / Fukuoka	1	1	1642	343	ok
-Japan / Ryukyu Islands	2	2	1645	380	ok
-Japan / Tsushima	118	118	1706	304	ok
+Japan / Ryukyu Islands	1	1	1642	382	ok
+Japan / Tsushima	1	1	1647	329	ok
+Japan / Ryukyu Islands	1	1	1647	379	ok
 Indonesia / Southwest Papua	1	1	1647	556	ok
+Japan / Oita	1	1	1652	332	ok
+Japan / Oita	111	111	1709	302	ok
+Japan / Miyazaki	1	1	1652	348	ok
+Japan / Miyazaki	1	1	1657	362	ok
 Indonesia / Maluku	2	2	1659	605	ok
+Japan / Miyazaki	1	1	1662	359	ok
 Japan / Bonin Islands	1	1	1662	387	ok
-Indonesia / West Papua	156	156	1741	618	ok
+Indonesia / West Papua	152	152	1740	618	ok
+Japan / Osaka	1	1	1676	312	ok
 Indonesia / South Papua	1	1	1695	628	ok
+Australia / Victoria	6	6	1710	804	ok
+Japan / Chiba	1	1	1719	326	ok
 Russia / Sakhalin Oblast	1	1	1777	232	ok
 Papua New Guinea / Morobe Province	1	1	1782	595	ok
 New Zealand / Nelson	61	61	1825	771	ok
+Papua New Guinea / East New Britain Province	1	1	1791	623	ok
 Russia / Magadan Oblast	1	1	1796	105	ok
 Russia / Kamchatka	1	1	1796	177	ok
-Papua New Guinea / East New Britain Province	11	11	1815	614	ok
+Papua New Guinea / East New Britain Province	3	3	1798	615	ok
+Papua New Guinea / East New Britain Province	1	1	1806	620	ok
+Papua New Guinea / East New Britain Province	5	5	1813	620	ok
+Papua New Guinea / East New Britain Province	5	5	1819	607	ok
 Papua New Guinea / Milne Bay Province	1	1	1815	642	ok
 Papua New Guinea / Milne Bay Province	1	1	1825	648	ok
 Papua New Guinea / Milne Bay Province	4	4	1828	664	ok
 Russia / Kamchatka	1	1	1834	105	ok
 Nauru / Yaren	1	1	1834	587	ok
-Solomon Is. / Makira-Ulawa	13	13	1844	640	ok
+Solomon Is. / Makira-Ulawa	3	3	1836	630	ok
 Nauru / Yaren	1	1	1839	595	ok
+Solomon Is. / Makira-Ulawa	6	6	1844	645	ok
 Kiribati / Gilbert Islands	1	1	1844	587	ok
+Solomon Is. / Makira-Ulawa	1	1	1844	637	ok
 Marshall Is. / Ralik Chain	1	1	1849	529	ok
 Kiribati / Gilbert Islands	2	2	1851	577	ok
+Solomon Is. / Makira-Ulawa	1	1	1849	639	ok
+Solomon Is. / Makira-Ulawa	2	2	1856	644	ok
 Russia / Commander Islands	1	1	1858	141	ok
 Kiribati / Gilbert Islands	1	1	1858	590	ok
-Solomon Is. / Makira-Ulawa	3	3	1862	656	ok
+Solomon Is. / Makira-Ulawa	1	1	1858	656	ok
 Kiribati / Gilbert Islands	1	1	1863	581	ok
+Solomon Is. / Makira-Ulawa	1	1	1863	653	ok
+Fiji / Fiji	1	1	1863	659	ok
 Fiji / Fiji	1	1	1863	670	ok
 Kiribati / Gilbert Islands	1	1	1868	590	ok
 Kiribati / Gilbert Islands	1	1	1868	601	ok
 United States of America / Texas	1	1	34	296	ok
 United States / American Samoa	1	1	34	540	ok
-United States of America / New Mexico	2	2	22	292	ok
+United States of America / New Mexico	1	1	25	290	ok
 France / Wallis and Futuna	1	1	25	517	ok
 Samoa / Samoa	1	1	25	534	ok
 Fiji / Fiji	1	1	25	545	ok
 Tonga / Tonga	1	1	25	562	ok
 Tonga / Tonga	1	1	25	578	ok
+United States of America / New Mexico	1	1	20	293	ok
