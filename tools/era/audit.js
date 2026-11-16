@@ -40,6 +40,7 @@ module.exports = c => {
   const MOD = new Set("Finnmark Saikai Tsushima Kamikawa Bayanaul Kulunda Daegu Sangju Wuyi Jiulong Huangshan Beijiang Madang Choiseul Isabel Guadalcanal Malaita Nugaal Tanga Mtwara Talas Awka Afikpo Ho Borkou Filippovka Prokhorovka Pelym Tavda Tura Kosa Pechora Konda Kazym Synya Salym Pim Chulym Sym Nadym Moma Nera Tompo Suntar Gonam Zeya Uda Yama Tokma Ilimpeya Ugra Kasanje Matamba".split(" "));
   const MODX = require("./modern-names"); for (const n of MODX.MOD) MOD.add(n);
   tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || !(MOD.has(t[0]) || MODX.QUAL.test(t[0]) || String(t[3] || "").toLowerCase() === "culture") || ANC.has(t[0])) return;
+    if (!MOD.has(t[0]) && !TOWN.has(t[0]) && (MODX.KEEP.has(t[0]) || /(ii|ae|es|ians|ones|oi|ates|ani|eni|[^aeiou]i)$/.test(t[0]))) return;   // a people's own ancient name (Venedi, Ligyes, Sudovians): it stays
     const qm = MODX.QUAL.exec(t[0]); if (qm) { t[6] = (t[6] || "") + " (Map label: " + t[0] + ".)"; t[0] = qm[2] === "Scyths" ? "Scythians" : qm[2]; modern++; return; }
     const raw = String(t[4] || ""), par = (raw.match(/\(([^)]*)\)/) || [])[1] || "";
     let p = raw.split("(")[0].replace(/\s*contact( zone)?/i, "").replace(/\?/g, "").trim(); p = p.replace(/^LSA /, "Stone Age ").replace(/ (substrate|ancestors|with strong .*)$/, "").replace(/-derived|\/local|\/unknown/gi, ""); if (/^(uncertain|unknown|)$/i.test(p) || p === t[0]) p = par.replace(/^(late|early) /i, "").replace(/\?/g, "").trim();
@@ -109,7 +110,7 @@ module.exports = c => {
       if (pieces.length < 2) continue; pieces.sort((a, b) => hexOf[b].length - hexOf[a].length);
       const ctr = k => { let x = 0, y = 0; for (const i of hexOf[k]) { x += xN(i); y += yN(i); } return [x / hexOf[k].length, y / hexOf[k].length]; }, [mx, my] = ctr(pieces[0]);
       for (const k of pieces.slice(1)) { const t = tags[k], raw = String(t[4] || "");
-        const sub0 = BRANCH(raw), sub = sub0 && !MOD.has(sub0) && !TOWN.has(sub0) ? sub0 : "";
+        const sub0 = BRANCH(raw), sub1 = sub0 && !MOD.has(sub0) && !TOWN.has(sub0) ? SHORT(sub0) : "", sub = sub1 === name ? "" : sub1;
         const [x, y] = ctr(k), a = Math.atan2(y - my, x - mx), c4 = ((Math.round(a / (Math.PI / 2)) % 4) + 4) % 4, c8 = ((Math.round(a / (Math.PI / 4)) % 8) + 8) % 8;
         const tries = [sub, CARD[c4] + " " + name, COMP[c8] + " " + name, ...CARD.map(c => c + " " + name), ...COMP.map(c => c + " " + name), ...["Upper", "Lower", "Inner", "Outer", "Near", "Greater", "Lesser"].map(c => c + " " + name), "Far " + CARD[c4] + " " + name, ...COMP.map(c => "Far " + c + " " + name)];
         const nu = tries.find(n => n && !taken.has(n)); if (!nu) { stuck.push(name); continue; } t[0] = nu; taken.add(nu); renamed++; } }

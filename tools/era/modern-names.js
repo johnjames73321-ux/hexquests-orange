@@ -10,8 +10,9 @@ module.exports = {
     "Awash Ogaden Omo-Tana Rufiji Mafia Pemba Dahlak Kuumbi Narosura Elmenteita Nachikufu Kalambo Nakapapula Ssese Jazira Najd Qassim Nilgiri Pranhita Kotilingala Asurgarh Klang " +
     "Bangka Madura Selayar Ambon Buru Kei Aru Sula Bomberai Mamberamo Digul Sarmi Keerom Aitape Fly Kikori Goroka Madang Markham Huon Kosipe Siassi Bosavi Banks Huangzhong Shajing " +
     "Shi'ertaiyingzi Yeongsan Boseong Bukhan Mangyeong Namhan Daepyeong Gimhae Yoshinogari Awaji Hida Sado Hidaka Tokachi Simushir Shumshu Yerbogon Uchur Yudom Oymyakon Indigir Kolyma " +
-    "Seymchan Korkodon Tigil Penzhin Paren Kamen Arman Ulya Ulakhan Chulman Tynd Amgin Alda Taui Sepon Socotra").split(" ")
+    "Seymchan Korkodon Tigil Penzhin Paren Kamen Arman Ulya Ulakhan Chulman Tynd Amgin Alda Taui Sepon Socotra Osumi Amami Sanuki Aki Kawachi Omi Kii Asahi Musashi Iwaki Shiribeshi Savo Kymi Valdres Deli Kerinci Musi Hami Yumi Shirenzigou Ushki Buni Kaili").split(" ")
     .concat(["Croft Ambrey", "Serny Klyuch", "Jebel Si", "Ban Don Ta Phet", "Khao Wong Prachan", "Noen U-Loke", "Phum Snay", "Lao Pako", "Ban Chiang Hian", "Angkor Borei", "Prohear", "Go O Chua",
-      "Giong Ca Vo", "Con Rang", "Binh Thuan", "Hoa Diem", "Sa Huynh", "Dong Son", "Lang Vac", "Nam Ou", "Raja Ampat", "Middle Sepik", "Han River"]),
-  QUAL: /^(Main|Naab|Raba|Vienna|Traisen|Banat|Barsa|Oltenian|Arges|Buzau|Barlad|Raut|Dobruja|Budjak|Crimean|Chu) (Celts|Dacians|Getae|Scyths|Saka)$/,
+      "Giong Ca Vo", "Con Rang", "Binh Thuan", "Hoa Diem", "Sa Huynh", "Dong Son", "Lang Vac", "Nam Ou", "Raja Ampat", "Middle Sepik", "Han River", "Batang Hari"]),
+  KEEP: new Set(["Qiemo", "Venedi", "Budini", "Neuri", "Geloni"]),
+  QUAL: /^(Main|Naab|Raba|Vienna|Traisen|Banat|Barsa|Oltenian|Arges|Buzau|Barlad|Raut|Dobruja|Budjak|Crimean|Chu|Elbe) (Celts|Dacians|Getae|Scyths|Saka|Germani)$/,
 };
