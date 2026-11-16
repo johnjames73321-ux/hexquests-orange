@@ -89,7 +89,7 @@ const isleName = hs => { const R = D.regions[D.reg[hs[0]]]; return R[1] + " / " 
 { const isSmall = i => D.reg[i] >= 0 && oIsl[oComp[i]].length <= ISLE, landN = j => D.reg[src[j]] >= 0, at = (a, b) => nidx.get(a * 65536 + b);
   const seaBy = i => { const seen = new Set([i]), qu = [i]; for (let h = 0; h < qu.length; h++) for (const [a, b] of D6) { const j = idx.get((D.q[qu[h]] + a) * 65536 + D.r[qu[h]] + b); if (j === undefined || seen.has(j)) continue; if (D.reg[j] < 0) return j; seen.add(j); qu.push(j); } throw new Error("island with no sea"); };
   for (let i = 0; i < M; i++) if (isSmall(src[i])) src[i] = seaBy(src[i]);
-  const SHIFT = []; for (let a = -3; a <= 3; a++) for (let b = -3; b <= 3; b++) if (Math.abs(a + b) <= 3) SHIFT.push([a, b]); SHIFT.sort((u, v) => (Math.abs(u[0]) + Math.abs(u[1]) + Math.abs(u[0] + u[1])) - (Math.abs(v[0]) + Math.abs(v[1]) + Math.abs(v[0] + v[1]))); let moved = 0, bad = 0;
+  const SHIFT = []; for (let a = -4; a <= 4; a++) for (let b = -4; b <= 4; b++) if (Math.abs(a + b) <= 4) SHIFT.push([a, b]); SHIFT.sort((u, v) => (Math.abs(u[0]) + Math.abs(u[1]) + Math.abs(u[0] + u[1])) - (Math.abs(v[0]) + Math.abs(v[1]) + Math.abs(v[0] + v[1]))); let moved = 0, bad = 0;
   for (const hs of oIsl) { if (hs.length > ISLE) continue;
     let cx = 0, cy = 0; for (const i of hs) { cx += xOf(D.q[i]); cy += yOf(D.q[i], D.r[i]); } cx /= hs.length; cy /= hs.length;
     let a = hs[0], best = 1e9; for (const i of hs) { const d = (xOf(D.q[i]) - cx) ** 2 + (yOf(D.q[i], D.r[i]) - cy) ** 2; if (d < best) { best = d; a = i; } }

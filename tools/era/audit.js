@@ -32,10 +32,13 @@ module.exports = c => {
   // They take the name of their people instead, unless the name itself is an attested ancient place.
   const ANC = new Set(PL.map(p => p[0])); let modern = 0;
   const { SHORT, BRANCH } = require("./short");
+  // owner 11-16: a culture keeps the name the main game gives it (a river, a lake, a range: Ilmen, Lovat, Neris) unless that name is a
+  // modern town, district or country (Tver, Pskov, Minsk, Finnmark): only those are replaced, so peoples stay apart and names stay different
+  const TOWN = new Set(); for (const r of D.regions) if (r) { for (const x of String(r[6] || "").split("|")) x && TOWN.add(x); for (const x of [r[10], r[2], r[1]]) x && TOWN.add(String(x)); }
   // tribes that carry a modern town, river, island or district name (picked by hand from the list of tag names that are also modern places;
   // names of peoples themselves and names attested in antiquity, like Mona, Maka, Cangwu, Shule, stay)
   const MOD = new Set("Finnmark Saikai Tsushima Kamikawa Bayanaul Kulunda Daegu Sangju Wuyi Jiulong Huangshan Beijiang Madang Choiseul Isabel Guadalcanal Malaita Nugaal Tanga Mtwara Talas Awka Afikpo Ho Borkou Filippovka Prokhorovka Pelym Tavda Tura Kosa Pechora Konda Kazym Synya Salym Pim Chulym Sym Nadym Moma Nera Tompo Suntar Gonam Zeya Uda Yama Tokma Ilimpeya Ugra Kasanje Matamba".split(" "));
-  tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || (String(t[3] || "").toLowerCase() !== "culture" && !MOD.has(t[0])) || ANC.has(t[0])) return;
+  tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || !(MOD.has(t[0]) || (String(t[3] || "").toLowerCase() === "culture" && TOWN.has(t[0]))) || ANC.has(t[0])) return;
     const raw = String(t[4] || ""), par = (raw.match(/\(([^)]*)\)/) || [])[1] || "";
     let p = raw.split("(")[0].replace(/\s*contact( zone)?/i, "").replace(/\?/g, "").trim(); p = p.replace(/^LSA /, "Stone Age ").replace(/ (substrate|ancestors|with strong .*)$/, "").replace(/-derived|\/local|\/unknown/gi, ""); if (/^(uncertain|unknown|)$/i.test(p) || p === t[0]) p = par.replace(/^(late|early) /i, "").replace(/\?/g, "").trim();
     p = SHORT(p); if (!p || p === t[0]) return; t[6] = (t[6] || "") + " (Archaeologists' name: " + t[0] + ".)"; t[0] = p; modern++; });
