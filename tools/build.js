@@ -164,7 +164,7 @@ console.log("land hexes", landOld, "->", landNew, "| people", popOld, "->", popN
 if (popOld !== popNew && !lost) throw new Error("people changed");
 Object.assign(D, { q, r, reg: pick(D.reg), sea: pick(D.sea), own: src.map(s => D.own[s] || ""), st, dm, oy: oyN, cutb: (D.cutb || 0) - DH - DB });
 Object.assign(G, { own: pick(G.own), pop, hrel: pick(G.hrel), hcul: pick(G.hcul) });
-Object.assign(ERA, { tier: src.map(s => ERA.tier[s]).join(""), own: Buffer.from(en.buffer).toString("base64"), hn, tags: AUD.tags });
+Object.assign(ERA, { tier: src.map((s, i) => AUD.tier && AUD.tier[i] >= 0 ? String(AUD.tier[i]) : ERA.tier[s]).join(""),   /* atlas countries bring their own tier */ own: Buffer.from(en.buffer).toString("base64"), hn, tags: AUD.tags });
 const put = (p, v) => { lines[p.li] = p.pre + JSON.stringify(v) + p.suf + p.cr; };
 put(pD, D); put(pG, G); put(pE, ERA); put(pV, src.map(s => ELEV[s]).join(""));
 // ---- code patches (each must match exactly once) ----

@@ -19,7 +19,10 @@ module.exports = c => {
   // the copy of an old hex that sits where the warp sends its middle is the real one; the others are the stretch
   const prim = new Int32Array(N).fill(-1), pd = new Float64Array(N).fill(1e18);
   for (let i = 0; i < M; i++) { if (!land(i)) continue; const s = src[i], [X, Y] = OR.fwd(xO(s), yO(s)), d = (xN(i) - X) ** 2 + (yN(i) - Y) ** 2; if (d < pd[s]) { pd[s] = d; prim[s] = i; } }
-  const tags = ERA.tags.map(t => t.slice()), hexOf = tags.map(() => []);
+  const tags = ERA.tags.map(t => t.slice());
+  // owner 11-16: the 320 BCE atlas first (real countries of that year in natural shapes, see ATLAS.md); its countries carry .fix
+  const AT = process.env.OR_NOATLAS ? { tier: null } : require("./atlas")(c, tags, TB);
+  const hexOf = tags.map(() => []);
   for (let i = 0; i < M; i++) if (land(i) && en[i] >= 0) hexOf[en[i]].push(i);
   const mid = hs => { let x = 0, y = 0; for (const i of hs) { x += xN(i); y += yN(i); } x /= hs.length; y /= hs.length; return hs.slice().sort((a, b) => (xN(a) - x) ** 2 + (yN(a) - y) ** 2 - (xN(b) - x) ** 2 - (yN(b) - y) ** 2); };
   const newTag = tags.map((t, k) => { const hs = hexOf[k]; return hs.length > 0 && hs.filter(NEWW).length * 2 > hs.length; });
@@ -27,7 +30,7 @@ module.exports = c => {
   const STATE = /^(empire|kingdom|satrapy|republic|city-state|league|walled town)$/, isState = t => STATE.test(String(t[3] || "").toLowerCase());
   // map-maker labels in state names (Southwest Sauromatae, Velja River People): the people's own name alone
   const LABEL = /^(north|south|east|west|northern|southern|eastern|western|northeast|northwest|southeast|southwest|upper|lower|inner|outer|central|coastal|river|lands|land|people|peoples|coast|basin|valley)$/i, stN = new Set(tags.filter(isState).map(t => t[0])); let relab = 0;
-  tags.forEach((t, k) => { if (!hexOf[k].length || isState(t)) return; const w = t[0].split(" "); if (w.length < 2) return; const rest = w.filter(x => !LABEL.test(x)).join(" "); if (rest.length < 2 || rest === t[0] || stN.has(rest)) return; t[0] = rest; relab++; });
+  tags.forEach((t, k) => { if (!hexOf[k].length || isState(t) || t.fix) return; const w = t[0].split(" "); if (w.length < 2) return; const rest = w.filter(x => !LABEL.test(x)).join(" "); if (rest.length < 2 || rest === t[0] || stN.has(rest)) return; t[0] = rest; relab++; });
   // Old World "cultures" carry the name of a modern town, river or district (Tver, Pskov, Ilmen): nobody was called that in 320 BC.
   // They take the name of their people instead, unless the name itself is an attested ancient place.
   const ANC = new Set(PL.map(p => p[0])); let modern = 0;
@@ -39,7 +42,7 @@ module.exports = c => {
   // names of peoples themselves and names attested in antiquity, like Mona, Maka, Cangwu, Shule, stay)
   const MOD = new Set("Finnmark Saikai Tsushima Kamikawa Bayanaul Kulunda Daegu Sangju Wuyi Jiulong Huangshan Beijiang Madang Choiseul Isabel Guadalcanal Malaita Nugaal Tanga Mtwara Talas Awka Afikpo Ho Borkou Filippovka Prokhorovka Pelym Tavda Tura Kosa Pechora Konda Kazym Synya Salym Pim Chulym Sym Nadym Moma Nera Tompo Suntar Gonam Zeya Uda Yama Tokma Ilimpeya Ugra Kasanje Matamba".split(" "));
   const MODX = require("./modern-names"); for (const n of MODX.MOD) MOD.add(n);
-  tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || !(MOD.has(t[0]) || MODX.QUAL.test(t[0]) || String(t[3] || "").toLowerCase() === "culture") || ANC.has(t[0])) return;
+  tags.forEach((t, k) => { if (t.fix) return; if (!hexOf[k].length || newTag[k] || !(MOD.has(t[0]) || MODX.QUAL.test(t[0]) || String(t[3] || "").toLowerCase() === "culture") || ANC.has(t[0])) return;
     if (!MOD.has(t[0]) && !TOWN.has(t[0]) && (MODX.KEEP.has(t[0]) || /(ii|ae|es|ians|ones|oi|ates|ani|eni|[^aeiou]i)$/.test(t[0]))) return;   // a people's own ancient name (Venedi, Ligyes, Sudovians): it stays
     const qm = MODX.QUAL.exec(t[0]); if (qm) { t[6] = (t[6] || "") + " (Map label: " + t[0] + ".)"; t[0] = qm[2] === "Scyths" ? "Scythians" : qm[2]; modern++; return; }
     const raw = String(t[4] || ""), par = (raw.match(/\(([^)]*)\)/) || [])[1] || "";
@@ -48,7 +51,7 @@ module.exports = c => {
   rep.modern = "Old World cultures and tribes named after modern places -> their people's name: " + modern;
   // ---- 2. New World states with colonial names ----
   const tagNames = new Set(tags.map(t => t[0])); let fixed = 0, fellBack = 0; const left = [];
-  tags.forEach((t, k) => { if (!newTag[k]) return; const old = t[0]; let nu = FIX[ERA.tags[k][0]] || FIX[old];
+  tags.forEach((t, k) => { if (!newTag[k] || t.fix) return; const old = t[0]; let nu = FIX[ERA.tags[k][0]] || FIX[old];
     if (!nu && isColonial(old)) { for (const i of mid(hexOf[k])) { const n = hn[i]; if (!bad(n, true) && !tagNames.has(n)) { nu = n; break; } }
       if (!nu) { const seen = new Set(hexOf[k]); let fr = hexOf[k]; for (let ring = 0; ring < 8 && !nu && fr.length; ring++) { const nx = []; for (const i of fr) for (const j of nb(i)) { if (seen.has(j)) continue; seen.add(j); nx.push(j); const n = hn[j]; if (!nu && !bad(n, true) && !tagNames.has(n)) nu = n; } fr = nx; } }   // else the nearest native place
       if (!nu) { const p = String(t[4] || "").split(/[(/,]/)[0].trim(); if (p && !isColonial(p) && !/unknown|uncertain|unclassified|archaic|agricultur|basketmaker|woodland|macro|area|early|late|proto|[?-]/i.test(p)) nu = p; } if (nu) fellBack++; else left.push(old); }
@@ -96,7 +99,7 @@ module.exports = c => {
     for (const i of ph) en[i] = tags.length - 1; made++; }
   // ---- 3b. no two peoples share a name (owner 11-16). Neighbours with one name are one people: they join. A namesake further off
   // takes the name of its own branch (the part in brackets of its people line) or, failing that, a compass word from the biggest one.
-  { const by = new Map(); tags.forEach((t, k) => { if (!hexOf[k].length) return; if (!by.has(t[0])) by.set(t[0], []); by.get(t[0]).push(k); });
+  { const by = new Map(); tags.forEach((t, k) => { if (!hexOf[k].length || t.fix) return; if (!by.has(t[0])) by.set(t[0], []); by.get(t[0]).push(k); });
     const taken = new Set(by.keys()), CARD = ["East", "South", "West", "North"], COMP = ["East", "Southeast", "South", "Southwest", "West", "Northwest", "North", "Northeast"]; let joined = 0, renamed = 0; const stuck = [];
     for (const [name, ks] of by) { if (ks.length < 2) continue;
       ks.sort((a, b) => hexOf[a].length - hexOf[b].length); const JOIN = 130, sz = new Map(ks.map(k => [k, hexOf[k].length])), set = new Set(ks), par = new Map(ks.map(k => [k, k])),   /* one people, but no block over JOIN hexes: nobody held more */ find = k => { while (par.get(k) !== k) k = par.get(k); return k; };
@@ -129,11 +132,12 @@ module.exports = c => {
   const rnd = seed => () => { seed |= 0; seed = seed + 0x6d2b79f5 | 0; let z = Math.imul(seed ^ seed >>> 15, 1 | seed); z = z + Math.imul(z ^ z >>> 7, 61 | z) ^ z; return ((z ^ z >>> 14) >>> 0) / 4294967296; };
   const pick = R => { for (;;) { const h = R() * 360, keepP = h >= 40 && h < 72 ? 0.22 : h >= 250 && h < 345 ? 0.3 : h >= 215 && h < 250 ? 0.5 : 1; if (R() > keepP) continue;
     const warm = h >= 28 && h < 78; return toRgb(h, warm ? 0.28 + R() * 0.24 : 0.30 + R() * 0.34, warm ? 0.46 + R() * 0.16 : 0.45 + R() * 0.25); } };
+  for (let k = 0; k < tags.length; k++) if (tags[k].fix && cnt[k]) col[k] = rgb(tags[k][1]);   // atlas countries bring their own colour (their family's hue band)
   const todo = []; for (let k = 0; k < tags.length; k++) if (cnt[k] && !col[k]) todo.push(k); todo.sort((a, b) => cnt[b] - cnt[a] || a - b);
   for (const k of todo) { const R = rnd(k * 2654435761), near = [...adj[k]].map(j => col[j]).filter(Boolean); let best = null, bs = -1;
     for (let a = 0; a < 16; a++) { const cnd = pick(R); let s = 1e9; for (const o of near) s = Math.min(s, dist(cnd, o)); if (s > bs) { bs = s; best = cnd; } if (!near.length) break; } col[k] = best; }
   for (let k = 0; k < tags.length; k++) if (col[k]) tags[k][1] = hex(col[k]);
   rep.colours = "colours: real states kept " + keptC + ", new colours " + todo.length;
   for (const k in rep) console.log("320 BC audit |", rep[k]);
-  return { tags, en, hn };
+  return { tags, en, hn, tier: AT.tier };
 };
