@@ -56,7 +56,7 @@ module.exports = [
   ],
   ["if (at(na, nc, iy) && !edge) continue;", "if (at(na, nc, iy) && !edge) continue; if (!orS) { tcol(t, cx, cz, iy, 0, cS); orS = 1; }"],
   // 320 BC land lines: Frontier and Wilds stripes both a little thicker and further apart in width (owner 11-14)
-  ["const W = [0, S * 0.17, S * 0.40], P = [null", "const W = [0, S * 0.17, S * 0.36], P = [null"],
+  ["const W = [0, S * 0.17, S * 0.40], P = [null", "const W = [0, S * 0.11, S * 0.36], P = [null"],
   // owner 11-14 (third pass): Wilds must still show their colour (not white), Frontier darker than that, both apart from Settled.
   // whiteness with stripes: Frontier about 28%, Wilds about 60%
   ["const f = t === 1 ? 0.45 : 0.68,", "const f = t === 1 ? 0.10 : 0.32,"],

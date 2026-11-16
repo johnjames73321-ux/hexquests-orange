@@ -31,13 +31,14 @@ module.exports = c => {
   // Old World "cultures" carry the name of a modern town, river or district (Tver, Pskov, Ilmen): nobody was called that in 320 BC.
   // They take the name of their people instead, unless the name itself is an attested ancient place.
   const ANC = new Set(PL.map(p => p[0])); let modern = 0;
+  const { SHORT, BRANCH } = require("./short");
   // tribes that carry a modern town, river, island or district name (picked by hand from the list of tag names that are also modern places;
   // names of peoples themselves and names attested in antiquity, like Mona, Maka, Cangwu, Shule, stay)
   const MOD = new Set("Finnmark Saikai Tsushima Kamikawa Bayanaul Kulunda Daegu Sangju Wuyi Jiulong Huangshan Beijiang Madang Choiseul Isabel Guadalcanal Malaita Nugaal Tanga Mtwara Talas Awka Afikpo Ho Borkou Filippovka Prokhorovka Pelym Tavda Tura Kosa Pechora Konda Kazym Synya Salym Pim Chulym Sym Nadym Moma Nera Tompo Suntar Gonam Zeya Uda Yama Tokma Ilimpeya Ugra Kasanje Matamba".split(" "));
   tags.forEach((t, k) => { if (!hexOf[k].length || newTag[k] || (String(t[3] || "").toLowerCase() !== "culture" && !MOD.has(t[0])) || ANC.has(t[0])) return;
     const raw = String(t[4] || ""), par = (raw.match(/\(([^)]*)\)/) || [])[1] || "";
     let p = raw.split("(")[0].replace(/\s*contact( zone)?/i, "").replace(/\?/g, "").trim(); p = p.replace(/^LSA /, "Stone Age ").replace(/ (substrate|ancestors|with strong .*)$/, "").replace(/-derived|\/local|\/unknown/gi, ""); if (/^(uncertain|unknown|)$/i.test(p) || p === t[0]) p = par.replace(/^(late|early) /i, "").replace(/\?/g, "").trim();
-    if (!p || p === t[0]) return; t[6] = (t[6] || "") + " (Archaeologists' name: " + t[0] + ".)"; t[0] = p; modern++; });
+    p = SHORT(p); if (!p || p === t[0]) return; t[6] = (t[6] || "") + " (Archaeologists' name: " + t[0] + ".)"; t[0] = p; modern++; });
   rep.modern = "Old World cultures and tribes named after modern places -> their people's name: " + modern;
   // ---- 2. New World states with colonial names ----
   const tagNames = new Set(tags.map(t => t[0])); let fixed = 0, fellBack = 0; const left = [];
@@ -87,6 +88,24 @@ module.exports = c => {
     const note = String(t[6] || ""), first = note.split(/(?<=\.)\s/)[0].slice(0, 220);
     tags.push([own, t[1], t[2], t[3], t[4], hn[seat] || t[5] || "", (own === t[0] ? "One of the many small groups of the " + t[0] + "; they were never one state. " : "A group of the " + t[0] + " around " + own + ". ") + first]);
     for (const i of ph) en[i] = tags.length - 1; made++; }
+  // ---- 3b. no two peoples share a name (owner 11-16). Neighbours with one name are one people: they join. A namesake further off
+  // takes the name of its own branch (the part in brackets of its people line) or, failing that, a compass word from the biggest one.
+  { const by = new Map(); tags.forEach((t, k) => { if (!hexOf[k].length) return; if (!by.has(t[0])) by.set(t[0], []); by.get(t[0]).push(k); });
+    const taken = new Set(by.keys()), CARD = ["East", "South", "West", "North"], COMP = ["East", "Southeast", "South", "Southwest", "West", "Northwest", "North", "Northeast"]; let joined = 0, renamed = 0; const stuck = [];
+    for (const [name, ks] of by) { if (ks.length < 2) continue;
+      const set = new Set(ks), par = new Map(ks.map(k => [k, k])), find = k => { while (par.get(k) !== k) k = par.get(k); return k; };
+      for (const k of ks) for (const i of hexOf[k]) for (const j of nb(i)) { const o = en[j]; if (o !== k && set.has(o)) { const a = find(k), b = find(o); if (a !== b) par.set(a, b); } }
+      const groups = new Map(); for (const k of ks) { const r = find(k); if (!groups.has(r)) groups.set(r, []); groups.get(r).push(k); }
+      const pieces = [];
+      for (const g of groups.values()) { g.sort((a, b) => hexOf[b].length - hexOf[a].length); const head = g[0]; for (const k of g.slice(1)) { for (const i of hexOf[k]) en[i] = head; hexOf[head] = hexOf[head].concat(hexOf[k]); hexOf[k] = []; joined++; } pieces.push(head); }
+      if (pieces.length < 2) continue; pieces.sort((a, b) => hexOf[b].length - hexOf[a].length);
+      const ctr = k => { let x = 0, y = 0; for (const i of hexOf[k]) { x += xN(i); y += yN(i); } return [x / hexOf[k].length, y / hexOf[k].length]; }, [mx, my] = ctr(pieces[0]);
+      for (const k of pieces.slice(1)) { const t = tags[k], raw = String(t[4] || "");
+        const sub = BRANCH(raw);
+        const [x, y] = ctr(k), a = Math.atan2(y - my, x - mx), c4 = ((Math.round(a / (Math.PI / 2)) % 4) + 4) % 4, c8 = ((Math.round(a / (Math.PI / 4)) % 8) + 8) % 8;
+        const tries = [sub, CARD[c4] + " " + name, COMP[c8] + " " + name, ...CARD.map(c => c + " " + name), ...COMP.map(c => c + " " + name), "Far " + CARD[c4] + " " + name, ...COMP.map(c => "Far " + c + " " + name)];
+        const nu = tries.find(n => n && !taken.has(n)); if (!nu) { stuck.push(name); continue; } t[0] = nu; taken.add(nu); renamed++; } }
+    rep.unique = "one name, one people: neighbours joined " + joined + ", namesakes renamed " + renamed + ", still doubled " + stuck.length + (stuck.length ? ": " + stuck.join(", ") : ""); }
   rep.split = "peoples larger than " + CAP + " hexes (cultures " + CAPC + ") cut up: " + cut + " -> " + made + " new small groups | states now " + tags.filter((t, k2) => k2 >= T0 || hexOf[k2].length).length;
   // ---- 4. colours ----
   const cnt = new Int32Array(tags.length), adj = tags.map(() => new Set());
